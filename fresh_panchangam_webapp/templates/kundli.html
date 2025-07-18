@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kundli Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        h1 { text-align: center; }
+        form { max-width: 400px; margin: 0 auto; }
+        label { display: block; margin-top: 1em; }
+        input, select { width: 100%; padding: 0.5em; margin-top: 0.2em; }
+        button { margin-top: 1em; padding: 0.7em 1.5em; }
+        #result { max-width: 700px; margin: 2em auto; background: #f9f9f9; padding: 1em; border-radius: 8px; }
+        .section { margin-bottom: 1.5em; }
+        .section h2 { margin-bottom: 0.5em; }
+        pre { background: #eee; padding: 1em; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Kundli Generator</h1>
+    <form id="kundliForm">
+        <label>Date of Birth:
+            <input type="date" name="date" required>
+        </label>
+        <label>Time of Birth:
+            <input type="time" name="time" required>
+        </label>
+        <label>Latitude:
+            <input type="number" name="lat" step="any" required placeholder="e.g. 27.6">
+        </label>
+        <label>Longitude:
+            <input type="number" name="lon" step="any" required placeholder="e.g. 78.05">
+        </label>
+        <label>Timezone (e.g. 5.5 for IST):
+            <input type="number" name="tz" step="any" required placeholder="e.g. 5.5">
+        </label>
+        <button type="submit">Generate Kundli</button>
+    </form>
+    <div id="result"></div>
+    <script>
+    document.getElementById('kundliForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+            date: form.date.value,
+            time: form.time.value,
+            lat: form.lat.value,
+            lon: form.lon.value,
+            tz: form.tz.value
+        };
+        document.getElementById('result').innerHTML = '<em>Generating kundli...</em>';
+        try {
+            const resp = await fetch('/api/kundli', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await resp.json();
+            if (result.error) {
+                document.getElementById('result').innerHTML = `<b>Error:</b> ${result.error}`;
+                return;
+            }
+            let html = '';
+            html += `<div class='section'><h2>Input Details</h2><pre>${JSON.stringify(result.input, null, 2)}</pre></div>`;
+            html += `<div class='section'><h2>Planets</h2><pre>${JSON.stringify(result.planets, null, 2)}</pre></div>`;
+            html += `<div class='section'><h2>Lagna (Ascendant)</h2><pre>${JSON.stringify(result.lagna, null, 2)}</pre></div>`;
+            html += `<div class='section'><h2>Bhavas (Houses)</h2><pre>${JSON.stringify(result.bhavas, null, 2)}</pre></div>`;
+            document.getElementById('result').innerHTML = html;
+        } catch (err) {
+            document.getElementById('result').innerHTML = `<b>Error:</b> ${err}`;
+        }
+    });
+    </script>
+</body>
+</html> 
