@@ -109,6 +109,9 @@ def get_panchang():
     try:
         print("Received date:", date_str, "lat:", lat, "lon:", lon, "tz:", tz)
         print("Subprocess command:", args)
+        # Dynamically determine the project root (one level up from this file)
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        PROJECT_ROOT = os.path.dirname(BASE_DIR)
         result = subprocess.run(
             args,
             capture_output=True,
@@ -116,7 +119,7 @@ def get_panchang():
             encoding='utf-8',
             env=env,
             check=True,
-            cwd='C:/Users/chira/OneDrive/Desktop/pnch-ang/pnch-ang/panchangam'
+            cwd=PROJECT_ROOT
         )
         print("Raw subprocess output:", repr(result.stdout))
         stdout = result.stdout
@@ -151,7 +154,7 @@ def get_places():
 
     # Get the absolute path to the directory this file is in
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    # Build the absolute path to the TSV file
+    # message Build the absolute path to the TSV file
     tsv_path = os.path.join(BASE_DIR, 'jyotisha', 'panchaanga', 'spatio_temporal', 'data', 'places_lat_lon_tz_db.tsv')
 
     places = []
