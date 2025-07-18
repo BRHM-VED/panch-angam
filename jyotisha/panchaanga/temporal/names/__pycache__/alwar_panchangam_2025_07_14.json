@@ -1,0 +1,1248 @@
+{
+  "_default_to_none": true,
+  "city": {
+    "_default_to_none": true,
+    "name": "Alwar",
+    "latitude": 27.55299,
+    "longitude": 76.634573,
+    "timezone": "Asia/Kolkata"
+  },
+  "date": {
+    "_default_to_none": true,
+    "year": 2025,
+    "month": 7,
+    "day": 14,
+    "hour": null,
+    "minute": null,
+    "second": null,
+    "weekday": null
+  },
+  "julian_day_start": 2460870.2708333335,
+  "computation_system": {
+    "_default_to_none": true,
+    "lunar_month_assigner_type": "MULTI_NEW_MOON_SIDEREAL_MONTH_ADHIKA_AMAANTA",
+    "ayanaamsha_id": "CHITRA_AT_180",
+    "festival_options": {
+      "_default_to_none": true,
+      "set_lagnas": null,
+      "set_pancha_paxi_activities": null,
+      "aparaahna_as_second_half": false,
+      "no_fests": null,
+      "tropical_month_start": "mAdhava_at_equinox",
+      "fest_repos_excluded_patterns": [],
+      "repos": [
+        {
+          "name": "devatA/gaNapati",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/gaNapati"
+        },
+        {
+          "name": "devatA/graha",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/graha"
+        },
+        {
+          "name": "devatA/kaumAra",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/kaumAra"
+        },
+        {
+          "name": "devatA/lakShmI",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/lakShmI"
+        },
+        {
+          "name": "devatA/misc-fauna",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/misc-fauna"
+        },
+        {
+          "name": "devatA/misc-flora",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/misc-flora"
+        },
+        {
+          "name": "devatA/nadI",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/nadI"
+        },
+        {
+          "name": "devatA/pitR",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/pitR"
+        },
+        {
+          "name": "devatA/shaiva",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/shaiva"
+        },
+        {
+          "name": "devatA/shakti",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/shakti"
+        },
+        {
+          "name": "devatA/devIparva",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/devIparva"
+        },
+        {
+          "name": "devatA/dashamahAvidyA",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/dashamahAvidyA"
+        },
+        {
+          "name": "devatA/umA",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/umA"
+        },
+        {
+          "name": "devatA/vaiShNava",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/devatA/vaiShNava"
+        },
+        {
+          "name": "gRhya/Apastamba",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/gRhya/Apastamba"
+        },
+        {
+          "name": "gRhya/Apastamba_seasonal",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/gRhya/Apastamba_seasonal"
+        },
+        {
+          "name": "gRhya/general",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/gRhya/general"
+        },
+        {
+          "name": "general",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/general"
+        },
+        {
+          "name": "mahApuruSha/ALvAr",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/ALvAr"
+        },
+        {
+          "name": "mahApuruSha/RShi",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/RShi"
+        },
+        {
+          "name": "mahApuruSha/general-indic-non-tropical",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/general-indic-non-tropical"
+        },
+        {
+          "name": "mahApuruSha/kAnchI-maTha",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/kAnchI-maTha"
+        },
+        {
+          "name": "mahApuruSha/general-indic-tropical",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/general-indic-tropical"
+        },
+        {
+          "name": "mahApuruSha/sci-tech",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/sci-tech"
+        },
+        {
+          "name": "mahApuruSha/zRGgErI-maTha",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/zRGgErI-maTha"
+        },
+        {
+          "name": "mahApuruSha/mAdhva-misc",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/mAdhva-misc"
+        },
+        {
+          "name": "mahApuruSha/nAyanmAr",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/nAyanmAr"
+        },
+        {
+          "name": "mahApuruSha/sangIta-kRt",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/sangIta-kRt"
+        },
+        {
+          "name": "mahApuruSha/smArta-misc",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/smArta-misc"
+        },
+        {
+          "name": "mahApuruSha/vaiShNava-misc",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/vaiShNava-misc"
+        },
+        {
+          "name": "mahApuruSha/xatra",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/xatra"
+        },
+        {
+          "name": "mahApuruSha/xatra-later",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/mahApuruSha/xatra-later"
+        },
+        {
+          "name": "tamil",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/tamil"
+        },
+        {
+          "name": "temples/Andhra",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/temples/Andhra"
+        },
+        {
+          "name": "temples/Kerala",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/temples/Kerala"
+        },
+        {
+          "name": "temples/North",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/temples/North"
+        },
+        {
+          "name": "temples/Odisha",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/temples/Odisha"
+        },
+        {
+          "name": "temples/Tamil",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/temples/Tamil"
+        },
+        {
+          "name": "temples/venkaTAchala",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/temples/venkaTAchala"
+        },
+        {
+          "name": "time_focus/Eclipses",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/Eclipses"
+        },
+        {
+          "name": "time_focus/amrita-siddhi",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/amrita-siddhi"
+        },
+        {
+          "name": "time_focus/nakta-vrata-yoga",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/nakta-vrata-yoga"
+        },
+        {
+          "name": "time_focus/Rtu/tropical-ayanAdi",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/Rtu/tropical-ayanAdi"
+        },
+        {
+          "name": "time_focus/luno-tropical/smArta",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/luno-tropical/smArta"
+        },
+        {
+          "name": "time_focus/misc",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/misc"
+        },
+        {
+          "name": "time_focus/misc_combinations",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/misc_combinations"
+        },
+        {
+          "name": "time_focus/special-tithis",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/special-tithis"
+        },
+        {
+          "name": "time_focus/tithi-vara-combinations",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/tithi-vara-combinations"
+        },
+        {
+          "name": "time_focus/monthly/amAvAsyA",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/monthly/amAvAsyA"
+        },
+        {
+          "name": "time_focus/monthly/dvAdashI",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/monthly/dvAdashI"
+        },
+        {
+          "name": "time_focus/monthly/ekAdashI",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/monthly/ekAdashI"
+        },
+        {
+          "name": "time_focus/monthly/pradoSha",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/monthly/pradoSha"
+        },
+        {
+          "name": "time_focus/nakShatra",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/nakShatra"
+        },
+        {
+          "name": "time_focus/puShkara",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/puShkara"
+        },
+        {
+          "name": "time_focus/sankrAnti",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/sankrAnti"
+        },
+        {
+          "name": "time_focus/yugAdiH",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/yugAdiH"
+        },
+        {
+          "name": "time_focus/kalpAdiH",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/kalpAdiH"
+        },
+        {
+          "name": "time_focus/adhyayana",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/adhyayana"
+        },
+        {
+          "name": "time_focus/manvAdiH",
+          "base_url": "https://github.com/jyotisham/adyatithi/blob/master/time_focus/manvAdiH"
+        }
+      ],
+      "fest_id_patterns_excluded": null,
+      "fest_ids_included_unimplemented": null,
+      "prefer_eight_fold_day_division": false,
+      "julian_handling": "converted to Gregorian"
+    },
+    "graha_lopa_measures": {
+      "_default_to_none": true,
+      "graha_id_to_lopa_measure": {
+        "jupiter": 11,
+        "venus": 9,
+        "mercury": 13,
+        "mars": 17,
+        "saturn": 15
+      }
+    },
+    "short_id": "चि॰"
+  },
+  "jd_sunrise": 2460870.5079759625,
+  "jd_sunset": 2460871.074332043,
+  "jd_previous_sunset": 2460870.0745174936,
+  "jd_next_sunrise": 2460871.5083145066,
+  "_previous_day_panchaanga": null,
+  "graha_rise_jd": {
+    "saturn": 2460871.2275121175,
+    "jupiter": 2460871.461280617,
+    "mars": 2460870.6798295276,
+    "venus": 2460871.3832820333,
+    "mercury": 2460870.5825598817,
+    "rahu": 2460871.2035260354,
+    "ketu": 2460870.6932001715,
+    "moon": 2460871.182645884
+  },
+  "graha_set_jd": {
+    "saturn": 2460870.7311023977,
+    "jupiter": 2460871.0339537784,
+    "mars": 2460871.195655203,
+    "venus": 2460870.951021557,
+    "mercury": 2460871.130399897,
+    "rahu": 2460870.6932001715,
+    "ketu": 2460871.2035260354,
+    "moon": 2460870.637237912
+  },
+  "lagna_data": null,
+  "sunrise_day_angas": {
+    "_default_to_none": true,
+    "tithis_with_ends": [
+      {
+        "_default_to_none": true,
+        "jd_start": null,
+        "jd_end": 2460871.2709559994,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 19,
+          "anga_type_id": "TITHI"
+        }
+      },
+      {
+        "_default_to_none": true,
+        "jd_start": 2460871.2709559994,
+        "jd_end": null,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 20,
+          "anga_type_id": "TITHI"
+        }
+      }
+    ],
+    "tithi_at_sunrise": {
+      "_default_to_none": true,
+      "index": 19,
+      "anga_type_id": "TITHI"
+    },
+    "tithi_at_noon": {
+      "_default_to_none": true,
+      "index": 19,
+      "anga_type_id": "TITHI"
+    },
+    "nakshatras_with_ends": [
+      {
+        "_default_to_none": true,
+        "jd_start": null,
+        "jd_end": 2460870.5537876114,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 23,
+          "anga_type_id": "NAKSHATRA"
+        }
+      },
+      {
+        "_default_to_none": true,
+        "jd_start": 2460870.5537876114,
+        "jd_end": null,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 24,
+          "anga_type_id": "NAKSHATRA"
+        }
+      }
+    ],
+    "nakshatra_at_sunrise": {
+      "_default_to_none": true,
+      "index": 23,
+      "anga_type_id": "NAKSHATRA"
+    },
+    "yogas_with_ends": [
+      {
+        "_default_to_none": true,
+        "jd_start": null,
+        "jd_end": 2460870.9449692704,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 3,
+          "anga_type_id": "YOGA"
+        }
+      },
+      {
+        "_default_to_none": true,
+        "jd_start": 2460870.9449692704,
+        "jd_end": null,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 4,
+          "anga_type_id": "YOGA"
+        }
+      }
+    ],
+    "yoga_at_sunrise": {
+      "_default_to_none": true,
+      "index": 3,
+      "anga_type_id": "YOGA"
+    },
+    "karanas_with_ends": [
+      {
+        "_default_to_none": true,
+        "jd_start": null,
+        "jd_end": 2460870.7944110674,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 37,
+          "anga_type_id": "KARANA"
+        }
+      },
+      {
+        "_default_to_none": true,
+        "jd_start": 2460870.7944110674,
+        "jd_end": 2460871.2709559994,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 38,
+          "anga_type_id": "KARANA"
+        }
+      },
+      {
+        "_default_to_none": true,
+        "jd_start": 2460871.2709559994,
+        "jd_end": null,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 39,
+          "anga_type_id": "KARANA"
+        }
+      }
+    ],
+    "solar_nakshatras_with_ends": [
+      {
+        "_default_to_none": true,
+        "jd_start": null,
+        "jd_end": null,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 7,
+          "anga_type_id": "SOLAR_NAKSH"
+        }
+      }
+    ],
+    "raashis_with_ends": [
+      {
+        "_default_to_none": true,
+        "jd_start": null,
+        "jd_end": null,
+        "name": null,
+        "anga": {
+          "_default_to_none": true,
+          "index": 11,
+          "anga_type_id": "RASHI"
+        }
+      }
+    ],
+    "graha_raashis_with_ends": {
+      "mercury": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 4,
+            "anga_type_id": "RASHI_MERCURY"
+          }
+        }
+      ],
+      "venus": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 2,
+            "anga_type_id": "RASHI_VENUS"
+          }
+        }
+      ],
+      "mars": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 5,
+            "anga_type_id": "RASHI_MARS"
+          }
+        }
+      ],
+      "jupiter": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 3,
+            "anga_type_id": "RASHI_JUPITER"
+          }
+        }
+      ],
+      "saturn": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 12,
+            "anga_type_id": "RASHI_SATURN"
+          }
+        }
+      ],
+      "rahu": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 11,
+            "anga_type_id": "RASHI_RAHU"
+          }
+        }
+      ],
+      "ketu": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 5,
+            "anga_type_id": "RASHI_KETU"
+          }
+        }
+      ],
+      "sun": [
+        {
+          "_default_to_none": true,
+          "jd_start": null,
+          "jd_end": null,
+          "name": null,
+          "anga": {
+            "_default_to_none": true,
+            "index": 3,
+            "anga_type_id": "RASHI_SUN"
+          }
+        }
+      ]
+    }
+  },
+  "paxi_activities": null,
+  "solar_sidereal_date_sunset": {
+    "_default_to_none": true,
+    "year": null,
+    "month": 3,
+    "day": 30,
+    "day_transition": null,
+    "month_transition": null
+  },
+  "tropical_date_sunset": {
+    "_default_to_none": true,
+    "year": null,
+    "month": 5,
+    "day": 24,
+    "day_transition": null,
+    "month_transition": null
+  },
+  "lunar_date": {
+    "_default_to_none": true,
+    "index": 19,
+    "anga_type_id": "TITHI",
+    "month": {
+      "_default_to_none": true,
+      "index": 4,
+      "anga_type_id": "RASHI_SUN"
+    }
+  },
+  "festival_id_to_instance": {},
+  "mauDhyas": null,
+  "amauDhyas": {
+    "mercury": [
+      -23.04102926983623,
+      -22.377952416028435
+    ],
+    "venus": [
+      41.414741257109796,
+      41.24305685349633
+    ],
+    "mars": [
+      -53.56841826507542,
+      -53.21014502855154
+    ],
+    "jupiter": [
+      14.076814992367304,
+      14.806640657692782
+    ],
+    "saturn": [
+      109.90266869974094,
+      110.8588745691974
+    ]
+  },
+  "day_length_based_periods": {
+    "_default_to_none": true,
+    "dinamaana": {
+      "_default_to_none": true,
+      "jd_start": 2460870.5079759625,
+      "jd_end": 2460871.074332043,
+      "name": "दिनमानम्"
+    },
+    "puurvaahna": {
+      "_default_to_none": true,
+      "jd_start": 2460870.5079759625,
+      "jd_end": 2460870.791154003,
+      "name": "पूर्वाह्णः"
+    },
+    "aparaahna": {
+      "_default_to_none": true,
+      "jd_start": 2460870.791154003,
+      "jd_end": 2460871.074332043,
+      "name": "अपराह्णः"
+    },
+    "raatrimaana": {
+      "_default_to_none": true,
+      "jd_start": 2460871.074332043,
+      "jd_end": 2460871.5083145066,
+      "name": "रात्रिमानम्"
+    },
+    "eight_fold_division": {
+      "_default_to_none": true,
+      "raahu": {
+        "_default_to_none": true,
+        "jd_start": 2460870.5787704727,
+        "jd_end": 2460870.6495649824,
+        "name": "राहुकालः"
+      },
+      "yama": {
+        "_default_to_none": true,
+        "jd_start": 2460870.7203594926,
+        "jd_end": 2460870.791154003,
+        "name": "यमघण्टः"
+      },
+      "gulika": {
+        "_default_to_none": true,
+        "jd_start": 2460870.861948513,
+        "jd_end": 2460870.932743023,
+        "name": "गुलिककालः"
+      },
+      "raatri_gulika": {
+        "_default_to_none": true,
+        "jd_start": 2460871.1285798512,
+        "jd_end": 2460871.182827659,
+        "name": "रात्रौ गुलिककालः"
+      },
+      "raatri_yama": {
+        "_default_to_none": true,
+        "jd_start": 2460871.3998188907,
+        "jd_end": 2460871.4540666984,
+        "name": "रात्रौ यमघण्टः"
+      },
+      "raatri_yaama": [
+        {
+          "_default_to_none": true,
+          "jd_start": 2460871.074332043,
+          "jd_end": 2460871.182827659,
+          "name": null
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460871.182827659,
+          "jd_end": 2460871.291323275,
+          "name": null
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460871.291323275,
+          "jd_end": 2460871.3998188907,
+          "name": null
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460871.3998188907,
+          "jd_end": 2460871.5083145066,
+          "name": null
+        }
+      ],
+      "ahar_yaama": [
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.5079759625,
+          "jd_end": 2460870.6495649824,
+          "name": null
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.6495649824,
+          "jd_end": 2460870.791154003,
+          "name": null
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.791154003,
+          "jd_end": 2460870.932743023,
+          "name": null
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.932743023,
+          "jd_end": 2460871.074332043,
+          "name": null
+        }
+      ],
+      "shayana": {
+        "_default_to_none": true,
+        "jd_start": 2460871.2370754667,
+        "jd_end": 2460871.291323275,
+        "name": "शयनकालः"
+      },
+      "dinaanta": {
+        "_default_to_none": true,
+        "jd_start": 2460871.345571083,
+        "jd_end": 2460871.3998188907,
+        "name": "दिनान्तम्"
+      },
+      "praatah": {
+        "_default_to_none": true,
+        "jd_start": 2460870.5079759625,
+        "jd_end": 2460870.5787704727,
+        "name": "प्रातः"
+      },
+      "saangava": {
+        "_default_to_none": true,
+        "jd_start": 2460870.6495649824,
+        "jd_end": 2460870.7203594926,
+        "name": "साङ्गवः"
+      },
+      "madhyaahna": {
+        "_default_to_none": true,
+        "jd_start": 2460870.791154003,
+        "jd_end": 2460870.861948513,
+        "name": "मध्याह्नः"
+      },
+      "aparaahna": {
+        "_default_to_none": true,
+        "jd_start": 2460870.932743023,
+        "jd_end": 2460871.003537533,
+        "name": "अपराह्णः"
+      },
+      "saayaahna": {
+        "_default_to_none": true,
+        "jd_start": 2460871.074332043,
+        "jd_end": 2460871.1285798512,
+        "name": "सायाह्नः"
+      }
+    },
+    "fifteen_fold_division": {
+      "_default_to_none": true,
+      "preceding_arunodaya": {
+        "_default_to_none": true,
+        "jd_start": 2460870.4501815,
+        "jd_end": 2460870.5079759625,
+        "name": "प्राक्तनारुणोदयः"
+      },
+      "braahma": {
+        "_default_to_none": true,
+        "jd_start": 2460870.4501815,
+        "jd_end": 2460870.479078731,
+        "name": "ब्राह्मं मुहूर्तम्"
+      },
+      "praatah": {
+        "_default_to_none": true,
+        "jd_start": 2460870.5079759625,
+        "jd_end": 2460870.6212471784,
+        "name": "प्रातः"
+      },
+      "saangava": {
+        "_default_to_none": true,
+        "jd_start": 2460870.6212471784,
+        "jd_end": 2460870.734518395,
+        "name": "साङ्गवः"
+      },
+      "madhyaahna": {
+        "_default_to_none": true,
+        "jd_start": 2460870.734518395,
+        "jd_end": 2460870.8477896107,
+        "name": "मध्याह्नः"
+      },
+      "aparaahna": {
+        "_default_to_none": true,
+        "jd_start": 2460870.8477896107,
+        "jd_end": 2460870.961060827,
+        "name": "अपराह्णः"
+      },
+      "saayaahna": {
+        "_default_to_none": true,
+        "jd_start": 2460870.961060827,
+        "jd_end": 2460871.074332043,
+        "name": "सायाह्नः"
+      },
+      "puurvaahna3": {
+        "_default_to_none": true,
+        "jd_start": 2460870.5079759625,
+        "jd_end": 2460870.6967613227,
+        "name": "पूर्वाह्णः~(त्रेधा)"
+      },
+      "madhyaahna3": {
+        "_default_to_none": true,
+        "jd_start": 2460870.6967613227,
+        "jd_end": 2460870.885546683,
+        "name": "मध्याह्नः~(त्रेधा)"
+      },
+      "aparaahna3": {
+        "_default_to_none": true,
+        "jd_start": 2460870.885546683,
+        "jd_end": 2460871.074332043,
+        "name": "अपराह्णः~(त्रेधा)"
+      },
+      "puurvaraatri3": {
+        "_default_to_none": true,
+        "jd_start": 2460871.074332043,
+        "jd_end": 2460871.2189928642,
+        "name": "पूर्वरात्रिः~(त्रेधा)"
+      },
+      "praatas_sandhyaa": {
+        "_default_to_none": true,
+        "jd_start": 2460870.479078731,
+        "jd_end": 2460870.6590042505,
+        "name": "प्रातःसन्ध्यावन्दनकालः"
+      },
+      "maadhyaahnika_sandhyaa": {
+        "_default_to_none": true,
+        "jd_start": 2460870.6967613227,
+        "jd_end": 2460870.998817899,
+        "name": "माध्याह्निकसन्ध्यावन्दनकालः"
+      },
+      "saayam_sandhyaa": {
+        "_default_to_none": true,
+        "jd_start": 2460871.036574971,
+        "jd_end": 2460871.1032642075,
+        "name": "सायंसन्ध्यावन्दनकालः"
+      },
+      "pradosha": {
+        "_default_to_none": true,
+        "jd_start": 2460871.074332043,
+        "jd_end": 2460871.1285798512,
+        "name": "प्रदोषः"
+      },
+      "madhyaraatri": {
+        "_default_to_none": true,
+        "jd_start": 2460871.2479250287,
+        "jd_end": 2460871.334721521,
+        "name": "मध्यरात्रिः"
+      },
+      "nishiitha": {
+        "_default_to_none": true,
+        "jd_start": 2460871.2768571926,
+        "jd_end": 2460871.305789357,
+        "name": "निशीथः"
+      },
+      "shraadhaarambha_mukhya": {
+        "_default_to_none": true,
+        "jd_start": 2460870.772275467,
+        "jd_end": 2460870.8100325386,
+        "name": "श्राद्धारम्भ-कालः (मुख्यः)"
+      },
+      "shraadhaarambha_gauna": {
+        "_default_to_none": true,
+        "jd_start": 2460870.734518395,
+        "jd_end": 2460870.772275467,
+        "name": "श्राद्धारम्भ-कालः (गौणः)"
+      },
+      "shraadha_kaala": {
+        "_default_to_none": true,
+        "jd_start": 2460870.772275467,
+        "jd_end": 2460870.961060827,
+        "name": "श्राद्ध-कालः"
+      },
+      "raudra": {
+        "_default_to_none": true,
+        "jd_start": 2460870.5079759625,
+        "jd_end": 2460870.5457330346,
+        "name": "रौद्रः"
+      },
+      "chaitra": {
+        "_default_to_none": true,
+        "jd_start": 2460870.5457330346,
+        "jd_end": 2460870.5834901067,
+        "name": "चैत्रः"
+      },
+      "maitra": {
+        "_default_to_none": true,
+        "jd_start": 2460870.5834901067,
+        "jd_end": 2460870.6212471784,
+        "name": "मैत्रः"
+      },
+      "saalakata": {
+        "_default_to_none": true,
+        "jd_start": 2460870.6212471784,
+        "jd_end": 2460870.6590042505,
+        "name": "सालकटः"
+      },
+      "saavitra": {
+        "_default_to_none": true,
+        "jd_start": 2460870.6590042505,
+        "jd_end": 2460870.6967613227,
+        "name": "सावित्रः"
+      },
+      "jayanta": {
+        "_default_to_none": true,
+        "jd_start": 2460870.6967613227,
+        "jd_end": 2460870.734518395,
+        "name": "जयन्तः"
+      },
+      "gaandharva": {
+        "_default_to_none": true,
+        "jd_start": 2460870.734518395,
+        "jd_end": 2460870.772275467,
+        "name": "गान्धर्वः"
+      },
+      "kutapa": {
+        "_default_to_none": true,
+        "jd_start": 2460870.772275467,
+        "jd_end": 2460870.8100325386,
+        "name": "कुतपः"
+      },
+      "rauhina": {
+        "_default_to_none": true,
+        "jd_start": 2460870.8100325386,
+        "jd_end": 2460870.8477896107,
+        "name": "रौहिणः"
+      },
+      "virinchi": {
+        "_default_to_none": true,
+        "jd_start": 2460870.8477896107,
+        "jd_end": 2460870.885546683,
+        "name": "विरिञ्चिः"
+      },
+      "vijaya": {
+        "_default_to_none": true,
+        "jd_start": 2460870.885546683,
+        "jd_end": 2460870.923303755,
+        "name": "विजयः"
+      },
+      "nairrita": {
+        "_default_to_none": true,
+        "jd_start": 2460870.923303755,
+        "jd_end": 2460870.961060827,
+        "name": "नैर्‌ऋतः"
+      },
+      "mahendra": {
+        "_default_to_none": true,
+        "jd_start": 2460870.961060827,
+        "jd_end": 2460870.998817899,
+        "name": "महेन्द्रः"
+      },
+      "varuna": {
+        "_default_to_none": true,
+        "jd_start": 2460870.998817899,
+        "jd_end": 2460871.036574971,
+        "name": "वरुणः"
+      },
+      "bodha": {
+        "_default_to_none": true,
+        "jd_start": 2460871.036574971,
+        "jd_end": 2460871.074332043,
+        "name": "बोधः"
+      },
+      "shankara": {
+        "_default_to_none": true,
+        "jd_start": 2460871.074332043,
+        "jd_end": 2460871.1032642075,
+        "name": "शङ्करः"
+      },
+      "ajapaat": {
+        "_default_to_none": true,
+        "jd_start": 2460871.1032642075,
+        "jd_end": 2460871.1321963714,
+        "name": "अजपात्"
+      },
+      "ahirbudhnya": {
+        "_default_to_none": true,
+        "jd_start": 2460871.1321963714,
+        "jd_end": 2460871.161128536,
+        "name": "अहिर्बुध्न्यः"
+      },
+      "puushaka": {
+        "_default_to_none": true,
+        "jd_start": 2460871.161128536,
+        "jd_end": 2460871.1900607,
+        "name": "पूषकः"
+      },
+      "aashvina": {
+        "_default_to_none": true,
+        "jd_start": 2460871.1900607,
+        "jd_end": 2460871.2189928642,
+        "name": "आश्विनः"
+      },
+      "yaamyava": {
+        "_default_to_none": true,
+        "jd_start": 2460871.2189928642,
+        "jd_end": 2460871.2479250287,
+        "name": "याम्यः"
+      },
+      "aahneya": {
+        "_default_to_none": true,
+        "jd_start": 2460871.2479250287,
+        "jd_end": 2460871.2768571926,
+        "name": "आह्नेयः"
+      },
+      "vaidhaatra": {
+        "_default_to_none": true,
+        "jd_start": 2460871.2768571926,
+        "jd_end": 2460871.305789357,
+        "name": "वैधात्रः"
+      },
+      "chaandra": {
+        "_default_to_none": true,
+        "jd_start": 2460871.305789357,
+        "jd_end": 2460871.334721521,
+        "name": "चान्द्रः"
+      },
+      "aaditeya": {
+        "_default_to_none": true,
+        "jd_start": 2460871.334721521,
+        "jd_end": 2460871.3636536854,
+        "name": "आदितेयः"
+      },
+      "jaiva": {
+        "_default_to_none": true,
+        "jd_start": 2460871.3636536854,
+        "jd_end": 2460871.39258585,
+        "name": "जैवः"
+      },
+      "vaishnava": {
+        "_default_to_none": true,
+        "jd_start": 2460871.39258585,
+        "jd_end": 2460871.421518014,
+        "name": "वैष्णवः"
+      },
+      "saura": {
+        "_default_to_none": true,
+        "jd_start": 2460871.421518014,
+        "jd_end": 2460871.4504501782,
+        "name": "सौरः"
+      },
+      "succeeding_braahma": {
+        "_default_to_none": true,
+        "jd_start": 2460871.4504501782,
+        "jd_end": 2460871.479382342,
+        "name": "ब्राह्मः"
+      },
+      "naabhasvata": {
+        "_default_to_none": true,
+        "jd_start": 2460871.479382342,
+        "jd_end": 2460871.5083145066,
+        "name": "नाभस्वतः"
+      },
+      "durmuhurta1": {
+        "_default_to_none": true,
+        "jd_start": 2460870.8100325386,
+        "jd_end": 2460870.8477896107,
+        "name": "दुर्मुहूर्तः १"
+      },
+      "durmuhurta2": {
+        "_default_to_none": true,
+        "jd_start": 2460870.923303755,
+        "jd_end": 2460870.961060827,
+        "name": "दुर्मुहूर्तः २"
+      },
+      "tb_muhuurtas": [
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.5079759625,
+          "jd_end": 2460870.5457330346,
+          "name": "प्रातः-मु॰1",
+          "muhuurta_id": 0,
+          "ahna": 0,
+          "ahna_part": 0,
+          "is_nirviirya": false
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.5457330346,
+          "jd_end": 2460870.5834901067,
+          "name": "प्रातः-मु॰2",
+          "muhuurta_id": 1,
+          "ahna": 0,
+          "ahna_part": 1,
+          "is_nirviirya": false
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.5834901067,
+          "jd_end": 2460870.6212471784,
+          "name": "प्रातः-मु॰3",
+          "muhuurta_id": 2,
+          "ahna": 0,
+          "ahna_part": 2,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.6212471784,
+          "jd_end": 2460870.6590042505,
+          "name": "साङ्गवः-मु॰1",
+          "muhuurta_id": 3,
+          "ahna": 1,
+          "ahna_part": 0,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.6590042505,
+          "jd_end": 2460870.6967613227,
+          "name": "साङ्गवः-मु॰2",
+          "muhuurta_id": 4,
+          "ahna": 1,
+          "ahna_part": 1,
+          "is_nirviirya": false
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.6967613227,
+          "jd_end": 2460870.734518395,
+          "name": "साङ्गवः-मु॰3",
+          "muhuurta_id": 5,
+          "ahna": 1,
+          "ahna_part": 2,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.734518395,
+          "jd_end": 2460870.772275467,
+          "name": "पूर्वाह्णः-मु॰1",
+          "muhuurta_id": 6,
+          "ahna": 2,
+          "ahna_part": 0,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.772275467,
+          "jd_end": 2460870.8100325386,
+          "name": "पूर्वाह्णः-मु॰2",
+          "muhuurta_id": 7,
+          "ahna": 2,
+          "ahna_part": 1,
+          "is_nirviirya": false
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.8100325386,
+          "jd_end": 2460870.8477896107,
+          "name": "पूर्वाह्णः-मु॰3",
+          "muhuurta_id": 8,
+          "ahna": 2,
+          "ahna_part": 2,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.8477896107,
+          "jd_end": 2460870.885546683,
+          "name": "अपराह्णः-मु॰1",
+          "muhuurta_id": 9,
+          "ahna": 3,
+          "ahna_part": 0,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.885546683,
+          "jd_end": 2460870.923303755,
+          "name": "अपराह्णः-मु॰2",
+          "muhuurta_id": 10,
+          "ahna": 3,
+          "ahna_part": 1,
+          "is_nirviirya": false
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.923303755,
+          "jd_end": 2460870.961060827,
+          "name": "अपराह्णः-मु॰3",
+          "muhuurta_id": 11,
+          "ahna": 3,
+          "ahna_part": 2,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.961060827,
+          "jd_end": 2460870.998817899,
+          "name": "सायाह्नः-मु॰1",
+          "muhuurta_id": 12,
+          "ahna": 4,
+          "ahna_part": 0,
+          "is_nirviirya": true
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460870.998817899,
+          "jd_end": 2460871.036574971,
+          "name": "सायाह्नः-मु॰2",
+          "muhuurta_id": 13,
+          "ahna": 4,
+          "ahna_part": 1,
+          "is_nirviirya": false
+        },
+        {
+          "_default_to_none": true,
+          "jd_start": 2460871.036574971,
+          "jd_end": 2460871.074332043,
+          "name": "सायाह्नः-मु॰3",
+          "muhuurta_id": 14,
+          "ahna": 4,
+          "ahna_part": 2,
+          "is_nirviirya": false
+        }
+      ]
+    }
+  }
+}

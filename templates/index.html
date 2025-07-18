@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Panchangam Calendar Generator</title>
+</head>
+<body>
+    <h1>Panchangam Calendar Generator</h1>
+    <form method="post" action="/generate">
+        <label for="year">Year:</label>
+        <select name="year" id="year">
+            {% for y in years %}
+            <option value="{{ y }}" {% if selected and selected.year == y %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="location">Location:</label>
+        <select name="location" id="location">
+            {% for loc in locations %}
+            <option value="{{ loc }}" {% if selected and selected.location == loc %}selected{% endif %}>{{ loc }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="script">Script/Language:</label>
+        <select name="script" id="script">
+            {% for s in scripts %}
+            <option value="{{ s }}" {% if selected and selected.script == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Generate</button>
+    </form>
+    {% if selected %}
+    <h2>Selected Options</h2>
+    <ul>
+        <li>Year: {{ selected.year }}</li>
+        <li>Location: {{ selected.location }}</li>
+        <li>Script: {{ selected.script }}</li>
+    </ul>
+    {% endif %}
+</body>
+</html> 

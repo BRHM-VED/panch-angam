@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Panchangam Web App</title>
+    <style>
+        table { border-collapse: collapse; width: 60%; margin: 2em auto; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background: #f0f0f0; }
+        h1, h2 { text-align: center; }
+        #output-table { margin-top: 2em; }
+        #form-container { width: 60%; margin: 2em auto; }
+    </style>
+</head>
+<body>
+    <h1>Panchangam Web App</h1>
+    <div id="form-container">
+        <form id="panchang-form">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br><br>
+            <label for="location-select">Location:</label>
+            <select id="location-select" name="location-select"></select>
+            <button type="button" id="use-current-location">Use My Location</button>
+            <input type="hidden" id="location" name="location">
+            <input type="hidden" id="lat" name="lat">
+            <input type="hidden" id="lon" name="lon">
+            <div id="selected-location" style="margin-top:10px;"></div>
+            <button type="submit">Get Panchangam</button>
+        </form>
+    </div>
+    <div id="output"></div>
+    <script>
+    // Set default date to today
+    document.getElementById('date').value = new Date().toISOString().split('T')[0];
+
+    let places = [];
+    let usingCurrentLocation = false;
+
+    function setLocationDisplay(name) {
+        document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
+    }
+
+    // Fetch places and populate dropdown
+    fetch('/get_places').then(r => r.json()).then(data => {
+        places = data.places;
+        const select = document.getElementById('location-select');
+        select.innerHTML = '';
+        places.forEach((place, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.text = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
+            select.appendChild(opt);
+        });
+        // Set default to first place
+        if (places.length > 0) {
+            select.value = 0;
+            document.getElementById('location').value = places[0].name;
+            document.getElementById('lat').value = places[0].lat;
+            document.getElementById('lon').value = places[0].lon;
+            setLocationDisplay(opt.text);
+        }
+    });
+
+    document.getElementById('location-select').onchange = function() {
+        usingCurrentLocation = false;
+        const idx = this.value;
+        const place = places[idx];
+        document.getElementById('location').value = place.name;
+        document.getElementById('lat').value = place.lat;
+        document.getElementById('lon').value = place.lon;
+        setLocationDisplay(this.options[this.selectedIndex].text);
+    };
+
+    document.getElementById('use-current-location').onclick = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                usingCurrentLocation = true;
+                document.getElementById('lat').value = position.coords.latitude;
+                document.getElementById('lon').value = position.coords.longitude;
+                document.getElementById('location').value = 'Current Location';
+                setLocationDisplay('Current Location');
+            }, function() {
+                alert('Could not get your location.');
+            });
+        } else {
+            alert('Geolocation is not supported by this browser.');
+        }
+    };
+
+    document.getElementById('panchang-form').onsubmit = function(e) {
+        const lat = document.getElementById('lat').value;
+        const lon = document.getElementById('lon').value;
+        const location = document.getElementById('location').value;
+        if (!lat || !lon) {
+            alert('Latitude and longitude are required.');
+            e.preventDefault();
+            return false;
+        }
+        e.preventDefault();
+        const date = document.getElementById('date').value;
+        fetch('/get_panchang', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ date, location, lat, lon })
+        })
+        .then(response => response.json())
+        .then(data => {
+            let html = `<h2>Panchangam for ${data.location} (${data.lat}, ${data.lon}) on ${data.date_str}</h2>`;
+            html += `<table id='output-table'><tr><th>Attribute</th><th>Value</th></tr>`;
+            for (const [k, v] of Object.entries(data.summary)) {
+                html += `<tr><td>${k}</td><td>`;
+                if (Array.isArray(v)) {
+                    html += v.join('<br>');
+                } else {
+                    html += v;
+                }
+                html += `</td></tr>`;
+            }
+            html += `</table>`;
+            document.getElementById('output').innerHTML = html;
+        });
+    };
+    </script>
+</body>
+</html> 
