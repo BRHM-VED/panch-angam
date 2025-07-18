@@ -147,8 +147,15 @@ def get_panchang():
 
 @app.route('/get_places', methods=['GET'])
 def get_places():
+    import os
+
+    # Get the absolute path to the directory this file is in
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Build the absolute path to the TSV file
+    tsv_path = os.path.join(BASE_DIR, 'jyotisha', 'panchaanga', 'spatio_temporal', 'data', 'places_lat_lon_tz_db.tsv')
+
     places = []
-    with open('../jyotisha/panchaanga/spatio_temporal/data/places_lat_lon_tz_db.tsv', encoding='utf-8') as f:
+    with open(tsv_path, encoding='utf-8') as f:
         for i, line in enumerate(f):
             if i == 0:
                 continue  # skip header
