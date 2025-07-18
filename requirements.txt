@@ -41,6 +41,7 @@ geopy==2.4.1
 google-auth==2.40.3
 google-auth-oauthlib==1.2.2
 gspread==6.2.1
+gunicorn
 h11==0.16.0
 httpcore==1.0.9
 httplib2==0.22.0
