@@ -6,8 +6,10 @@ from datetime import datetime, timedelta, timezone
 import pytz
 from werkzeug.utils import secure_filename
 import sys
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 TITHI_NAMES = [
     "Pratipada", "Dvitiya", "Tritiya", "Chaturthi", "Panchami", "Shashthi", "Saptami", "Ashtami",
@@ -146,6 +148,30 @@ def get_panchang():
         'location': location,
         'lat': lat,
         'lon': lon
+    })
+
+@app.route('/api', methods=['GET'])
+def api_docs():
+    return jsonify({
+        "endpoints": {
+            "/get_panchang": {
+                "method": "POST",
+                "description": "Get Panchangam data for a given date and location.",
+                "body": {
+                    "date": "YYYY-MM-DD",
+                    "lat": "float",
+                    "lon": "float",
+                    "location": "string"
+                },
+                "response": {
+                    "summary": "object",
+                    "date_str": "string",
+                    "location": "string",
+                    "lat": "float",
+                    "lon": "float"
+                }
+            }
+        }
     })
 
 @app.route('/get_places', methods=['GET'])
