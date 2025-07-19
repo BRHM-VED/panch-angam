@@ -73,11 +73,11 @@
                 document.getElementById('location').value = place.name;
                 document.getElementById('lat').value = place.lat;
                 document.getElementById('lon').value = place.lon;
-                document.getElementById('tz').value = place.tz;
+                document.getElementById('tz').value = '';
                 locationInput.value = div.textContent;
                 setLocationDisplay(div.textContent);
                 autocompleteList.innerHTML = '';
-                document.getElementById('tz-manual').value = place.tz === 'Asia/Calcutta' ? 5.5 : '';
+                document.getElementById('tz-manual').value = place.TZFloat || '';
             };
             autocompleteList.appendChild(div);
         });
@@ -129,10 +129,14 @@
             time: form.time.value,
             lat: form.lat.value,
             lon: form.lon.value,
-            tz: form.tz.value || form['tz-manual'].value
+            tz: form['tz-manual'].value // Always use the manual field
         };
         if (!data.lat || !data.lon) {
             alert('Latitude and longitude are required.');
+            return;
+        }
+        if (!data.tz || isNaN(parseFloat(data.tz))) {
+            alert('Please enter a valid numeric timezone (e.g. 5.5 for IST).');
             return;
         }
         document.getElementById('result').innerHTML = '<em>Generating kundli...</em>';
