@@ -21,8 +21,9 @@
         <form id="panchang-form">
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required><br><br>
-            <label for="location-select">Location:</label>
-            <select id="location-select" name="location-select"></select>
+            <label for="location-search">Location:</label>
+            <input type="text" id="location-search" name="location-search" placeholder="Type to search..." autocomplete="off" required>
+            <div id="autocomplete-list" style="border:1px solid #ccc; max-height:120px; overflow-y:auto; position:relative; background:white;"></div>
             <button type="button" id="use-current-location">Use My Location</button>
             <input type="hidden" id="location" name="location">
             <input type="hidden" id="lat" name="lat">
@@ -43,36 +44,38 @@
         document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
     }
 
-    // Fetch places and populate dropdown
+    // Fetch places for autocomplete
     fetch('/get_places').then(r => r.json()).then(data => {
         places = data.places;
-        const select = document.getElementById('location-select');
-        select.innerHTML = '';
-        places.forEach((place, idx) => {
-            const opt = document.createElement('option');
-            opt.value = idx;
-            opt.text = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
-            select.appendChild(opt);
-        });
-        // Set default to first place
-        if (places.length > 0) {
-            select.value = 0;
-            document.getElementById('location').value = places[0].name;
-            document.getElementById('lat').value = places[0].lat;
-            document.getElementById('lon').value = places[0].lon;
-            setLocationDisplay(opt.text);
-        }
     });
 
-    document.getElementById('location-select').onchange = function() {
-        usingCurrentLocation = false;
-        const idx = this.value;
-        const place = places[idx];
-        document.getElementById('location').value = place.name;
-        document.getElementById('lat').value = place.lat;
-        document.getElementById('lon').value = place.lon;
-        setLocationDisplay(this.options[this.selectedIndex].text);
-    };
+    const locationInput = document.getElementById('location-search');
+    const autocompleteList = document.getElementById('autocomplete-list');
+
+    locationInput.addEventListener('input', function() {
+        const val = this.value.trim().toLowerCase();
+        autocompleteList.innerHTML = '';
+        if (!val) return;
+        const matches = places.filter(p => p.name.toLowerCase().includes(val) || (p.sa_name && p.sa_name.toLowerCase().includes(val)));
+        matches.slice(0, 10).forEach(place => {
+            const div = document.createElement('div');
+            div.textContent = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
+            div.style.cursor = 'pointer';
+            div.onclick = function() {
+                document.getElementById('location').value = place.name;
+                document.getElementById('lat').value = place.lat;
+                document.getElementById('lon').value = place.lon;
+                locationInput.value = div.textContent;
+                setLocationDisplay(div.textContent);
+                autocompleteList.innerHTML = '';
+            };
+            autocompleteList.appendChild(div);
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target !== locationInput) autocompleteList.innerHTML = '';
+    });
 
     document.getElementById('use-current-location').onclick = function() {
         if (navigator.geolocation) {
@@ -81,12 +84,27 @@
                 document.getElementById('lat').value = position.coords.latitude;
                 document.getElementById('lon').value = position.coords.longitude;
                 document.getElementById('location').value = 'Current Location';
+                locationInput.value = 'Current Location';
                 setLocationDisplay('Current Location');
             }, function() {
                 alert('Could not get your location.');
             });
         } else {
             alert('Geolocation is not supported by this browser.');
+        }
+    };
+
+    // Set default to current location if available
+    window.onload = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                usingCurrentLocation = true;
+                document.getElementById('lat').value = position.coords.latitude;
+                document.getElementById('lon').value = position.coords.longitude;
+                document.getElementById('location').value = 'Current Location';
+                locationInput.value = 'Current Location';
+                setLocationDisplay('Current Location');
+            });
         }
     };
 

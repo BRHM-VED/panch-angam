@@ -28,19 +28,99 @@
         <label>Time of Birth:
             <input type="time" name="time" required>
         </label>
-        <label>Latitude:
-            <input type="number" name="lat" step="any" required placeholder="e.g. 27.6">
-        </label>
-        <label>Longitude:
-            <input type="number" name="lon" step="any" required placeholder="e.g. 78.05">
+        <label>Location:
+            <input type="text" id="location-search" name="location-search" placeholder="Type to search..." autocomplete="off" required>
+            <div id="autocomplete-list" style="border:1px solid #ccc; max-height:120px; overflow-y:auto; position:relative; background:white;"></div>
+            <button type="button" id="use-current-location">Use My Location</button>
+            <input type="hidden" name="location" id="location">
+            <input type="hidden" name="lat" id="lat">
+            <input type="hidden" name="lon" id="lon">
+            <input type="hidden" name="tz" id="tz">
+            <div id="selected-location" style="margin-top:10px;"></div>
         </label>
         <label>Timezone (e.g. 5.5 for IST):
-            <input type="number" name="tz" step="any" required placeholder="e.g. 5.5">
+            <input type="number" name="tz-manual" id="tz-manual" step="any" placeholder="e.g. 5.5">
         </label>
         <button type="submit">Generate Kundli</button>
     </form>
     <div id="result"></div>
     <script>
+    // --- Autocomplete and geolocation logic ---
+    let places = [];
+    let usingCurrentLocation = false;
+
+    function setLocationDisplay(name) {
+        document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
+    }
+
+    fetch('/get_places').then(r => r.json()).then(data => {
+        places = data.places;
+    });
+
+    const locationInput = document.getElementById('location-search');
+    const autocompleteList = document.getElementById('autocomplete-list');
+
+    locationInput.addEventListener('input', function() {
+        const val = this.value.trim().toLowerCase();
+        autocompleteList.innerHTML = '';
+        if (!val) return;
+        const matches = places.filter(p => p.name.toLowerCase().includes(val) || (p.sa_name && p.sa_name.toLowerCase().includes(val)));
+        matches.slice(0, 10).forEach(place => {
+            const div = document.createElement('div');
+            div.textContent = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
+            div.style.cursor = 'pointer';
+            div.onclick = function() {
+                document.getElementById('location').value = place.name;
+                document.getElementById('lat').value = place.lat;
+                document.getElementById('lon').value = place.lon;
+                document.getElementById('tz').value = place.tz;
+                locationInput.value = div.textContent;
+                setLocationDisplay(div.textContent);
+                autocompleteList.innerHTML = '';
+                document.getElementById('tz-manual').value = place.tz === 'Asia/Calcutta' ? 5.5 : '';
+            };
+            autocompleteList.appendChild(div);
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target !== locationInput) autocompleteList.innerHTML = '';
+    });
+
+    document.getElementById('use-current-location').onclick = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                usingCurrentLocation = true;
+                document.getElementById('lat').value = position.coords.latitude;
+                document.getElementById('lon').value = position.coords.longitude;
+                document.getElementById('location').value = 'Current Location';
+                locationInput.value = 'Current Location';
+                setLocationDisplay('Current Location');
+                document.getElementById('tz-manual').value = 5.5; // Default to IST
+            }, function() {
+                alert('Could not get your location.');
+            });
+        } else {
+            alert('Geolocation is not supported by this browser.');
+        }
+    };
+
+    // Set default to current location if available
+    window.onload = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                usingCurrentLocation = true;
+                document.getElementById('lat').value = position.coords.latitude;
+                document.getElementById('lon').value = position.coords.longitude;
+                document.getElementById('location').value = 'Current Location';
+                locationInput.value = 'Current Location';
+                setLocationDisplay('Current Location');
+                document.getElementById('tz-manual').value = 5.5;
+            });
+        }
+    };
+
+    // --- Form submission ---
     document.getElementById('kundliForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const form = e.target;
@@ -49,8 +129,12 @@
             time: form.time.value,
             lat: form.lat.value,
             lon: form.lon.value,
-            tz: form.tz.value
+            tz: form.tz.value || form['tz-manual'].value
         };
+        if (!data.lat || !data.lon) {
+            alert('Latitude and longitude are required.');
+            return;
+        }
         document.getElementById('result').innerHTML = '<em>Generating kundli...</em>';
         try {
             const resp = await fetch('/api/kundli', {
