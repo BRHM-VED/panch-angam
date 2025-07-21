@@ -82,210 +82,81 @@
         </label>
         <button type="submit">Generate Kundli</button>
     </form>
-    <div id="kundli-diamond-container"></div>
-    <pre id="kundli-json" style="max-width: 700px; margin: 2em auto; background: #f9f9f9; padding: 1em; border-radius: 8px;"></pre>
-    <div id="kundli-chart" style="display:none;"></div>
-    <div id="result" style="display:none;"></div>
-    <script>
-    // --- Autocomplete and geolocation logic ---
-    let places = [];
-    let usingCurrentLocation = false;
+    <!-- Kundli Chart Section (Figma Autolayout) -->
+<div class="frame-8-1" id="kundli-chart">
+  <div class="4-2"><div class="4-3"></div></div>
+  <div class="1-9"><div class="1-10"></div></div>
+  <div class="7-16"><div class="7-17"></div></div>
+  <div class="10-23"><div class="10-24"></div></div>
+  <div class="2-30"><div class="2-31"></div></div>
+  <div class="12-40"><div class="12-41"></div></div>
+  <div class="6-50"><div class="6-51"></div></div>
+  <div class="8-57"><div class="8-58"></div></div>
+  <div class="3-64"><div class="3-65"></div></div>
+  <div class="11-74"><div class="11-75"></div></div>
+  <div class="5-84"><div class="5-85"></div></div>
+  <div class="9-94"><div class="9-95"></div></div>
+</div>
 
-    function setLocationDisplay(name) {
-        document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
+<!-- Add your Figma-exported CSS here or in a linked file -->
+<link rel="stylesheet" href="styles.css">
+
+<script>
+// House number to inner div class mapping
+const houseMap = {
+  1: '.1-10',
+  2: '.2-31',
+  3: '.3-65',
+  4: '.4-3',
+  5: '.5-85',
+  6: '.6-51',
+  7: '.7-17',
+  8: '.8-58',
+  9: '.9-95',
+  10: '.10-24',
+  11: '.11-75',
+  12: '.12-41'
+};
+
+// Optional: planet glyphs/Devanagari
+function getPlanetGlyph(planet) {
+  const glyphs = {
+    'Sun': '☉ सूर्य', 'Moon': '☽ चन्द्र', 'Mars': '♂ मंगल', 'Mercury': '☿ बुध',
+    'Jupiter': '♃ गुरु', 'Venus': '♀ शुक्र', 'Saturn': '♄ शनि',
+    'Rahu (Mean)': '☊ राहु', 'Ketu (Mean)': '☋ केतु'
+  };
+  return glyphs[planet] || planet;
+}
+
+// Fill houses with planets from kundliData
+function fillKundliHouses(kundliData) {
+  for (let houseNum = 1; houseNum <= 12; houseNum++) {
+    const selector = houseMap[houseNum];
+    const div = document.querySelector(selector);
+    div.innerHTML = '';
+    // Add Lagna if this is the Lagna house
+    if (kundliData.lagna && kundliData.lagna.house === houseNum) {
+      const lagnaP = document.createElement('p');
+      lagnaP.textContent = 'लग्न';
+      lagnaP.style.fontWeight = 'bold';
+      div.appendChild(lagnaP);
     }
-
-    fetch('/get_places').then(r => r.json()).then(data => {
-        places = data.places;
+    // Add planets
+    (kundliData.houses && kundliData.houses[houseNum] || []).forEach(planet => {
+      const p = document.createElement('p');
+      p.textContent = getPlanetGlyph(planet);
+      div.appendChild(p);
     });
+  }
+}
 
-    const locationInput = document.getElementById('location-search');
-    const autocompleteList = document.getElementById('autocomplete-list');
+// Example: after receiving kundliData from backend
+// fillKundliHouses(kundliData);
+// You should call this after the API response is received.
+</script>
 
-    locationInput.addEventListener('input', function() {
-        const val = this.value.trim().toLowerCase();
-        autocompleteList.innerHTML = '';
-        if (!val) return;
-        const matches = places.filter(p => p.name.toLowerCase().includes(val) || (p.sa_name && p.sa_name.toLowerCase().includes(val)));
-        matches.slice(0, 10).forEach(place => {
-            const div = document.createElement('div');
-            div.textContent = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
-            div.style.cursor = 'pointer';
-            div.onclick = function() {
-                document.getElementById('location').value = place.name;
-                document.getElementById('lat').value = place.lat;
-                document.getElementById('lon').value = place.lon;
-                document.getElementById('tz').value = '';
-                locationInput.value = div.textContent;
-                setLocationDisplay(div.textContent);
-                autocompleteList.innerHTML = '';
-                document.getElementById('tz-manual').value = place.TZFloat || '';
-            };
-            autocompleteList.appendChild(div);
-        });
-    });
+<!-- Optionally, show JSON for debugging -->
+<pre id="kundli-json" style="max-width: 700px; margin: 2em auto; background: #f9f9f9; padding: 1em; border-radius: 8px;"></pre>
 
-    document.addEventListener('click', function(e) {
-        if (e.target !== locationInput) autocompleteList.innerHTML = '';
-    });
-
-    document.getElementById('use-current-location').onclick = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                usingCurrentLocation = true;
-                document.getElementById('lat').value = position.coords.latitude;
-                document.getElementById('lon').value = position.coords.longitude;
-                document.getElementById('location').value = 'Current Location';
-                locationInput.value = 'Current Location';
-                setLocationDisplay('Current Location');
-                document.getElementById('tz-manual').value = 5.5; // Default to IST
-            }, function() {
-                alert('Could not get your location.');
-            });
-        } else {
-            alert('Geolocation is not supported by this browser.');
-        }
-    };
-
-    // Set default to current location if available
-    window.onload = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                usingCurrentLocation = true;
-                document.getElementById('lat').value = position.coords.latitude;
-                document.getElementById('lon').value = position.coords.longitude;
-                document.getElementById('location').value = 'Current Location';
-                locationInput.value = 'Current Location';
-                setLocationDisplay('Current Location');
-                document.getElementById('tz-manual').value = 5.5;
-            });
-        }
-    };
-
-    function getPlanetGlyph(planet) {
-        const glyphs = {
-            'Sun': '☉', 'Moon': '☽', 'Mars': '♂', 'Mercury': '☿', 'Jupiter': '♃', 'Venus': '♀', 'Saturn': '♄',
-            'Rahu (Mean)': '☊', 'Ketu (Mean)': '☋'
-        };
-        const devs = {
-            'Sun': 'सूर्य', 'Moon': 'चन्द्र', 'Mars': 'मंगल', 'Mercury': 'बुध', 'Jupiter': 'गुरु', 'Venus': 'शुक्र', 'Saturn': 'शनि',
-            'Rahu (Mean)': 'राहु', 'Ketu (Mean)': 'केतु'
-        };
-        return glyphs[planet] + ' ' + devs[planet];
-    }
-
-    function renderKundliDiamond(data) {
-        // North Indian diamond house order (clockwise from top): 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9
-        // SVG coordinates for house centers (relative to 400x400 SVG)
-        const houseMap = {
-            10: [200, 50], 11: [300, 100], 12: [350, 200], 1: [300, 300], 2: [200, 350], 3: [100, 300],
-            4: [50, 200], 5: [100, 100], 6: [200, 200], 7: [250, 150], 8: [250, 250], 9: [150, 250]
-        };
-        // True North Indian order for houses (clockwise from top)
-        const houseOrder = [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-        // Map house number to bhava
-        const bhavas = {};
-        data.bhavas.forEach(bh => { bhavas[bh.house] = bh; });
-
-        // Place planets in houses
-        const planetHouses = {};
-        Object.entries(data.planets).forEach(([planet, val]) => {
-            // Find house for planet by degree
-            let houseNum = 1;
-            let minDiff = 360;
-            data.bhavas.forEach(bh => {
-                let diff = Math.abs(val.deg - bh.deg);
-                if (diff < minDiff) { minDiff = diff; houseNum = bh.house; }
-            });
-            if (!planetHouses[houseNum]) planetHouses[houseNum] = [];
-            planetHouses[houseNum].push(planet);
-        });
-
-        // Lagna house
-        const lagnaHouse = 1;
-
-        // SVG for diamond chart
-        let svg = `<svg width="400" height="400" viewBox="0 0 400 400" style="background:#fffbe7; border:2px solid #333;">`;
-        // Draw main diamond
-        svg += `<polygon points="200,30 370,200 200,370 30,200" fill="none" stroke="#333" stroke-width="2"/>`;
-        // Draw diagonals
-        svg += `<line x1="200" y1="30" x2="200" y2="370" stroke="#333" stroke-width="2"/>`;
-        svg += `<line x1="30" y1="200" x2="370" y2="200" stroke="#333" stroke-width="2"/>`;
-        svg += `<line x1="100" y1="100" x2="300" y2="300" stroke="#333" stroke-width="2"/>`;
-        svg += `<line x1="300" y1="100" x2="100" y2="300" stroke="#333" stroke-width="2"/>`;
-
-        // Draw house diamonds
-        const houseDiamond = (cx, cy, size, label, planets, sign, isLagna) => {
-            let points = [
-                [cx, cy - size],
-                [cx + size, cy],
-                [cx, cy + size],
-                [cx - size, cy]
-            ].map(p => p.join(',')).join(' ');
-            let lagnaMark = isLagna ? '<tspan x="'+cx+'" dy="1.2em" fill="red" font-weight="bold">लग्न</tspan>' : '';
-            let planetText = planets.map(getPlanetGlyph).join(' ');
-            return `
-                <polygon points="${points}" fill="#fff" stroke="#bbb" stroke-width="1"/>
-                <text x="${cx}" y="${cy - size + 18}" text-anchor="middle" font-size="13" fill="#888">${label}</text>
-                <text x="${cx}" y="${cy}" text-anchor="middle" font-size="16">${lagnaMark}${planetText}</text>
-                <text x="${cx}" y="${cy + size - 10}" text-anchor="middle" font-size="11" fill="#666">${sign}</text>
-            `;
-        };
-
-        // Place each house
-        for (let i = 0; i < houseOrder.length; i++) {
-            let h = houseOrder[i];
-            let [cx, cy] = houseMap[h];
-            let bh = bhavas[h];
-            let planets = (planetHouses[h] || []);
-            let isLagna = (h === lagnaHouse);
-            svg += houseDiamond(cx, cy, 45, h, planets, bh ? bh.sign : '', isLagna);
-        }
-        svg += `</svg>`;
-
-        // Add input summary above
-        let input = data.input;
-        let summary = `<div style='text-align:center; margin-bottom:1em;'><b>Date:</b> ${input.date} <b>Time:</b> ${input.time} <b>TZ:</b> ${input.tz}<br><b>Lat:</b> ${input.lat} <b>Lon:</b> ${input.lon}</div>`;
-        document.getElementById('kundli-diamond-container').innerHTML = summary + svg;
-        document.getElementById('kundli-json').textContent = JSON.stringify(data, null, 2);
-    }
-
-    document.getElementById('kundliForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const form = e.target;
-        const data = {
-            date: form.date.value,
-            time: form.time.value,
-            lat: form.lat.value,
-            lon: form.lon.value,
-            tz: form['tz-manual'].value // Always use the manual field
-        };
-        if (!data.lat || !data.lon) {
-            alert('Latitude and longitude are required.');
-            return;
-        }
-        if (!data.tz || isNaN(parseFloat(data.tz))) {
-            alert('Please enter a valid numeric timezone (e.g. 5.5 for IST).');
-            return;
-        }
-        document.getElementById('kundli-diamond-container').innerHTML = '<em>Generating kundli...</em>';
-        try {
-            const resp = await fetch('/api/kundli', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            const result = await resp.json();
-            if (result.error) {
-                document.getElementById('kundli-diamond-container').innerHTML = `<b>Error:</b> ${result.error}`;
-                return;
-            }
-            renderKundliDiamond(result);
-        } catch (err) {
-            document.getElementById('kundli-diamond-container').innerHTML = `<b>Error:</b> ${err}`;
-        }
-    });
-    </script>
 </body>
 </html> 
