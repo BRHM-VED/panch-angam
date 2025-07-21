@@ -102,6 +102,81 @@
 <link rel="stylesheet" href="styles.css">
 
 <script>
+let places = [];
+let usingCurrentLocation = false;
+
+function setLocationDisplay(name) {
+    document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
+}
+
+// Fetch places for autocomplete
+fetch('/get_places').then(r => r.json()).then(data => {
+    places = data.places;
+});
+
+const locationInput = document.getElementById('location-search');
+const autocompleteList = document.getElementById('autocomplete-list');
+
+locationInput.addEventListener('input', function() {
+    const val = this.value.trim().toLowerCase();
+    autocompleteList.innerHTML = '';
+    if (!val) return;
+    const matches = places.filter(p => p.name.toLowerCase().includes(val) || (p.sa_name && p.sa_name.toLowerCase().includes(val)));
+    matches.slice(0, 10).forEach(place => {
+        const div = document.createElement('div');
+        div.textContent = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
+        div.style.cursor = 'pointer';
+        div.onclick = function() {
+            document.getElementById('location').value = place.name;
+            document.getElementById('lat').value = place.lat;
+            document.getElementById('lon').value = place.lon;
+            document.getElementById('tz').value = '';
+            locationInput.value = div.textContent;
+            setLocationDisplay(div.textContent);
+            autocompleteList.innerHTML = '';
+            document.getElementById('tz-manual').value = place.TZFloat || '';
+        };
+        autocompleteList.appendChild(div);
+    });
+});
+
+document.addEventListener('click', function(e) {
+    if (e.target !== locationInput) autocompleteList.innerHTML = '';
+});
+
+document.getElementById('use-current-location').onclick = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            usingCurrentLocation = true;
+            document.getElementById('lat').value = position.coords.latitude;
+            document.getElementById('lon').value = position.coords.longitude;
+            document.getElementById('location').value = 'Current Location';
+            locationInput.value = 'Current Location';
+            setLocationDisplay('Current Location');
+            document.getElementById('tz-manual').value = 5.5; // Default to IST
+        }, function() {
+            alert('Could not get your location.');
+        });
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
+};
+
+// Set default to current location if available
+window.onload = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            usingCurrentLocation = true;
+            document.getElementById('lat').value = position.coords.latitude;
+            document.getElementById('lon').value = position.coords.longitude;
+            document.getElementById('location').value = 'Current Location';
+            locationInput.value = 'Current Location';
+            setLocationDisplay('Current Location');
+            document.getElementById('tz-manual').value = 5.5;
+        });
+    }
+};
+
 // House number to inner div class mapping
 const houseMap = {
   1: '.1-10',
