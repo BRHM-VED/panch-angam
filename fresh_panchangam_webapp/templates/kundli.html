@@ -181,35 +181,23 @@
             container.innerHTML = ''; // Clear previous chart
 
             if (!data || !data.lagna || data.lagna.sign_number === undefined) {
-                container.innerHTML = '<p style="color: red;">Error: Invalid data received. Lagna information is missing.</p>';
+                container.innerHTML = '<p style="color: red;">Error: Invalid data received from API.</p>';
                 return;
             }
 
             const lagnaSign = parseInt(data.lagna.sign_number, 10);
-            
             if (isNaN(lagnaSign)) {
-                container.innerHTML = `<p style="color: red;">Error: Invalid Lagna sign number: ${data.lagna.sign_number}</p>`;
+                container.innerHTML = '<p style="color: red;">Error: Lagna sign is not a valid number.</p>';
                 return;
             }
-
-            // Calculate the zodiac sign for each of the 12 houses
-            const signsInHouses = Array.from({ length: 12 }, (_, i) => ((lagnaSign - 1 + i) % 12) + 1);
-
-            // Group planets by the house they are in
-            const planetsInHouses = {};
-            for (let i = 1; i <= 12; i++) { planetsInHouses[i] = []; }
-            Object.keys(data.planets).forEach(planet => {
-                const planetData = data.planets[planet];
-                if (planetData && planetData.house) {
-                    planetsInHouses[planetData.house].push(planet);
-                }
-            });
-
-            // Create and place each house div
-            signsInHouses.forEach((sign, index) => {
-                const houseNumber = index + 1;
+            
+            // This maps the visual house positions (1-12) to the actual house numbers
+            const houseDisplayOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            
+            houseDisplayOrder.forEach((houseNumber, index) => {
+                const sign = ((lagnaSign - 1 + houseNumber - 1) % 12) + 1;
                 const houseDiv = document.createElement('div');
-                houseDiv.className = 'house house-' + houseNumber;
+                houseDiv.className = 'house house-' + (index + 1); // CSS classes are 1-12 for positioning
                 
                 const signDiv = document.createElement('div');
                 signDiv.className = 'sign-number';
@@ -219,24 +207,26 @@
                 const planetsDiv = document.createElement('div');
                 planetsDiv.className = 'planets';
                 
-                planetsInHouses[houseNumber].forEach(planet => {
-                    const planetSpan = document.createElement('span');
-                    planetSpan.textContent = getPlanetGlyph(planet);
-                    planetsDiv.appendChild(planetSpan);
+                // Add Lagna to the first house
+                if (houseNumber === 1) {
+                    const lagnaSpan = document.createElement('span');
+                    lagnaSpan.textContent = 'Lagna';
+                    lagnaSpan.style.color = 'red';
+                    planetsDiv.appendChild(lagnaSpan);
+                }
+
+                Object.keys(data.planets).forEach(planet => {
+                    // Backend needs to provide planet.house
+                    if (data.planets[planet].house === houseNumber) {
+                        const planetSpan = document.createElement('span');
+                        planetSpan.textContent = getPlanetGlyph(planet);
+                        planetsDiv.appendChild(planetSpan);
+                    }
                 });
 
                 houseDiv.appendChild(planetsDiv);
                 container.appendChild(houseDiv);
             });
-            
-            // Mark Lagna in the first house
-            const lagnaHouse = document.querySelector('.house-1 .planets');
-            if(lagnaHouse) {
-                const lagnaSpan = document.createElement('span');
-                lagnaSpan.textContent = 'Lagna';
-                lagnaSpan.style.color = 'red';
-                lagnaHouse.prepend(lagnaSpan); // Prepend to show it first
-            }
         }
 
         document.getElementById('kundliForm').addEventListener('submit', async function(e) {

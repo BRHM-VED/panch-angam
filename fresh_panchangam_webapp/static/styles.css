@@ -97,21 +97,23 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100px;
+    height: 80px;
 }
 
-/* Positioning for each house - adjust these values for perfect alignment */
-.house-1 { top: 180px; left: 250px; width: 100px; height: 100px; }
-.house-2 { top: 70px; left: 370px; width: 100px; height: 100px; }
-.house-3 { top: 10px; left: 250px; width: 100px; height: 100px; }
-.house-4 { top: 70px; left: 130px; width: 100px; height: 100px; }
-.house-5 { top: 180px; left: 10px; width: 100px; height: 100px; }
-.house-6 { top: 290px; left: 130px; width: 100px; height: 100px; }
-.house-7 { top: 350px; left: 250px; width: 100px; height: 100px; }
-.house-8 { top: 290px; left: 370px; width: 100px; height: 100px; }
-.house-9 { top: 180px; left: 490px; width: 100px; height: 100px; }
-.house-10 { top: 180px; left: 130px; width: 100px; height: 100px; }
-.house-11 { top: 290px; left: 250px; width: 100px; height: 100px; }
-.house-12 { top: 180px; left: 370px; width: 100px; height: 100px; }
+/* Positioning for each house */
+.house-1 { top: 188px; left: 251px; }
+.house-2 { top: 88px; left: 140px; }
+.house-3 { top: 188px; left: 30px; }
+.house-4 { top: 295px; left: 140px; }
+.house-5 { top: 75px; left: 20px; }
+.house-6 { top: 75px; left: 480px; }
+.house-7 { top: 188px; left: 470px; }
+.house-8 { top: 295px; left: 480px; }
+.house-9 { top: 295px; left: 20px; }
+.house-10 { top: 15px; left: 251px; }
+.house-11 { top: 88px; left: 365px; }
+.house-12 { top: 295px; left: 365px; }
 
 .house .sign-number {
     font-weight: bold;
