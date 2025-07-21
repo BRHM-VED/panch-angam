@@ -180,10 +180,33 @@
             const container = document.getElementById('kundli-container');
             container.innerHTML = ''; // Clear previous chart
 
-            const lagnaSign = data.lagna.sign_number;
-            const houses = Array.from({ length: 12 }, (_, i) => (lagnaSign + i - 1) % 12 + 1);
+            if (!data || !data.lagna || data.lagna.sign_number === undefined) {
+                container.innerHTML = '<p style="color: red;">Error: Invalid data received. Lagna information is missing.</p>';
+                return;
+            }
 
-            houses.forEach((sign, index) => {
+            const lagnaSign = parseInt(data.lagna.sign_number, 10);
+            
+            if (isNaN(lagnaSign)) {
+                container.innerHTML = `<p style="color: red;">Error: Invalid Lagna sign number: ${data.lagna.sign_number}</p>`;
+                return;
+            }
+
+            // Calculate the zodiac sign for each of the 12 houses
+            const signsInHouses = Array.from({ length: 12 }, (_, i) => ((lagnaSign - 1 + i) % 12) + 1);
+
+            // Group planets by the house they are in
+            const planetsInHouses = {};
+            for (let i = 1; i <= 12; i++) { planetsInHouses[i] = []; }
+            Object.keys(data.planets).forEach(planet => {
+                const planetData = data.planets[planet];
+                if (planetData && planetData.house) {
+                    planetsInHouses[planetData.house].push(planet);
+                }
+            });
+
+            // Create and place each house div
+            signsInHouses.forEach((sign, index) => {
                 const houseNumber = index + 1;
                 const houseDiv = document.createElement('div');
                 houseDiv.className = 'house house-' + houseNumber;
@@ -196,25 +219,23 @@
                 const planetsDiv = document.createElement('div');
                 planetsDiv.className = 'planets';
                 
-                Object.keys(data.planets).forEach(planet => {
-                    if (data.planets[planet].house === houseNumber) {
-                        const planetSpan = document.createElement('span');
-                        planetSpan.textContent = getPlanetGlyph(planet);
-                        planetsDiv.appendChild(planetSpan);
-                    }
+                planetsInHouses[houseNumber].forEach(planet => {
+                    const planetSpan = document.createElement('span');
+                    planetSpan.textContent = getPlanetGlyph(planet);
+                    planetsDiv.appendChild(planetSpan);
                 });
 
                 houseDiv.appendChild(planetsDiv);
                 container.appendChild(houseDiv);
             });
             
-            // Mark Lagna
-            const lagnaHouse = document.querySelector('.house-1');
+            // Mark Lagna in the first house
+            const lagnaHouse = document.querySelector('.house-1 .planets');
             if(lagnaHouse) {
                 const lagnaSpan = document.createElement('span');
                 lagnaSpan.textContent = 'Lagna';
                 lagnaSpan.style.color = 'red';
-                lagnaHouse.querySelector('.planets').appendChild(lagnaSpan);
+                lagnaHouse.prepend(lagnaSpan); // Prepend to show it first
             }
         }
 
