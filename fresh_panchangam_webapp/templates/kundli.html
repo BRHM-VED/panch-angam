@@ -83,6 +83,7 @@
         <button type="submit">Generate Kundli</button>
     </form>
     <div id="kundli-diamond-container"></div>
+    <pre id="kundli-json" style="max-width: 700px; margin: 2em auto; background: #f9f9f9; padding: 1em; border-radius: 8px;"></pre>
     <div id="kundli-chart" style="display:none;"></div>
     <div id="result" style="display:none;"></div>
     <script>
@@ -247,6 +248,7 @@
         let input = data.input;
         let summary = `<div style='text-align:center; margin-bottom:1em;'><b>Date:</b> ${input.date} <b>Time:</b> ${input.time} <b>TZ:</b> ${input.tz}<br><b>Lat:</b> ${input.lat} <b>Lon:</b> ${input.lon}</div>`;
         document.getElementById('kundli-diamond-container').innerHTML = summary + svg;
+        document.getElementById('kundli-json').textContent = JSON.stringify(data, null, 2);
     }
 
     document.getElementById('kundliForm').addEventListener('submit', async function(e) {
