@@ -239,7 +239,8 @@ def generate_kundli():
     lagna_sign = int(ascmc[0] / 30)
     lagna = {
         'deg': lagna_deg,
-        'sign': rashi_names[lagna_sign]
+        'sign': rashi_names[lagna_sign],
+        'sign_number': lagna_sign + 1
     }
     bhavas = []
     for i in range(1, len(cusps)):
