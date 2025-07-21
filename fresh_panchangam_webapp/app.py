@@ -177,11 +177,12 @@ def api_docs():
 
 @app.route('/kundli', methods=['GET'])
 def kundli_page():
-    return render_template('kundli_new.html')
+    return render_template('kundli.html')
 
 @app.route('/kundli_new', methods=['GET'])
 def kundli_new_page():
-    return render_template('kundli_new.html')
+    # This can be removed later, but for now, it points back to the old page too
+    return render_template('kundli.html')
 
 @app.route('/api/kundli', methods=['POST'])
 def generate_kundli():

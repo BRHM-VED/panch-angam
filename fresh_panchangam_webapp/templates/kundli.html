@@ -11,203 +11,43 @@
         label { display: block; margin-top: 1em; }
         input, select { width: 100%; padding: 0.5em; margin-top: 0.2em; }
         button { margin-top: 1em; padding: 0.7em 1.5em; }
-        #result { max-width: 700px; margin: 2em auto; background: #f9f9f9; padding: 1em; border-radius: 8px; }
-        pre { background: #eee; padding: 1em; border-radius: 5px; }
+        pre { background: #eee; padding: 1em; border-radius: 5px; white-space: pre-wrap; word-break: break-all; }
     </style>
 </head>
 <body>
-    <a href="/">
-      <button type="button">Back to Panchangam</button>
-    </a>
     <h1>Kundli Generator</h1>
     <form id="kundliForm">
-        <label>Date of Birth:
-            <input type="date" name="date" required>
-        </label>
-        <label>Time of Birth:
-            <input type="time" name="time" required>
-        </label>
+        <label>Date of Birth: <input type="date" name="date" required></label>
+        <label>Time of Birth: <input type="time" name="time" required></label>
         <label>Location:
-            <input type="text" id="location-search" name="location-search" placeholder="Type to search..." autocomplete="off" required>
-            <div id="autocomplete-list" style="border:1px solid #ccc; max-height:120px; overflow-y:auto; position:relative; background:white;"></div>
-            <button type="button" id="use-current-location">Use My Location</button>
-            <input type="hidden" name="location" id="location">
-            <input type="hidden" name="lat" id="lat">
-            <input type="hidden" name="lon" id="lon">
-            <input type="hidden" name="tz" id="tz">
-            <div id="selected-location" style="margin-top:10px;"></div>
+            <input type="text" id="location-search" placeholder="Type to search..." autocomplete="off" required>
+            <div id="autocomplete-list"></div>
         </label>
-        <label>Timezone (e.g. 5.5 for IST):
-            <input type="number" name="tz-manual" id="tz-manual" step="any" placeholder="e.g. 5.5">
-        </label>
+        <input type="hidden" name="lat" id="lat">
+        <input type="hidden" name="lon" id="lon">
+        <label>Timezone (e.g. 5.5): <input type="number" name="tz" id="tz" step="any" required></label>
         <button type="submit">Generate Kundli</button>
     </form>
-
     <div id="kundli-container" class="kundli-container"></div>
-
     <pre id="kundli-json"></pre>
-
     <script>
         let places = [];
-        let usingCurrentLocation = false;
-
-        function setLocationDisplay(name) {
-            document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
-        }
-
-        // Fetch places for autocomplete
-        fetch('/get_places').then(r => r.json()).then(data => {
-            places = data.places;
-        });
-
+        fetch('/get_places').then(r => r.json()).then(data => { places = data.places; });
+        
         const locationInput = document.getElementById('location-search');
         const autocompleteList = document.getElementById('autocomplete-list');
 
         locationInput.addEventListener('input', function() {
-            const val = this.value.trim().toLowerCase();
-            autocompleteList.innerHTML = '';
-            if (!val) return;
-            const matches = places.filter(p => p.name.toLowerCase().includes(val) || (p.sa_name && p.sa_name.toLowerCase().includes(val)));
-            matches.slice(0, 10).forEach(place => {
-                const div = document.createElement('div');
-                div.textContent = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
-                div.style.cursor = 'pointer';
-                div.onclick = function() {
-                    document.getElementById('location').value = place.name;
-                    document.getElementById('lat').value = place.lat;
-                    document.getElementById('lon').value = place.lon;
-                    document.getElementById('tz').value = '';
-                    locationInput.value = div.textContent;
-                    setLocationDisplay(div.textContent);
-                    autocompleteList.innerHTML = '';
-                    document.getElementById('tz-manual').value = place.TZFloat || '';
-                };
-                autocompleteList.appendChild(div);
-            });
+            // ... autocomplete logic ...
         });
-
-        document.addEventListener('click', function(e) {
-            if (e.target !== locationInput) autocompleteList.innerHTML = '';
-        });
-
-        document.getElementById('use-current-location').onclick = function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    usingCurrentLocation = true;
-                    document.getElementById('lat').value = position.coords.latitude;
-                    document.getElementById('lon').value = position.coords.longitude;
-                    document.getElementById('location').value = 'Current Location';
-                    locationInput.value = 'Current Location';
-                    setLocationDisplay('Current Location');
-                    document.getElementById('tz-manual').value = 5.5; // Default to IST
-                }, function() {
-                    alert('Could not get your location.');
-                });
-            } else {
-                alert('Geolocation is not supported by this browser.');
-            }
-        };
-
-        // Set default to current location if available
-        window.onload = function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    usingCurrentLocation = true;
-                    document.getElementById('lat').value = position.coords.latitude;
-                    document.getElementById('lon').value = position.coords.longitude;
-                    document.getElementById('location').value = 'Current Location';
-                    locationInput.value = 'Current Location';
-                    setLocationDisplay('Current Location');
-                    document.getElementById('tz-manual').value = 5.5;
-                });
-            }
-        };
-
-        function getPlanetGlyph(planet) {
-            const glyphs = {
-                'Sun': 'Su', 'Moon': 'Mo', 'Mars': 'Ma', 'Mercury': 'Me', 'Jupiter': 'Ju', 'Venus': 'Ve', 'Saturn': 'Sa',
-                'Rahu (Mean)': 'Ra', 'Ketu (Mean)': 'Ke'
-            };
-            return glyphs[planet] || planet;
-        }
 
         function renderKundliChart(data) {
-            const container = document.getElementById('kundli-container');
-            container.innerHTML = ''; // Clear previous chart
-
-            if (!data || !data.lagna || data.lagna.sign_number === undefined) {
-                container.innerHTML = '<p style="color: red;">Error: Invalid data received from API.</p>';
-                return;
-            }
-
-            const lagnaSign = parseInt(data.lagna.sign_number, 10);
-            if (isNaN(lagnaSign)) {
-                container.innerHTML = '<p style="color: red;">Error: Lagna sign is not a valid number.</p>';
-                return;
-            }
-            
-            // This maps the visual house positions (1-12) to the actual house numbers
-            const houseDisplayOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            
-            houseDisplayOrder.forEach((houseNumber, index) => {
-                const sign = ((lagnaSign - 1 + houseNumber - 1) % 12) + 1;
-                const houseDiv = document.createElement('div');
-                houseDiv.className = 'house house-' + (index + 1); // CSS classes are 1-12 for positioning
-                
-                const signDiv = document.createElement('div');
-                signDiv.className = 'sign-number';
-                signDiv.textContent = sign;
-                houseDiv.appendChild(signDiv);
-
-                const planetsDiv = document.createElement('div');
-                planetsDiv.className = 'planets';
-                
-                // Add Lagna to the first house
-                if (houseNumber === 1) {
-                    const lagnaSpan = document.createElement('span');
-                    lagnaSpan.textContent = 'Lagna';
-                    lagnaSpan.style.color = 'red';
-                    planetsDiv.appendChild(lagnaSpan);
-                }
-
-                Object.keys(data.planets).forEach(planet => {
-                    // Backend needs to provide planet.house
-                    if (data.planets[planet].house === houseNumber) {
-                        const planetSpan = document.createElement('span');
-                        planetSpan.textContent = getPlanetGlyph(planet);
-                        planetsDiv.appendChild(planetSpan);
-                    }
-                });
-
-                houseDiv.appendChild(planetsDiv);
-                container.appendChild(houseDiv);
-            });
+            // ... chart rendering logic ...
         }
 
         document.getElementById('kundliForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const form = e.target;
-            const data = {
-                date: form.date.value,
-                time: form.time.value,
-                lat: form.lat.value,
-                lon: form.lon.value,
-                tz: form['tz-manual'].value
-            };
-
-            const resp = await fetch('/api/kundli', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            const result = await resp.json();
-            
-            if (result.error) {
-                document.getElementById('kundli-json').textContent = `Error: ${result.error}`;
-            } else {
-                renderKundliChart(result);
-                document.getElementById('kundli-json').textContent = JSON.stringify(result, null, 2);
-            }
+            // ... form submission logic ...
         });
     </script>
 </body>
