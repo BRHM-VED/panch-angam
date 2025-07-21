@@ -179,6 +179,10 @@ def api_docs():
 def kundli_page():
     return render_template('kundli.html')
 
+@app.route('/kundli_new', methods=['GET'])
+def kundli_new_page():
+    return render_template('kundli_new.html')
+
 @app.route('/api/kundli', methods=['POST'])
 def generate_kundli():
     data = request.json
@@ -236,23 +240,35 @@ def generate_kundli():
     # Lagna and Bhavas
     cusps, ascmc = swe.houses_ex(jd_ut, lat, lon, b'A', flags=swe.FLG_SIDEREAL)
     lagna_deg = ascmc[0] % 30
-    lagna_sign = int(ascmc[0] / 30)
+    lagna_sign_index = int(ascmc[0] / 30)
     lagna = {
         'deg': lagna_deg,
-        'sign': rashi_names[lagna_sign],
-        'sign_number': lagna_sign + 1
+        'sign': rashi_names[lagna_sign_index],
+        'sign_number': lagna_sign_index + 1
     }
+
+    # Assign house to each planet
+    for planet in planet_positions:
+        planet_pos_deg = swe.calc_ut(jd_ut, planets.get(planet, swe.AST_OFFSET + planet_positions[planet].get('code', 0)), flags=swe.FLG_SIDEREAL)[0][0]
+        planet_sign_index = int(planet_pos_deg / 30)
+        house = (planet_sign_index - lagna_sign_index + 12) % 12 + 1
+        planet_positions[planet]['house'] = house
+
+    # Also assign house for Ketu
+    ketu_pos_deg = (swe.calc_ut(jd_ut, swe.MEAN_NODE, flags=swe.FLG_SIDEREAL)[0][0] + 180) % 360
+    ketu_sign_index = int(ketu_pos_deg / 30)
+    ketu_house = (ketu_sign_index - lagna_sign_index + 12) % 12 + 1
+    planet_positions['Ketu (Mean)']['house'] = ketu_house
+
     bhavas = []
-    for i in range(1, len(cusps)):
-        cusp = cusps[i]
-        bhava_start = (cusp - 15) % 360
-        bhava_sign = int(bhava_start / 30)
-        bhava_deg = bhava_start % 30
+    for i in range(1, 13): # Ensure 12 bhavas
+        # For simplicity, we can just list the signs in each house
+        bhava_sign_index = (lagna_sign_index + i - 1) % 12
         bhavas.append({
             'house': i,
-            'deg': bhava_deg,
-            'sign': rashi_names[bhava_sign]
+            'sign': rashi_names[bhava_sign_index]
         })
+
     return jsonify({
         'input': {
             'date': date_str,
