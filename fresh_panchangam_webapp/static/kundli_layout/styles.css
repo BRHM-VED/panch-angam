@@ -1,3 +1,12 @@
+:root {
+  --font-family-inter: 'Inter', sans-serif;
+  --text-black: rgba(0, 0, 0, 1);
+}
+
+.text-black {
+  color: var(--text-black);
+}
+
 .kundli-layout {
   background-color: transparent;
   display: flex;

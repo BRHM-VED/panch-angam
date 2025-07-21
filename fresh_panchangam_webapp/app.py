@@ -177,7 +177,7 @@ def api_docs():
 
 @app.route('/kundli', methods=['GET'])
 def kundli_page():
-    return render_template('kundli.html')
+    return render_template('kundli_new.html')
 
 @app.route('/kundli_new', methods=['GET'])
 def kundli_new_page():
@@ -212,7 +212,11 @@ def generate_kundli():
         return ((sign - 1) * 9 + segment) % 12 + 1
 
     jd_ut = swe.julday(dob.year, dob.month, dob.day, dob.hour + dob.minute/60 - tz)
-    swe.set_ephe_path('.')
+    
+    # Set the ephemeris path correctly
+    ephe_path = os.path.join(os.path.dirname(__file__), '..', 'jyotisha', 'panchaanga', 'temporal', 'data')
+    swe.set_ephe_path(ephe_path)
+    
     swe.set_sid_mode(swe.SIDM_LAHIRI)
 
     planet_positions = {}
