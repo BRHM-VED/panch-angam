@@ -214,9 +214,8 @@ def generate_kundli():
 
     jd_ut = swe.julday(dob.year, dob.month, dob.day, dob.hour + dob.minute/60 - tz)
     
-    # Set the ephemeris path correctly
-    ephe_path = os.path.join(os.path.dirname(__file__), '..', 'jyotisha', 'panchaanga', 'temporal', 'data')
-    swe.set_ephe_path(ephe_path)
+    # Set the ephemeris path correctly for deployment
+    swe.set_ephe_path('../jyotisha/panchaanga/temporal/data')
     
     swe.set_sid_mode(swe.SIDM_LAHIRI)
 
