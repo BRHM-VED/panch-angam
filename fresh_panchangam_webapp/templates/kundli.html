@@ -228,6 +228,43 @@ function fillKundliHouses(kundliData) {
 // Example: after receiving kundliData from backend
 // fillKundliHouses(kundliData);
 // You should call this after the API response is received.
+
+document.getElementById('kundliForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+        date: form.date.value,
+        time: form.time.value,
+        lat: form.lat.value,
+        lon: form.lon.value,
+        tz: form['tz-manual'].value // Always use the manual field
+    };
+    if (!data.lat || !data.lon) {
+        alert('Latitude and longitude are required.');
+        return;
+    }
+    if (!data.tz || isNaN(parseFloat(data.tz))) {
+        alert('Please enter a valid numeric timezone (e.g. 5.5 for IST).');
+        return;
+    }
+    document.getElementById('kundli-json').textContent = '';
+    try {
+        const resp = await fetch('/api/kundli', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        const result = await resp.json();
+        if (result.error) {
+            document.getElementById('kundli-json').textContent = `Error: ${result.error}`;
+            return;
+        }
+        fillKundliHouses(result);
+        document.getElementById('kundli-json').textContent = JSON.stringify(result, null, 2);
+    } catch (err) {
+        document.getElementById('kundli-json').textContent = `Error: ${err}`;
+    }
+});
 </script>
 
 <!-- Optionally, show JSON for debugging -->
