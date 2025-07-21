@@ -38,16 +38,48 @@
         const autocompleteList = document.getElementById('autocomplete-list');
 
         locationInput.addEventListener('input', function() {
-            // ... autocomplete logic ...
+            const val = this.value.trim().toLowerCase();
+            autocompleteList.innerHTML = '';
+            if (!val) return;
+            const matches = places.filter(p => p.name.toLowerCase().includes(val));
+            matches.slice(0, 10).forEach(place => {
+                const div = document.createElement('div');
+                div.textContent = place.name;
+                div.style.cursor = 'pointer';
+                div.onclick = () => {
+                    locationInput.value = place.name;
+                    document.getElementById('lat').value = place.lat;
+                    document.getElementById('lon').value = place.lon;
+                    document.getElementById('tz').value = place.TZFloat || 5.5;
+                    autocompleteList.innerHTML = '';
+                };
+                autocompleteList.appendChild(div);
+            });
         });
 
         function renderKundliChart(data) {
-            // ... chart rendering logic ...
+            const container = document.getElementById('kundli-container');
+            container.innerHTML = '<h2>Kundli Chart</h2><p>(Chart rendering logic goes here)</p>';
+            // You can add back your original chart rendering logic here if you have it
         }
 
         document.getElementById('kundliForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            // ... form submission logic ...
+            const form = e.target;
+            const body = {
+                date: form.date.value, time: form.time.value,
+                lat: form.lat.value, lon: form.lon.value, tz: form.tz.value
+            };
+            const resp = await fetch('/api/kundli', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            const result = await resp.json();
+            document.getElementById('kundli-json').textContent = JSON.stringify(result, null, 2);
+            if (!result.error) {
+                renderKundliChart(result);
+            }
         });
     </script>
 </body>
