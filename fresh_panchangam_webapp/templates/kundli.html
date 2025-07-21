@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Kundli Generator</title>
+    <link rel="stylesheet" href="/static/styles.css">
     <style>
         body { font-family: Arial, sans-serif; margin: 2em; }
         h1 { text-align: center; }
@@ -11,53 +12,7 @@
         input, select { width: 100%; padding: 0.5em; margin-top: 0.2em; }
         button { margin-top: 1em; padding: 0.7em 1.5em; }
         #result { max-width: 700px; margin: 2em auto; background: #f9f9f9; padding: 1em; border-radius: 8px; }
-        .section { margin-bottom: 1.5em; }
-        .section h2 { margin-bottom: 0.5em; }
         pre { background: #eee; padding: 1em; border-radius: 5px; }
-        .kundli-diamond {
-            width: 400px;
-            height: 400px;
-            margin: 2em auto;
-            position: relative;
-            background: #fffbe7;
-            border: 2px solid #333;
-        }
-        .kundli-house {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            text-align: center;
-            font-size: 1.1em;
-            background: rgba(255,255,255,0.85);
-            border-radius: 8px;
-            box-sizing: border-box;
-            padding-top: 18px;
-        }
-        .kundli-house .house-num {
-            position: absolute;
-            top: 2px;
-            right: 6px;
-            font-size: 0.9em;
-            color: #888;
-        }
-        .kundli-house .lagna {
-            color: red;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .kundli-house .planets {
-            margin-top: 2px;
-        }
-        .kundli-house .sign {
-            font-size: 0.85em;
-            color: #666;
-            margin-top: 2px;
-
-
-
-
-        }
-        
     </style>
 </head>
 <body>
