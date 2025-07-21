@@ -179,18 +179,18 @@ window.onload = function() {
 
 // House number to inner div class mapping
 const houseMap = {
-  1: '.1-10',
-  2: '.2-31',
-  3: '.3-65',
-  4: '.4-3',
-  5: '.5-85',
-  6: '.6-51',
-  7: '.7-17',
-  8: '.8-58',
-  9: '.9-95',
-  10: '.10-24',
-  11: '.11-75',
-  12: '.12-41'
+  1: '1-10',
+  2: '2-31',
+  3: '3-65',
+  4: '4-3',
+  5: '5-85',
+  6: '6-51',
+  7: '7-17',
+  8: '8-58',
+  9: '9-95',
+  10: '10-24',
+  11: '11-75',
+  12: '12-41'
 };
 
 // Optional: planet glyphs/Devanagari
@@ -206,22 +206,25 @@ function getPlanetGlyph(planet) {
 // Fill houses with planets from kundliData
 function fillKundliHouses(kundliData) {
   for (let houseNum = 1; houseNum <= 12; houseNum++) {
-    const selector = houseMap[houseNum];
-    const div = document.querySelector(selector);
-    div.innerHTML = '';
-    // Add Lagna if this is the Lagna house
-    if (kundliData.lagna && kundliData.lagna.house === houseNum) {
-      const lagnaP = document.createElement('p');
-      lagnaP.textContent = 'लग्न';
-      lagnaP.style.fontWeight = 'bold';
-      div.appendChild(lagnaP);
+    const className = houseMap[houseNum];
+    const elements = document.getElementsByClassName(className);
+    if (elements.length > 0) {
+        const div = elements[0];
+        div.innerHTML = '';
+        // Add Lagna if this is the Lagna house
+        if (kundliData.lagna && kundliData.lagna.house === houseNum) {
+          const lagnaP = document.createElement('p');
+          lagnaP.textContent = 'लग्न';
+          lagnaP.style.fontWeight = 'bold';
+          div.appendChild(lagnaP);
+        }
+        // Add planets
+        (kundliData.houses && kundliData.houses[houseNum] || []).forEach(planet => {
+          const p = document.createElement('p');
+          p.textContent = getPlanetGlyph(planet);
+          div.appendChild(p);
+        });
     }
-    // Add planets
-    (kundliData.houses && kundliData.houses[houseNum] || []).forEach(planet => {
-      const p = document.createElement('p');
-      p.textContent = getPlanetGlyph(planet);
-      div.appendChild(p);
-    });
   }
 }
 
