@@ -57,86 +57,7 @@
 
 
         }
-
-        /* North Indian Chart Layout using Grid */
-        :root {
-  --font-family-inter: 'Inter', sans-serif;
-  --text-black: rgba(0, 0, 0, 1);
-}
-
-.text-black {
-  color: var(--text-black);
-}
-
-/* CSS Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.frame-8-1 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    width: 600px;
-    height: 600px;
-    margin: 2em auto;
-    border: 2px solid black;
-    background-color: #f0f0f0;
-}
-
-.frame-8-1 > div {
-    border: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    text-align: center;
-}
-
-/* North Indian Chart Layout using Grid */
-.c-1 { grid-area: 1 / 2 / span 2 / span 2; }
-.c-2 { grid-area: 1 / 1 / span 2 / span 1; }
-.c-3 { grid-area: 1 / 4 / span 2 / span 1; }
-.c-4 { grid-area: 2 / 3 / span 2 / span 2; }
-.c-5 { grid-area: 3 / 4 / span 2 / span 1; }
-.c-6 { grid-area: 4 / 3 / span 1 / span 2; }
-.c-7 { grid-area: 3 / 1 / span 2 / span 2; }
-.c-8 { grid-area: 4 / 1 / span 1 / span 1; }
-.c-9 { grid-area: 3 / 2 / span 1 / span 2; }
-.c-10 { grid-area: 2 / 2 / span 1 / span 1; }
-.c-11 { grid-area: 2 / 3 / span 1 / span 1; }
-.c-12 { grid-area: 3 / 3 / span 1 / span 1; }
-
-.inner-div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.inner-div p {
-    font-family: var(--font-family-inter);
-    font-weight: 500;
-    font-size: 14px;
-} 
+        
     </style>
 </head>
 <body>
@@ -166,196 +87,162 @@ img {
         </label>
         <button type="submit">Generate Kundli</button>
     </form>
-    <!-- Kundli Chart Section (Figma Autolayout) -->
-<div class="frame-8-1" id="kundli-chart">
-  <div class="4-2"><div class="4-3"></div></div>
-  <div class="1-9"><div class="1-10"></div></div>
-  <div class="7-16"><div class="7-17"></div></div>
-  <div class="10-23"><div class="10-24"></div></div>
-  <div class="2-30"><div class="2-31"></div></div>
-  <div class="12-40"><div class="12-41"></div></div>
-  <div class="6-50"><div class="6-51"></div></div>
-  <div class="8-57"><div class="8-58"></div></div>
-  <div class="3-64"><div class="3-65"></div></div>
-  <div class="11-74"><div class="11-75"></div></div>
-  <div class="5-84"><div class="5-85"></div></div>
-  <div class="9-94"><div class="9-95"></div></div>
-</div>
 
-<!-- Add your Figma-exported CSS here or in a linked file -->
-<link rel="stylesheet" href="/static/styles.css">
+    <div id="kundli-container" class="kundli-container"></div>
 
-<script>
-let places = [];
-let usingCurrentLocation = false;
+    <pre id="kundli-json"></pre>
 
-function setLocationDisplay(name) {
-    document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
-}
+    <script>
+        let places = [];
+        let usingCurrentLocation = false;
 
-// Fetch places for autocomplete
-fetch('/get_places').then(r => r.json()).then(data => {
-    places = data.places;
-});
+        function setLocationDisplay(name) {
+            document.getElementById('selected-location').innerText = name ? `Selected location: ${name}` : '';
+        }
 
-const locationInput = document.getElementById('location-search');
-const autocompleteList = document.getElementById('autocomplete-list');
+        // Fetch places for autocomplete
+        fetch('/get_places').then(r => r.json()).then(data => {
+            places = data.places;
+        });
 
-locationInput.addEventListener('input', function() {
-    const val = this.value.trim().toLowerCase();
-    autocompleteList.innerHTML = '';
-    if (!val) return;
-    const matches = places.filter(p => p.name.toLowerCase().includes(val) || (p.sa_name && p.sa_name.toLowerCase().includes(val)));
-    matches.slice(0, 10).forEach(place => {
-        const div = document.createElement('div');
-        div.textContent = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
-        div.style.cursor = 'pointer';
-        div.onclick = function() {
-            document.getElementById('location').value = place.name;
-            document.getElementById('lat').value = place.lat;
-            document.getElementById('lon').value = place.lon;
-            document.getElementById('tz').value = '';
-            locationInput.value = div.textContent;
-            setLocationDisplay(div.textContent);
+        const locationInput = document.getElementById('location-search');
+        const autocompleteList = document.getElementById('autocomplete-list');
+
+        locationInput.addEventListener('input', function() {
+            const val = this.value.trim().toLowerCase();
             autocompleteList.innerHTML = '';
-            document.getElementById('tz-manual').value = place.TZFloat || '';
+            if (!val) return;
+            const matches = places.filter(p => p.name.toLowerCase().includes(val) || (p.sa_name && p.sa_name.toLowerCase().includes(val)));
+            matches.slice(0, 10).forEach(place => {
+                const div = document.createElement('div');
+                div.textContent = place.sa_name ? `${place.name} (${place.sa_name})` : place.name;
+                div.style.cursor = 'pointer';
+                div.onclick = function() {
+                    document.getElementById('location').value = place.name;
+                    document.getElementById('lat').value = place.lat;
+                    document.getElementById('lon').value = place.lon;
+                    document.getElementById('tz').value = '';
+                    locationInput.value = div.textContent;
+                    setLocationDisplay(div.textContent);
+                    autocompleteList.innerHTML = '';
+                    document.getElementById('tz-manual').value = place.TZFloat || '';
+                };
+                autocompleteList.appendChild(div);
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target !== locationInput) autocompleteList.innerHTML = '';
+        });
+
+        document.getElementById('use-current-location').onclick = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    usingCurrentLocation = true;
+                    document.getElementById('lat').value = position.coords.latitude;
+                    document.getElementById('lon').value = position.coords.longitude;
+                    document.getElementById('location').value = 'Current Location';
+                    locationInput.value = 'Current Location';
+                    setLocationDisplay('Current Location');
+                    document.getElementById('tz-manual').value = 5.5; // Default to IST
+                }, function() {
+                    alert('Could not get your location.');
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
         };
-        autocompleteList.appendChild(div);
-    });
-});
 
-document.addEventListener('click', function(e) {
-    if (e.target !== locationInput) autocompleteList.innerHTML = '';
-});
+        // Set default to current location if available
+        window.onload = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    usingCurrentLocation = true;
+                    document.getElementById('lat').value = position.coords.latitude;
+                    document.getElementById('lon').value = position.coords.longitude;
+                    document.getElementById('location').value = 'Current Location';
+                    locationInput.value = 'Current Location';
+                    setLocationDisplay('Current Location');
+                    document.getElementById('tz-manual').value = 5.5;
+                });
+            }
+        };
 
-document.getElementById('use-current-location').onclick = function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            usingCurrentLocation = true;
-            document.getElementById('lat').value = position.coords.latitude;
-            document.getElementById('lon').value = position.coords.longitude;
-            document.getElementById('location').value = 'Current Location';
-            locationInput.value = 'Current Location';
-            setLocationDisplay('Current Location');
-            document.getElementById('tz-manual').value = 5.5; // Default to IST
-        }, function() {
-            alert('Could not get your location.');
-        });
-    } else {
-        alert('Geolocation is not supported by this browser.');
-    }
-};
-
-// Set default to current location if available
-window.onload = function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            usingCurrentLocation = true;
-            document.getElementById('lat').value = position.coords.latitude;
-            document.getElementById('lon').value = position.coords.longitude;
-            document.getElementById('location').value = 'Current Location';
-            locationInput.value = 'Current Location';
-            setLocationDisplay('Current Location');
-            document.getElementById('tz-manual').value = 5.5;
-        });
-    }
-};
-
-// House number to inner div class mapping
-const houseMap = {
-  1: '1-10',
-  2: '2-31',
-  3: '3-65',
-  4: '4-3',
-  5: '5-85',
-  6: '6-51',
-  7: '7-17',
-  8: '8-58',
-  9: '9-95',
-  10: '10-24',
-  11: '11-75',
-  12: '12-41'
-};
-
-// Optional: planet glyphs/Devanagari
-function getPlanetGlyph(planet) {
-  const glyphs = {
-    'Sun': '☉ सूर्य', 'Moon': '☽ चन्द्र', 'Mars': '♂ मंगल', 'Mercury': '☿ बुध',
-    'Jupiter': '♃ गुरु', 'Venus': '♀ शुक्र', 'Saturn': '♄ शनि',
-    'Rahu (Mean)': '☊ राहु', 'Ketu (Mean)': '☋ केतु'
-  };
-  return glyphs[planet] || planet;
-}
-
-// Fill houses with planets from kundliData
-function fillKundliHouses(kundliData) {
-  for (let houseNum = 1; houseNum <= 12; houseNum++) {
-    const className = houseMap[houseNum];
-    const elements = document.getElementsByClassName(className);
-    if (elements.length > 0) {
-        const div = elements[0];
-        div.innerHTML = '';
-        // Add Lagna if this is the Lagna house
-        if (kundliData.lagna && kundliData.lagna.house === houseNum) {
-          const lagnaP = document.createElement('p');
-          lagnaP.textContent = 'लग्न';
-          lagnaP.style.fontWeight = 'bold';
-          div.appendChild(lagnaP);
+        function getPlanetGlyph(planet) {
+            const glyphs = {
+                'Sun': 'Su', 'Moon': 'Mo', 'Mars': 'Ma', 'Mercury': 'Me', 'Jupiter': 'Ju', 'Venus': 'Ve', 'Saturn': 'Sa',
+                'Rahu (Mean)': 'Ra', 'Ketu (Mean)': 'Ke'
+            };
+            return glyphs[planet] || planet;
         }
-        // Add planets
-        (kundliData.houses && kundliData.houses[houseNum] || []).forEach(planet => {
-          const p = document.createElement('p');
-          p.textContent = getPlanetGlyph(planet);
-          div.appendChild(p);
-        });
-    }
-  }
-}
 
-// Example: after receiving kundliData from backend
-// fillKundliHouses(kundliData);
-// You should call this after the API response is received.
+        function renderKundliChart(data) {
+            const container = document.getElementById('kundli-container');
+            container.innerHTML = ''; // Clear previous chart
 
-document.getElementById('kundliForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = {
-        date: form.date.value,
-        time: form.time.value,
-        lat: form.lat.value,
-        lon: form.lon.value,
-        tz: form['tz-manual'].value // Always use the manual field
-    };
-    if (!data.lat || !data.lon) {
-        alert('Latitude and longitude are required.');
-        return;
-    }
-    if (!data.tz || isNaN(parseFloat(data.tz))) {
-        alert('Please enter a valid numeric timezone (e.g. 5.5 for IST).');
-        return;
-    }
-    document.getElementById('kundli-json').textContent = '';
-    try {
-        const resp = await fetch('/api/kundli', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        const result = await resp.json();
-        if (result.error) {
-            document.getElementById('kundli-json').textContent = `Error: ${result.error}`;
-            return;
+            const lagnaSign = data.lagna.sign_number;
+            const houses = Array.from({ length: 12 }, (_, i) => (lagnaSign + i - 1) % 12 + 1);
+
+            houses.forEach((sign, index) => {
+                const houseNumber = index + 1;
+                const houseDiv = document.createElement('div');
+                houseDiv.className = 'house house-' + houseNumber;
+                
+                const signDiv = document.createElement('div');
+                signDiv.className = 'sign-number';
+                signDiv.textContent = sign;
+                houseDiv.appendChild(signDiv);
+
+                const planetsDiv = document.createElement('div');
+                planetsDiv.className = 'planets';
+                
+                Object.keys(data.planets).forEach(planet => {
+                    if (data.planets[planet].house === houseNumber) {
+                        const planetSpan = document.createElement('span');
+                        planetSpan.textContent = getPlanetGlyph(planet);
+                        planetsDiv.appendChild(planetSpan);
+                    }
+                });
+
+                houseDiv.appendChild(planetsDiv);
+                container.appendChild(houseDiv);
+            });
+            
+            // Mark Lagna
+            const lagnaHouse = document.querySelector('.house-1');
+            if(lagnaHouse) {
+                const lagnaSpan = document.createElement('span');
+                lagnaSpan.textContent = 'Lagna';
+                lagnaSpan.style.color = 'red';
+                lagnaHouse.querySelector('.planets').appendChild(lagnaSpan);
+            }
         }
-        fillKundliHouses(result);
-        document.getElementById('kundli-json').textContent = JSON.stringify(result, null, 2);
-    } catch (err) {
-        document.getElementById('kundli-json').textContent = `Error: ${err}`;
-    }
-});
-</script>
 
-<!-- Optionally, show JSON for debugging -->
-<pre id="kundli-json" style="max-width: 700px; margin: 2em auto; background: #f9f9f9; padding: 1em; border-radius: 8px;"></pre>
+        document.getElementById('kundliForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = {
+                date: form.date.value,
+                time: form.time.value,
+                lat: form.lat.value,
+                lon: form.lon.value,
+                tz: form['tz-manual'].value
+            };
 
+            const resp = await fetch('/api/kundli', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await resp.json();
+            
+            if (result.error) {
+                document.getElementById('kundli-json').textContent = `Error: ${result.error}`;
+            } else {
+                renderKundliChart(result);
+                document.getElementById('kundli-json').textContent = JSON.stringify(result, null, 2);
+            }
+        });
+    </script>
 </body>
 </html> 

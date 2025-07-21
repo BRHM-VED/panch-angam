@@ -75,4 +75,53 @@ img {
     font-family: var(--font-family-inter);
     font-weight: 500;
     font-size: 14px;
+}
+
+.kundli-container {
+    position: relative;
+    width: 602px; /* SVG width */
+    height: 457px; /* SVG height */
+    margin: 2em auto;
+    background: url('/static/Kundli layout.svg') no-repeat center center;
+    background-size: contain;
+}
+
+.house {
+    position: absolute;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 5px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Positioning for each house - adjust these values for perfect alignment */
+.house-1 { top: 180px; left: 250px; width: 100px; height: 100px; }
+.house-2 { top: 70px; left: 370px; width: 100px; height: 100px; }
+.house-3 { top: 10px; left: 250px; width: 100px; height: 100px; }
+.house-4 { top: 70px; left: 130px; width: 100px; height: 100px; }
+.house-5 { top: 180px; left: 10px; width: 100px; height: 100px; }
+.house-6 { top: 290px; left: 130px; width: 100px; height: 100px; }
+.house-7 { top: 350px; left: 250px; width: 100px; height: 100px; }
+.house-8 { top: 290px; left: 370px; width: 100px; height: 100px; }
+.house-9 { top: 180px; left: 490px; width: 100px; height: 100px; }
+.house-10 { top: 180px; left: 130px; width: 100px; height: 100px; }
+.house-11 { top: 290px; left: 250px; width: 100px; height: 100px; }
+.house-12 { top: 180px; left: 370px; width: 100px; height: 100px; }
+
+.house .sign-number {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.house .planets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
 } 
