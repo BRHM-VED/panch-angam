@@ -49,6 +49,6 @@ pre {
 
 /* Kundli chart background */
 .kundli-chart {
-    background: url('/static/Kundli layout.svg') no-repeat center center;
+    background: url('/static/Kundli%20layout.svg') no-repeat center center;
     background-size: contain;
 } 
