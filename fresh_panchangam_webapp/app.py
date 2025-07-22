@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 import sys
 from flask_cors import CORS
 import swisseph as swe
+from yoga_rules import detect_all_yogas
 
 app = Flask(__name__)
 CORS(app)
@@ -278,6 +279,9 @@ def generate_kundli():
             'sign': rashi_names[bhava_sign_index]
         })
 
+    # Detect yogas in the kundli
+    detected_yogas = detect_all_yogas(planet_positions, bhavas, lagna)
+    
     return jsonify({
         'input': {
             'date': date_str,
@@ -288,7 +292,8 @@ def generate_kundli():
         },
         'planets': planet_positions,
         'lagna': lagna,
-        'bhavas': bhavas
+        'bhavas': bhavas,
+        'yogas': detected_yogas
     })
 
 @app.route('/get_places', methods=['GET'])

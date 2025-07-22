@@ -29,6 +29,10 @@
         <button type="submit">Generate Kundli</button>
     </form>
     <div id="kundli-container" class="kundli-container"></div>
+    <div id="yogas-container" style="margin-top: 2em; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <h2>Detected Yogas</h2>
+        <div id="yogas-list"></div>
+    </div>
     <pre id="kundli-json"></pre>
     <script>
         let places = [];
@@ -196,6 +200,61 @@
             container.innerHTML = chartHTML;
         }
 
+        function renderYogas(yogas) {
+            const container = document.getElementById('yogas-list');
+            if (!yogas || yogas.length === 0) {
+                container.innerHTML = '<p>No significant yogas detected in this kundli.</p>';
+                return;
+            }
+
+            // Group yogas by type
+            const yogasByType = {};
+            yogas.forEach(yoga => {
+                if (!yogasByType[yoga.type]) {
+                    yogasByType[yoga.type] = [];
+                }
+                yogasByType[yoga.type].push(yoga);
+            });
+
+            let html = '';
+            Object.keys(yogasByType).forEach(type => {
+                html += `<div style="margin-bottom: 2em;">
+                    <h3 style="color: #8B0000; border-bottom: 2px solid #8B0000; padding-bottom: 5px;">${type}</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1em;">`;
+                
+                yogasByType[type].forEach(yoga => {
+                    const strengthColor = yoga.strength === 'Very Strong' ? '#006400' : 
+                                        yoga.strength === 'Strong' ? '#228B22' : 
+                                        yoga.strength === 'Moderate' ? '#FF8C00' : 
+                                        yoga.strength === 'Weak' ? '#FF4500' : '#666';
+                    
+                    html += `<div style="
+                        border: 1px solid #ddd;
+                        border-radius: 8px;
+                        padding: 1em;
+                        background: #f9f9f9;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    ">
+                        <h4 style="margin: 0 0 0.5em 0; color: #8B0000;">${yoga.name}</h4>
+                        <p style="margin: 0.5em 0; color: #333;">${yoga.description}</p>
+                        <span style="
+                            display: inline-block;
+                            padding: 0.2em 0.6em;
+                            border-radius: 4px;
+                            font-size: 0.8em;
+                            font-weight: bold;
+                            color: white;
+                            background: ${strengthColor};
+                        ">${yoga.strength}</span>
+                    </div>`;
+                });
+                
+                html += '</div></div>';
+            });
+
+            container.innerHTML = html;
+        }
+
         document.getElementById('kundliForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const form = e.target;
@@ -212,6 +271,7 @@
             document.getElementById('kundli-json').textContent = JSON.stringify(result, null, 2);
             if (!result.error) {
                 renderKundliChart(result);
+                renderYogas(result.yogas);
             }
         });
     </script>
