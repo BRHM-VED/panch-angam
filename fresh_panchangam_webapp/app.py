@@ -206,6 +206,7 @@ def generate_kundli():
     planets = {
         'Sun': swe.SUN, 'Moon': swe.MOON, 'Mars': swe.MARS, 'Mercury': swe.MERCURY,
         'Jupiter': swe.JUPITER, 'Venus': swe.VENUS, 'Saturn': swe.SATURN,
+        'Uranus': swe.URANUS, 'Neptune': swe.NEPTUNE, 'Pluto': swe.PLUTO,
         'Rahu (Mean)': swe.MEAN_NODE
     }
     def get_navamsha_sign(sign, deg):
