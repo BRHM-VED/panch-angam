@@ -251,24 +251,27 @@ def generate_kundli():
         'sign_number': lagna_sign_index + 1
     }
 
-    # Assign house to each planet
+    # Assign house to each planet based on their zodiac sign (Rashi)
+    # House 1=Aries, 2=Taurus, 3=Gemini, 4=Cancer, 5=Leo, 6=Virgo
+    # House 7=Libra, 8=Scorpio, 9=Sagittarius, 10=Capricorn, 11=Aquarius, 12=Pisces
     for planet in planet_positions:
         if planet in planets:  # Only calculate for planets we have in our dictionary
             planet_pos_deg = swe.calc_ut(jd_ut, planets[planet], flags=swe.FLG_SIDEREAL)[0][0]
             planet_sign_index = int(planet_pos_deg / 30)
-            house = (planet_sign_index - lagna_sign_index + 12) % 12 + 1
+            # Direct mapping: Aries=1, Taurus=2, etc.
+            house = planet_sign_index + 1
             planet_positions[planet]['house'] = house
 
-    # Also assign house for Ketu
+    # Also assign house for Ketu based on its zodiac sign
     ketu_pos_deg = (swe.calc_ut(jd_ut, swe.MEAN_NODE, flags=swe.FLG_SIDEREAL)[0][0] + 180) % 360
     ketu_sign_index = int(ketu_pos_deg / 30)
-    ketu_house = (ketu_sign_index - lagna_sign_index + 12) % 12 + 1
+    ketu_house = ketu_sign_index + 1
     planet_positions['Ketu (Mean)']['house'] = ketu_house
 
     bhavas = []
     for i in range(1, 13): # Ensure 12 bhavas
-        # For simplicity, we can just list the signs in each house
-        bhava_sign_index = (lagna_sign_index + i - 1) % 12
+        # Fixed mapping: House 1=Aries, 2=Taurus, 3=Gemini, etc.
+        bhava_sign_index = i - 1  # 0=Aries, 1=Taurus, etc.
         bhavas.append({
             'house': i,
             'sign': rashi_names[bhava_sign_index]
