@@ -1,129 +1,48 @@
-:root {
-  --font-family-inter: 'Inter', sans-serif;
-  --text-black: rgba(0, 0, 0, 1);
+/* Minimal styles for clean Kundli chart */
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 2em; 
 }
 
-.text-black {
-  color: var(--text-black);
+h1 { 
+    text-align: center; 
 }
 
-/* CSS Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+form { 
+    max-width: 400px; 
+    margin: 0 auto; 
 }
 
-body {
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
+label { 
+    display: block; 
+    margin-top: 1em; 
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+input, select { 
+    width: 100%; 
+    padding: 0.5em; 
+    margin-top: 0.2em; 
 }
 
-.frame-8-1 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    width: 600px;
-    height: 600px;
-    margin: 2em auto;
-    border: 2px solid black;
-    background-color: #f0f0f0;
+button { 
+    margin-top: 1em; 
+    padding: 0.7em 1.5em; 
 }
 
-.frame-8-1 > div {
-    border: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    text-align: center;
+pre { 
+    background: #eee; 
+    padding: 1em; 
+    border-radius: 5px; 
+    white-space: pre-wrap; 
+    word-break: break-all; 
 }
 
-/* North Indian Chart Layout using Grid */
-.c-1 { grid-area: 1 / 2 / span 2 / span 2; }
-.c-2 { grid-area: 1 / 1 / span 2 / span 1; }
-.c-3 { grid-area: 1 / 4 / span 2 / span 1; }
-.c-4 { grid-area: 2 / 3 / span 2 / span 2; }
-.c-5 { grid-area: 3 / 4 / span 2 / span 1; }
-.c-6 { grid-area: 4 / 3 / span 1 / span 2; }
-.c-7 { grid-area: 3 / 1 / span 2 / span 2; }
-.c-8 { grid-area: 4 / 1 / span 1 / span 1; }
-.c-9 { grid-area: 3 / 2 / span 1 / span 2; }
-.c-10 { grid-area: 2 / 2 / span 1 / span 1; }
-.c-11 { grid-area: 2 / 3 / span 1 / span 1; }
-.c-12 { grid-area: 3 / 3 / span 1 / span 1; }
-
-.inner-div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
+#autocomplete-list div {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    background: white;
 }
 
-.inner-div p {
-    font-family: var(--font-family-inter);
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.kundli-container {
-    position: relative;
-    width: 602px; /* SVG width */
-    height: 457px; /* SVG height */
-    margin: 2em auto;
-    background: url('/static/Kundli layout.svg') no-repeat center center;
-    background-size: contain;
-}
-
-.house {
-    position: absolute;
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    padding: 5px;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 80px;
-}
-
-/* Positioning for each house */
-.house-1 { top: 188px; left: 251px; }
-.house-2 { top: 88px; left: 140px; }
-.house-3 { top: 188px; left: 30px; }
-.house-4 { top: 295px; left: 140px; }
-.house-5 { top: 75px; left: 20px; }
-.house-6 { top: 75px; left: 480px; }
-.house-7 { top: 188px; left: 470px; }
-.house-8 { top: 295px; left: 480px; }
-.house-9 { top: 295px; left: 20px; }
-.house-10 { top: 15px; left: 251px; }
-.house-11 { top: 88px; left: 365px; }
-.house-12 { top: 295px; left: 365px; }
-
-.house .sign-number {
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.house .planets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    justify-content: center;
+#autocomplete-list div:hover {
+    background: #f0f0f0;
 } 
