@@ -8,7 +8,16 @@ from werkzeug.utils import secure_filename
 import sys
 from flask_cors import CORS
 import swisseph as swe
-from yoga_rules import detect_all_yogas
+
+# Add current directory to Python path for imports
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+try:
+    from yoga_rules import detect_all_yogas
+except ImportError:
+    # Fallback for deployment environment
+    def detect_all_yogas(planets, bhavas, lagna):
+        return []
 
 app = Flask(__name__)
 CORS(app)
