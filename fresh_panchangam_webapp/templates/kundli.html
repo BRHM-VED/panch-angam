@@ -161,8 +161,8 @@
                     chartHTML += '</div>';
                 }
                 
-                // Add Lagna to House 1
-                if (houseNum === 1 && data.lagna) {
+                // Add Lagna to its zodiac sign house
+                if (data.lagna && data.lagna.sign_number === houseNum) {
                     chartHTML += '<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px;">';
                     chartHTML += `<div style="
                         text-align: center;
