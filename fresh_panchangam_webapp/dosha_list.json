@@ -1,0 +1,369 @@
+{
+  "doshas": {
+    "mangal_dosha": {
+      "name": "Mangal Dosha (Kuja Dosha)",
+      "type": "Major Dosha",
+      "causes": ["Mars in 1st, 2nd, 4th, 7th, 8th, or 12th house"],
+      "effects": [
+        "Marriage delays and problems",
+        "Relationship conflicts",
+        "Anger and aggression issues",
+        "Accidents and injuries",
+        "Blood-related problems"
+      ],
+      "remedies": [
+        "Wear red coral (mangal ratna)",
+        "Perform Mangal puja on Tuesday",
+        "Fast on Tuesdays",
+        "Donate red items",
+        "Visit Hanuman temple",
+        "Chant Hanuman Chalisa"
+      ],
+      "severity_levels": {
+        "mild": "Mars in 4th house",
+        "moderate": "Mars in 2nd, 8th, 12th houses",
+        "severe": "Mars in 1st or 7th house"
+      }
+    },
+    "kaal_sarp_dosha": {
+      "name": "Kaal Sarp Dosha",
+      "type": "Major Dosha",
+      "causes": ["All planets between Rahu and Ketu"],
+      "effects": [
+        "Obstacles in all aspects of life",
+        "Delays and setbacks",
+        "Health problems",
+        "Financial difficulties",
+        "Mental confusion",
+        "Relationship issues"
+      ],
+      "remedies": [
+        "Wear snake ring (nag ring)",
+        "Perform Kaal Sarp puja",
+        "Donate to temples",
+        "Visit Shiva temples",
+        "Chant Mahamrityunjaya mantra",
+        "Wear hessonite garnet"
+      ],
+      "severity_levels": {
+        "mild": "Few planets between Rahu-Ketu",
+        "moderate": "Most planets between Rahu-Ketu",
+        "severe": "All planets between Rahu-Ketu"
+      }
+    },
+    "guru_chandal_dosha": {
+      "name": "Guru Chandal Dosha",
+      "type": "Major Dosha",
+      "causes": ["Jupiter and Rahu in same house"],
+      "effects": [
+        "Confusion in decision making",
+        "Religious conflicts",
+        "Education problems",
+        "Guru-related issues",
+        "Spiritual confusion"
+      ],
+      "remedies": [
+        "Wear yellow sapphire",
+        "Perform Jupiter puja",
+        "Study religious texts",
+        "Visit temples regularly",
+        "Donate yellow items"
+      ],
+      "severity_levels": {
+        "mild": "Jupiter strong, Rahu weak",
+        "moderate": "Both planets neutral",
+        "severe": "Jupiter weak, Rahu strong"
+      }
+    },
+    "sade_sati": {
+      "name": "Sade Sati",
+      "type": "Major Dosha",
+      "causes": ["Saturn transiting over Moon sign or its 12th/2nd"],
+      "effects": [
+        "7.5 years of challenges",
+        "Health issues",
+        "Career obstacles",
+        "Financial problems",
+        "Mental stress",
+        "Relationship issues"
+      ],
+      "remedies": [
+        "Wear blue sapphire",
+        "Perform Saturn puja",
+        "Donate black items",
+        "Visit Shani temple",
+        "Chant Shani mantra",
+        "Practice patience"
+      ],
+      "severity_levels": {
+        "mild": "First phase (12th from Moon)",
+        "moderate": "Second phase (2nd from Moon)",
+        "severe": "Third phase (Moon sign)"
+      }
+    },
+    "pitra_dosha": {
+      "name": "Pitra Dosha",
+      "type": "Ancestral Dosha",
+      "causes": [
+        "Malefic planets in 9th house",
+        "Weak Sun",
+        "Saturn aspects 9th house"
+      ],
+      "effects": [
+        "Ancestral curses",
+        "Father-related issues",
+        "Property disputes",
+        "Legal problems",
+        "Family conflicts"
+      ],
+      "remedies": [
+        "Perform Pitra puja",
+        "Donate to Brahmins",
+        "Visit holy places",
+        "Wear ruby",
+        "Feed crows",
+        "Perform Shraddha"
+      ],
+      "severity_levels": {
+        "mild": "Single malefic in 9th",
+        "moderate": "Multiple malefics in 9th",
+        "severe": "Saturn debilitated in 9th"
+      }
+    },
+    "shrapit_dosha": {
+      "name": "Shrapit Dosha",
+      "type": "Curse Dosha",
+      "causes": ["Rahu in 6th, 8th, or 12th houses"],
+      "effects": [
+        "Curses and black magic",
+        "Enemies and opponents",
+        "Legal issues",
+        "Mental problems",
+        "Spiritual afflictions"
+      ],
+      "remedies": [
+        "Perform Rahu puja",
+        "Wear hessonite garnet",
+        "Visit temples regularly",
+        "Chant protective mantras",
+        "Donate to charity"
+      ],
+      "severity_levels": {
+        "mild": "Rahu in 6th house",
+        "moderate": "Rahu in 12th house",
+        "severe": "Rahu in 8th house"
+      }
+    },
+    "nadi_dosha": {
+      "name": "Nadi Dosha",
+      "type": "Compatibility Dosha",
+      "causes": ["Incompatible nakshatras between partners"],
+      "effects": [
+        "Marriage compatibility issues",
+        "Health problems",
+        "Relationship conflicts",
+        "Family disputes"
+      ],
+      "remedies": [
+        "Perform nakshatra puja",
+        "Wear appropriate gemstones",
+        "Consult astrologer",
+        "Perform compatibility rituals"
+      ],
+      "severity_levels": {
+        "mild": "Partial nadi dosha",
+        "moderate": "Full nadi dosha",
+        "severe": "Multiple nadi doshas"
+      }
+    },
+    "gana_dosha": {
+      "name": "Gana Dosha",
+      "type": "Compatibility Dosha",
+      "causes": ["Incompatible temperament between partners"],
+      "effects": [
+        "Temperament conflicts",
+        "Relationship issues",
+        "Communication problems",
+        "Personality clashes"
+      ],
+      "remedies": [
+        "Practice meditation",
+        "Perform moon puja",
+        "Wear pearl",
+        "Improve communication"
+      ],
+      "severity_levels": {
+        "mild": "Dev-Manushya combination",
+        "moderate": "Manushya-Rakshasa combination",
+        "severe": "Dev-Rakshasa combination"
+      }
+    },
+    "bhakoot_dosha": {
+      "name": "Bhakoot Dosha",
+      "type": "Compatibility Dosha",
+      "causes": ["Incompatible moon signs between partners"],
+      "effects": [
+        "Marriage compatibility issues",
+        "Relationship problems",
+        "Emotional conflicts",
+        "Family disputes"
+      ],
+      "remedies": [
+        "Perform compatibility puja",
+        "Wear moon stone",
+        "Consult astrologer",
+        "Perform marriage rituals"
+      ],
+      "severity_levels": {
+        "mild": "1-2 point difference",
+        "moderate": "3-4 point difference",
+        "severe": "5-6 point difference"
+      }
+    },
+    "matri_dosha": {
+      "name": "Matri Dosha",
+      "type": "Family Dosha",
+      "causes": ["Malefic planets in 4th house (mother's house)"],
+      "effects": [
+        "Mother-related issues",
+        "Property problems",
+        "Emotional instability",
+        "Family conflicts",
+        "Domestic problems"
+      ],
+      "remedies": [
+        "Perform mother puja",
+        "Donate to women",
+        "Visit mother's temple",
+        "Wear pearl",
+        "Respect mother"
+      ],
+      "severity_levels": {
+        "mild": "Single malefic in 4th",
+        "moderate": "Multiple malefics in 4th",
+        "severe": "Saturn debilitated in 4th"
+      }
+    },
+    "pret_dosha": {
+      "name": "Pret Dosha",
+      "type": "Spiritual Dosha",
+      "causes": ["Malefic planets in 8th and 12th houses"],
+      "effects": [
+        "Spirit possession",
+        "Nightmares and fears",
+        "Mental health issues",
+        "Sleep problems",
+        "Spiritual afflictions"
+      ],
+      "remedies": [
+        "Perform Pret puja",
+        "Visit temples",
+        "Wear protective gemstones",
+        "Chant protective mantras",
+        "Practice meditation"
+      ],
+      "severity_levels": {
+        "mild": "Single malefic in 8th/12th",
+        "moderate": "Multiple malefics",
+        "severe": "Rahu/Ketu in 8th/12th"
+      }
+    },
+    "tara_dosha": {
+      "name": "Tara Dosha",
+      "type": "Star Dosha",
+      "causes": ["Malefic planets in 6th, 8th, 12th houses"],
+      "effects": [
+        "Health issues",
+        "Enemies and obstacles",
+        "Delays and setbacks",
+        "Financial problems"
+      ],
+      "remedies": [
+        "Perform Tara puja",
+        "Wear appropriate gemstones",
+        "Visit temples",
+        "Donate to charity"
+      ],
+      "severity_levels": {
+        "mild": "Single malefic in 6th",
+        "moderate": "Malefics in 8th/12th",
+        "severe": "Multiple malefics"
+      }
+    },
+    "mrityu_dosha": {
+      "name": "Mrityu Dosha",
+      "type": "Death Dosha",
+      "causes": ["Malefic planets in 8th house (house of death)"],
+      "effects": [
+        "Health issues",
+        "Accidents",
+        "Life-threatening situations",
+        "Chronic diseases"
+      ],
+      "remedies": [
+        "Perform Mrityu puja",
+        "Wear protective gemstones",
+        "Visit temples",
+        "Chant Mahamrityunjaya mantra"
+      ],
+      "severity_levels": {
+        "mild": "Single malefic in 8th",
+        "moderate": "Multiple malefics in 8th",
+        "severe": "Saturn/Rahu in 8th"
+      }
+    },
+    "kalatra_dosha": {
+      "name": "Kalatra Dosha",
+      "type": "Marriage Dosha",
+      "causes": ["Malefic planets in 7th house (spouse's house)"],
+      "effects": [
+        "Marriage problems",
+        "Spouse issues",
+        "Relationship conflicts",
+        "Divorce possibilities"
+      ],
+      "remedies": [
+        "Perform marriage puja",
+        "Wear diamond",
+        "Visit Venus temple",
+        "Improve relationship"
+      ],
+      "severity_levels": {
+        "mild": "Single malefic in 7th",
+        "moderate": "Multiple malefics in 7th",
+        "severe": "Saturn/Mars in 7th"
+      }
+    }
+  },
+  "general_remedies": {
+    "gemstones": {
+      "ruby": "For Sun dosha",
+      "pearl": "For Moon dosha",
+      "red_coral": "For Mars dosha",
+      "emerald": "For Mercury dosha",
+      "yellow_sapphire": "For Jupiter dosha",
+      "diamond": "For Venus dosha",
+      "blue_sapphire": "For Saturn dosha",
+      "hessonite_garnet": "For Rahu dosha",
+      "cat_eye": "For Ketu dosha"
+    },
+    "pujas": {
+      "navagraha_puja": "For all planetary doshas",
+      "rudrabhishek": "For severe doshas",
+      "mahamrityunjaya_japa": "For health issues",
+      "gayatri_japa": "For general well-being"
+    },
+    "donations": {
+      "food": "Donate food to needy",
+      "clothes": "Donate clothes",
+      "books": "Donate books",
+      "money": "Donate money to temples"
+    },
+    "practices": {
+      "meditation": "Daily meditation",
+      "yoga": "Regular yoga practice",
+      "prayer": "Daily prayers",
+      "fasting": "Regular fasting"
+    }
+  }
+} 

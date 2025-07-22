@@ -15,9 +15,13 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 try:
     from yoga_rules import detect_all_yogas
     from yoga_utils import get_planet_strength, is_exalted, is_debilitated, get_sign_lord
+    from dosha_rules import detect_all_doshas
 except ImportError:
     # Fallback for deployment environment
     def detect_all_yogas(planets, bhavas, lagna):
+        return []
+    
+    def detect_all_doshas(kundli):
         return []
     
     def get_planet_strength(planet, sign_number):
@@ -336,6 +340,23 @@ def generate_kundli():
     # Detect yogas in the kundli
     detected_yogas = detect_all_yogas(planet_positions, bhavas, lagna, time_info)
     
+    # Prepare kundli data for dosha detection
+    kundli_data = {
+        'planets': planet_positions,
+        'lagna': lagna,
+        'bhavas': bhavas,
+        'input': {
+            'date': date_str,
+            'time': time_str,
+            'lat': lat,
+            'lon': lon,
+            'tz': tz
+        }
+    }
+    
+    # Detect doshas in the kundli
+    detected_doshas = detect_all_doshas(kundli_data)
+    
     return jsonify({
         'input': {
             'date': date_str,
@@ -347,7 +368,8 @@ def generate_kundli():
         'planets': planet_positions,
         'lagna': lagna,
         'bhavas': bhavas,
-        'yogas': detected_yogas
+        'yogas': detected_yogas,
+        'doshas': detected_doshas
     })
 
 @app.route('/get_places', methods=['GET'])
