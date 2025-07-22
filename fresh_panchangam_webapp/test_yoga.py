@@ -46,8 +46,24 @@ def test_yoga_detection():
     print("Testing Yoga Detection System...")
     print("=" * 50)
     
+    # Add strength information to sample planets
+    for planet, data in sample_planets.items():
+        data['strength'] = 'Neutral'
+        data['is_exalted'] = False
+        data['is_debilitated'] = False
+        data['is_own_sign'] = False
+    
+    # Sample time info
+    sample_time_info = {
+        'tithi': 15,  # Purnima
+        'nakshatra': 10,  # Magha
+        'lunar_phase': 180,
+        'sun_position': 0,
+        'moon_position': 180
+    }
+    
     # Test yoga detection
-    detected_yogas = detect_all_yogas(sample_planets, sample_bhavas, sample_lagna)
+    detected_yogas = detect_all_yogas(sample_planets, sample_bhavas, sample_lagna, sample_time_info)
     
     print(f"Total yogas detected: {len(detected_yogas)}")
     print()

@@ -14,10 +14,23 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 try:
     from yoga_rules import detect_all_yogas
+    from yoga_utils import get_planet_strength, is_exalted, is_debilitated, get_sign_lord
 except ImportError:
     # Fallback for deployment environment
     def detect_all_yogas(planets, bhavas, lagna):
         return []
+    
+    def get_planet_strength(planet, sign_number):
+        return "Neutral"
+    
+    def is_exalted(planet, sign_number):
+        return False
+    
+    def is_debilitated(planet, sign_number):
+        return False
+    
+    def get_sign_lord(sign_number):
+        return "Unknown"
 
 app = Flask(__name__)
 CORS(app)
@@ -288,8 +301,40 @@ def generate_kundli():
             'sign': rashi_names[bhava_sign_index]
         })
 
+    # Add planet strength information to planet data
+    for planet, data in planet_positions.items():
+        if 'house' in data:
+            # Get the sign number from house (since house = sign in our system)
+            sign_number = data['house']
+            # Add strength information
+            data['strength'] = get_planet_strength(planet, sign_number)
+            data['is_exalted'] = is_exalted(planet, sign_number)
+            data['is_debilitated'] = is_debilitated(planet, sign_number)
+            data['is_own_sign'] = get_sign_lord(sign_number) == planet
+    
+    # Calculate Tithi and Nakshatra for yoga detection
+    # Get Sun and Moon positions for Tithi calculation
+    sun_pos = swe.calc_ut(jd_ut, swe.SUN, flags=swe.FLG_SIDEREAL)[0][0]
+    moon_pos = swe.calc_ut(jd_ut, swe.MOON, flags=swe.FLG_SIDEREAL)[0][0]
+    
+    # Calculate Tithi (lunar day)
+    lunar_phase = (moon_pos - sun_pos) % 360
+    tithi_number = int(lunar_phase / 12) + 1  # 1-30 tithis
+    
+    # Calculate Nakshatra
+    nakshatra_number = int(moon_pos / 13.3333) + 1  # 1-27 nakshatras
+    
+    # Add time-based information for yoga detection
+    time_info = {
+        'tithi': tithi_number,
+        'nakshatra': nakshatra_number,
+        'lunar_phase': lunar_phase,
+        'sun_position': sun_pos,
+        'moon_position': moon_pos
+    }
+    
     # Detect yogas in the kundli
-    detected_yogas = detect_all_yogas(planet_positions, bhavas, lagna)
+    detected_yogas = detect_all_yogas(planet_positions, bhavas, lagna, time_info)
     
     return jsonify({
         'input': {

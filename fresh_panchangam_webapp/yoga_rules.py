@@ -1,7 +1,7 @@
 # Comprehensive Vedic Astrology Yoga Detection System
 from yoga_utils import *
 
-def detect_all_yogas(planets, bhavas, lagna):
+def detect_all_yogas(planets, bhavas, lagna, time_info=None):
     """Detect all yogas in the kundli"""
     detected_yogas = []
     
@@ -97,13 +97,20 @@ def detect_all_yogas(planets, bhavas, lagna):
         # Strength Yogas
         detect_exalted_combination_yoga, detect_debilitated_combination_yoga,
         detect_own_sign_combination_yoga, detect_friendly_sign_combination_yoga,
-        detect_enemy_sign_combination_yoga, detect_neutral_sign_combination_yoga
+        detect_enemy_sign_combination_yoga, detect_neutral_sign_combination_yoga,
+        
+        # Enhanced Yogas with Aspect and Strength
+        detect_shankh_yoga, detect_parvat_yoga, detect_grahan_yoga,
+        detect_chandal_yoga, detect_kemadruma_yoga, detect_gajakesari_yoga,
+        detect_budh_aditya_enhanced_yoga, detect_amrit_siddhi_yoga,
+        detect_parijat_yoga, detect_vasumati_enhanced_yoga,
+        detect_rajalakshmi_enhanced_yoga, detect_akhand_samrajya_enhanced_yoga
     ]
     
     # Call each yoga detection function
     for yoga_func in yoga_functions:
         try:
-            result = yoga_func(planets, bhavas, lagna)
+            result = yoga_func(planets, bhavas, lagna, time_info)
             if result:
                 detected_yogas.append(result)
         except Exception as e:
@@ -814,3 +821,236 @@ def detect_debilitated_combination_yoga(planets, bhavas, lagna): return None
 def detect_friendly_sign_combination_yoga(planets, bhavas, lagna): return None
 def detect_enemy_sign_combination_yoga(planets, bhavas, lagna): return None
 def detect_neutral_sign_combination_yoga(planets, bhavas, lagna): return None 
+
+# Enhanced Yoga Detection Functions with Aspect and Strength Data
+
+def detect_shankh_yoga(planets, bhavas, lagna):
+    """Detect Shankh Yoga - Venus in 2nd house with aspect from Jupiter"""
+    if "Venus" in planets and "Jupiter" in planets:
+        venus_house = planets["Venus"]['house']
+        jupiter_house = planets["Jupiter"]['house']
+        
+        if venus_house == 2 and has_aspect(jupiter_house, venus_house, "5th"):
+            return {
+                'name': 'Shankh Yoga',
+                'type': 'Dhan Yoga',
+                'description': 'Venus in 2nd house with Jupiter\'s 5th aspect',
+                'strength': 'Strong'
+            }
+    return None
+
+def detect_parvat_yoga(planets, bhavas, lagna):
+    """Detect Parvat Yoga - Moon in 4th house with aspect from Mars"""
+    if "Moon" in planets and "Mars" in planets:
+        moon_house = planets["Moon"]['house']
+        mars_house = planets["Mars"]['house']
+        
+        if moon_house == 4 and has_aspect(mars_house, moon_house, "4th"):
+            return {
+                'name': 'Parvat Yoga',
+                'type': 'Special Yoga',
+                'description': 'Moon in 4th house with Mars\' 4th aspect',
+                'strength': 'Strong'
+            }
+    return None
+
+def detect_grahan_yoga(planets, bhavas, lagna):
+    """Detect Grahan Yoga - Sun and Moon conjunction with Rahu/Ketu"""
+    if "Sun" in planets and "Moon" in planets and "Rahu (Mean)" in planets:
+        sun_house = planets["Sun"]['house']
+        moon_house = planets["Moon"]['house']
+        rahu_house = planets["Rahu (Mean)"]['house']
+        
+        if is_conjunct(sun_house, moon_house) and (is_conjunct(sun_house, rahu_house) or has_aspect(sun_house, rahu_house, "7th")):
+            return {
+                'name': 'Grahan Yoga',
+                'type': 'Special Yoga',
+                'description': 'Sun-Moon conjunction with Rahu',
+                'strength': 'Strong'
+            }
+    return None
+
+def detect_chandal_yoga(planets, bhavas, lagna):
+    """Detect Chandal Yoga - Jupiter and Rahu conjunction"""
+    if "Jupiter" in planets and "Rahu (Mean)" in planets:
+        jupiter_house = planets["Jupiter"]['house']
+        rahu_house = planets["Rahu (Mean)"]['house']
+        
+        if is_conjunct(jupiter_house, rahu_house):
+            return {
+                'name': 'Chandal Yoga',
+                'type': 'Special Yoga',
+                'description': 'Jupiter and Rahu in same house',
+                'strength': 'Mixed'
+            }
+    return None
+
+def detect_kemadruma_yoga(planets, bhavas, lagna):
+    """Detect Kemadruma Yoga - Moon without any planets in adjacent houses"""
+    if "Moon" in planets:
+        moon_house = planets["Moon"]['house']
+        adjacent_houses = [moon_house - 1, moon_house + 1]
+        adjacent_houses = [h if h > 0 else 12 for h in adjacent_houses]
+        adjacent_houses = [h if h <= 12 else h - 12 for h in adjacent_houses]
+        
+        has_adjacent_planets = False
+        for planet, data in planets.items():
+            if planet != "Moon" and data['house'] in adjacent_houses:
+                has_adjacent_planets = True
+                break
+        
+        if not has_adjacent_planets:
+            return {
+                'name': 'Kemadruma Yoga',
+                'type': 'Dosha Yoga',
+                'description': 'Moon without planets in adjacent houses',
+                'strength': 'Affliction'
+            }
+    return None
+
+def detect_gajakesari_yoga(planets, bhavas, lagna):
+    """Detect Gajakesari Yoga - Jupiter and Moon in kendras with aspect"""
+    if "Jupiter" in planets and "Moon" in planets:
+        jupiter_house = planets["Jupiter"]['house']
+        moon_house = planets["Moon"]['house']
+        
+        kendras = [1, 4, 7, 10]
+        if jupiter_house in kendras and moon_house in kendras and has_aspect(jupiter_house, moon_house, "7th"):
+            return {
+                'name': 'Gajakesari Yoga',
+                'type': 'Raj Yoga',
+                'description': 'Jupiter and Moon in kendras with 7th aspect',
+                'strength': 'Very Strong'
+            }
+    return None
+
+def detect_budh_aditya_enhanced_yoga(planets, bhavas, lagna):
+    """Enhanced Budh-Aditya Yoga with strength consideration"""
+    if "Mercury" in planets and "Sun" in planets:
+        mercury_house = planets["Mercury"]['house']
+        sun_house = planets["Sun"]['house']
+        
+        if is_conjunct(mercury_house, sun_house):
+            mercury_strength = planets["Mercury"].get('strength', 'Neutral')
+            sun_strength = planets["Sun"].get('strength', 'Neutral')
+            
+            strength = 'Strong'
+            if mercury_strength == 'Exalted' or sun_strength == 'Exalted':
+                strength = 'Very Strong'
+            
+            return {
+                'name': 'Enhanced Budh-Aditya Yoga',
+                'type': 'Vidya Yoga',
+                'description': f'Mercury-Sun conjunction (Mercury: {mercury_strength}, Sun: {sun_strength})',
+                'strength': strength
+            }
+    return None
+
+def detect_amrit_siddhi_yoga(planets, bhavas, lagna, time_info=None):
+    """Detect Amrit Siddhi Yoga - based on Tithi and planetary positions"""
+    if time_info and "Moon" in planets:
+        tithi = time_info.get('tithi', 0)
+        moon_house = planets["Moon"]['house']
+        
+        # Amrit Siddhi Yoga: Moon in 4th house on specific tithis
+        if moon_house == 4 and tithi in [1, 6, 11, 16, 21, 26]:
+            return {
+                'name': 'Amrit Siddhi Yoga',
+                'type': 'Special Yoga',
+                'description': f'Moon in 4th house on Tithi {tithi}',
+                'strength': 'Strong'
+            }
+    return None
+
+def detect_parijat_yoga(planets, bhavas, lagna):
+    """Detect Parijat Yoga - Venus in 6th house with navamsha consideration"""
+    if "Venus" in planets:
+        venus_data = planets["Venus"]
+        venus_house = venus_data['house']
+        navamsha_sign = venus_data.get('navamsha_sign', '')
+        
+        if venus_house == 6 and 'Cancer' in navamsha_sign:
+            return {
+                'name': 'Parijat Yoga',
+                'type': 'Special Yoga',
+                'description': 'Venus in 6th house with Cancer navamsha',
+                'strength': 'Strong'
+            }
+    return None
+
+def detect_vasumati_enhanced_yoga(planets, bhavas, lagna):
+    """Enhanced Vasumati Yoga with strength consideration"""
+    if "Venus" in planets:
+        venus_data = planets["Venus"]
+        venus_house = venus_data['house']
+        venus_strength = venus_data.get('strength', 'Neutral')
+        
+        if venus_house == 2:
+            strength = 'Strong'
+            if venus_strength == 'Exalted':
+                strength = 'Very Strong'
+            elif venus_strength == 'Debilitated':
+                strength = 'Weak'
+            
+            return {
+                'name': 'Enhanced Vasumati Yoga',
+                'type': 'Dhan Yoga',
+                'description': f'Venus in 2nd house ({venus_strength})',
+                'strength': strength
+            }
+    return None
+
+def detect_rajalakshmi_enhanced_yoga(planets, bhavas, lagna):
+    """Enhanced Rajalakshmi Yoga with multiple benefic combinations"""
+    benefic_planets = ["Jupiter", "Venus", "Mercury"]
+    benefic_count = 0
+    strong_benefics = []
+    
+    for planet in benefic_planets:
+        if planet in planets:
+            planet_data = planets[planet]
+            planet_house = planet_data['house']
+            planet_strength = planet_data.get('strength', 'Neutral')
+            
+            if planet_house in [2, 5, 9, 11]:  # Wealth houses
+                benefic_count += 1
+                if planet_strength in ['Exalted', 'Own Sign']:
+                    strong_benefics.append(planet)
+    
+    if benefic_count >= 2:
+        strength = 'Strong'
+        if len(strong_benefics) >= 2:
+            strength = 'Very Strong'
+        
+        return {
+            'name': 'Enhanced Rajalakshmi Yoga',
+            'type': 'Dhan Yoga',
+            'description': f'Multiple benefics in wealth houses: {", ".join(strong_benefics)}',
+            'strength': strength
+        }
+    return None
+
+def detect_akhand_samrajya_enhanced_yoga(planets, bhavas, lagna):
+    """Enhanced Akhand Samrajya Yoga with strength consideration"""
+    houses = [data['house'] for data in planets.values()]
+    
+    # Check if all planets are in one half
+    if all(house <= 6 for house in houses) or all(house >= 7 for house in houses):
+        # Count strong planets
+        strong_planets = []
+        for planet, data in planets.items():
+            strength = data.get('strength', 'Neutral')
+            if strength in ['Exalted', 'Own Sign']:
+                strong_planets.append(planet)
+        
+        strength = 'Strong'
+        if len(strong_planets) >= 3:
+            strength = 'Very Strong'
+        
+        return {
+            'name': 'Enhanced Akhand Samrajya Yoga',
+            'type': 'Special Yoga',
+            'description': f'All planets in one half with {len(strong_planets)} strong planets',
+            'strength': strength
+        }
+    return None 

@@ -114,6 +114,43 @@ def get_aspects(planet1_house, planet2_house):
     else:
         return []
 
+def get_planet_aspects(planet1_house, planet2_house):
+    """Get detailed aspects between planets based on Vedic astrology rules"""
+    aspects = []
+    
+    # Calculate house difference
+    diff = abs(planet1_house - planet2_house)
+    
+    # Special aspects for different planets
+    if diff == 6:  # 7th aspect (opposite)
+        aspects.append("7th")
+    elif diff == 3:  # 4th aspect
+        aspects.append("4th")
+    elif diff == 9:  # 10th aspect
+        aspects.append("10th")
+    elif diff == 4:  # 5th aspect
+        aspects.append("5th")
+    elif diff == 8:  # 9th aspect
+        aspects.append("9th")
+    elif diff == 2:  # 3rd aspect
+        aspects.append("3rd")
+    elif diff == 10:  # 11th aspect
+        aspects.append("11th")
+    
+    return aspects
+
+def has_aspect(planet1_house, planet2_house, aspect_type="7th"):
+    """Check if two planets have a specific aspect"""
+    aspects = get_planet_aspects(planet1_house, planet2_house)
+    return aspect_type in aspects
+
+def get_full_aspect(planet1_house, planet2_house):
+    """Get full aspect relationship between planets"""
+    aspects = get_planet_aspects(planet1_house, planet2_house)
+    if aspects:
+        return aspects[0]  # Return the strongest aspect
+    return None
+
 def is_conjunct(planet1_house, planet2_house):
     """Check if planets are in the same house"""
     return planet1_house == planet2_house
