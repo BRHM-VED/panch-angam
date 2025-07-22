@@ -110,7 +110,7 @@
             
             // Create the chart HTML
             let chartHTML = '<h2>Kundli Chart</h2>';
-            chartHTML += '<div class="kundli-chart" style="width: 567px; height: 430px; position: relative; margin: 0 auto; border: 2px solid #FF8C00; background: transparent;">';
+                                    chartHTML += '<div class="kundli-chart" style="width: 567px; height: 430px; position: relative; margin: 0 auto; border: 8px solid; border-image: linear-gradient(45deg, #FF8C00, #FFD700, #FF8C00, #FFD700) 1; background: linear-gradient(135deg, #FFF8DC, #F5F5DC); box-shadow: 0 4px 8px rgba(0,0,0,0.2); border-radius: 8px;">';
             
             // Create houses
             for (let houseNum = 1; houseNum <= 12; houseNum++) {
@@ -124,43 +124,68 @@
                     top: ${pos.top};
                     width: ${pos.width};
                     height: ${pos.height};
-                    border: 1px solid #FF0000;
+                    border: 2px solid #8B0000;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
                     padding: 5px;
-                    background: transparent;
+                    background: rgba(255, 255, 255, 0.3);
+                    backdrop-filter: blur(1px);
                 ">`;
                 
                 // House number
-                chartHTML += `<div style="position: absolute; top: 2px; left: 2px; font-weight: bold; font-size: 12px;">${houseNum}</div>`;
+                chartHTML += `<div style="
+                    position: absolute; 
+                    top: 2px; 
+                    left: 2px; 
+                    font-weight: bold; 
+                    font-size: 14px;
+                    color: #8B0000;
+                    background: rgba(255, 255, 255, 0.8);
+                    padding: 1px 3px;
+                    border-radius: 3px;
+                    border: 1px solid #8B0000;
+                ">${houseNum}</div>`;
                 
                 // Sign name
                 if (bhava) {
-                    chartHTML += `<div style="position: absolute; bottom: 2px; left: 2px; font-size: 10px; color: #666;">${bhava.sign.split(' ')[0]}</div>`;
+                    chartHTML += `<div style="
+                        position: absolute; 
+                        bottom: 2px; 
+                        left: 2px; 
+                        font-size: 11px; 
+                        color: #8B0000;
+                        font-weight: bold;
+                        background: rgba(255, 255, 255, 0.8);
+                        padding: 1px 3px;
+                        border-radius: 3px;
+                        border: 1px solid #8B0000;
+                    ">${bhava.sign.split(' ')[0]}</div>`;
                 }
                 
                 // Planets in this house
                 if (planets.length > 0) {
-                    chartHTML += '<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3px;">';
+                    chartHTML += '<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px; margin-top: 15px;">';
                     planets.forEach(planet => {
                         chartHTML += `<div style="
                             text-align: center;
                             font-size: 12px;
                             font-weight: bold;
-                            color: #000;
-                            background: transparent;
-                            padding: 2px 4px;
-                            border-radius: 3px;
-                            border: none;
+                            color: #8B0000;
+                            background: rgba(255, 255, 255, 0.9);
+                            padding: 3px 6px;
+                            border-radius: 4px;
+                            border: 1px solid #8B0000;
                             display: flex;
                             flex-direction: column;
                             align-items: center;
-                            gap: 1px;
+                            gap: 2px;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
                         " title="${planet.name} in ${planet.sign} (${planet.deg.toFixed(1)}°)">
-                            <div style="font-size: 16px;">${planet.symbol}</div>
-                            <div style="font-size: 10px; color: #333;">${planet.name.split(' ')[0]}</div>
+                            <div style="font-size: 18px; color: #8B0000;">${planet.symbol}</div>
+                            <div style="font-size: 10px; color: #8B0000; font-weight: bold;">${planet.name.split(' ')[0]}</div>
+                            <div style="font-size: 8px; color: #666;">${planet.deg.toFixed(1)}°</div>
                         </div>`;
                     });
                     chartHTML += '</div>';
