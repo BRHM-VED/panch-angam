@@ -110,7 +110,7 @@
             
             // Create the chart HTML
             let chartHTML = '<h2>Kundli Chart</h2>';
-            chartHTML += '<div class="kundli-chart" style="width: 567px; height: 430px; position: relative; margin: 0 auto; border: 2px solid #FF8C00; background: #FFFACD;">';
+            chartHTML += '<div class="kundli-chart" style="width: 567px; height: 430px; position: relative; margin: 0 auto; border: 2px solid #FF8C00; background: transparent;">';
             
             // Create houses
             for (let houseNum = 1; houseNum <= 12; houseNum++) {
@@ -130,7 +130,7 @@
                     justify-content: center;
                     align-items: center;
                     padding: 5px;
-                    background: rgba(255, 255, 255, 0.1);
+                    background: transparent;
                 ">`;
                 
                 // House number
@@ -147,14 +147,21 @@
                     planets.forEach(planet => {
                         chartHTML += `<div style="
                             text-align: center;
-                            font-size: 14px;
+                            font-size: 12px;
                             font-weight: bold;
                             color: #000;
-                            background: rgba(255, 255, 255, 0.8);
+                            background: transparent;
                             padding: 2px 4px;
                             border-radius: 3px;
-                            border: 1px solid #ccc;
-                        " title="${planet.name} in ${planet.sign} (${planet.deg.toFixed(1)}°)">${planet.symbol}</div>`;
+                            border: none;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 1px;
+                        " title="${planet.name} in ${planet.sign} (${planet.deg.toFixed(1)}°)">
+                            <div style="font-size: 16px;">${planet.symbol}</div>
+                            <div style="font-size: 10px; color: #333;">${planet.name.split(' ')[0]}</div>
+                        </div>`;
                     });
                     chartHTML += '</div>';
                 }
