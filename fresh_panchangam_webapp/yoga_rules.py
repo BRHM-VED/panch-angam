@@ -110,7 +110,14 @@ def detect_all_yogas(planets, bhavas, lagna, time_info=None):
     # Call each yoga detection function
     for yoga_func in yoga_functions:
         try:
-            result = yoga_func(planets, bhavas, lagna, time_info)
+            # Check if function accepts time_info parameter
+            import inspect
+            sig = inspect.signature(yoga_func)
+            if len(sig.parameters) == 4:  # Function accepts time_info
+                result = yoga_func(planets, bhavas, lagna, time_info)
+            else:  # Function doesn't accept time_info
+                result = yoga_func(planets, bhavas, lagna)
+            
             if result:
                 detected_yogas.append(result)
         except Exception as e:
