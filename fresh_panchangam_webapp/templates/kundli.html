@@ -59,8 +59,112 @@
 
         function renderKundliChart(data) {
             const container = document.getElementById('kundli-container');
-            container.innerHTML = '<h2>Kundli Chart</h2><p>(Chart rendering logic goes here)</p>';
-            // You can add back your original chart rendering logic here if you have it
+            
+            // Planet symbols mapping
+            const planetSymbols = {
+                'Sun': '☉',
+                'Moon': '☽',
+                'Mars': '♂',
+                'Mercury': '☿',
+                'Jupiter': '♃',
+                'Venus': '♀',
+                'Saturn': '♄',
+                'Rahu (Mean)': '☊',
+                'Ketu (Mean)': '☋'
+            };
+            
+            // House positions for North Indian diamond chart
+            const housePositions = {
+                1: { left: '281px', top: '107px', width: '232px', height: '215px' },
+                2: { left: '457px', top: '42px', width: '110px', height: '173px' },
+                3: { left: '282px', top: '0px', width: '282px', height: '83px' },
+                4: { left: '165px', top: '0px', width: '232px', height: '215px' },
+                5: { left: '0px', top: '0px', width: '282px', height: '83px' },
+                6: { left: '0px', top: '42px', width: '110px', height: '173px' },
+                7: { left: '50px', top: '107px', width: '232px', height: '215px' },
+                8: { left: '0px', top: '210px', width: '110px', height: '220px' },
+                9: { left: '0px', top: '347px', width: '282px', height: '83px' },
+                10: { left: '165px', top: '215px', width: '232px', height: '215px' },
+                11: { left: '282px', top: '347px', width: '282px', height: '83px' },
+                12: { left: '457px', top: '210px', width: '110px', height: '220px' }
+            };
+            
+            // Group planets by house
+            const planetsByHouse = {};
+            for (let i = 1; i <= 12; i++) {
+                planetsByHouse[i] = [];
+            }
+            
+            // Add planets to their houses
+            Object.keys(data.planets).forEach(planet => {
+                const planetData = data.planets[planet];
+                if (planetData.house) {
+                    planetsByHouse[planetData.house].push({
+                        name: planet,
+                        symbol: planetSymbols[planet] || planet,
+                        sign: planetData.sign,
+                        deg: planetData.deg
+                    });
+                }
+            });
+            
+            // Create the chart HTML
+            let chartHTML = '<h2>Kundli Chart</h2>';
+            chartHTML += '<div class="kundli-chart" style="width: 567px; height: 430px; position: relative; margin: 0 auto; border: 2px solid #FF8C00; background: #FFFACD;">';
+            
+            // Create houses
+            for (let houseNum = 1; houseNum <= 12; houseNum++) {
+                const pos = housePositions[houseNum];
+                const planets = planetsByHouse[houseNum];
+                const bhava = data.bhavas.find(b => b.house === houseNum);
+                
+                chartHTML += `<div class="house house-${houseNum}" style="
+                    position: absolute;
+                    left: ${pos.left};
+                    top: ${pos.top};
+                    width: ${pos.width};
+                    height: ${pos.height};
+                    border: 1px solid #FF0000;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 5px;
+                    background: rgba(255, 255, 255, 0.1);
+                ">`;
+                
+                // House number
+                chartHTML += `<div style="position: absolute; top: 2px; left: 2px; font-weight: bold; font-size: 12px;">${houseNum}</div>`;
+                
+                // Sign name
+                if (bhava) {
+                    chartHTML += `<div style="position: absolute; bottom: 2px; left: 2px; font-size: 10px; color: #666;">${bhava.sign.split(' ')[0]}</div>`;
+                }
+                
+                // Planets in this house
+                if (planets.length > 0) {
+                    chartHTML += '<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3px;">';
+                    planets.forEach(planet => {
+                        chartHTML += `<div style="
+                            text-align: center;
+                            font-size: 14px;
+                            font-weight: bold;
+                            color: #000;
+                            background: rgba(255, 255, 255, 0.8);
+                            padding: 2px 4px;
+                            border-radius: 3px;
+                            border: 1px solid #ccc;
+                        " title="${planet.name} in ${planet.sign} (${planet.deg.toFixed(1)}°)">${planet.symbol}</div>`;
+                    });
+                    chartHTML += '</div>';
+                }
+                
+                chartHTML += '</div>';
+            }
+            
+            chartHTML += '</div>';
+            
+            container.innerHTML = chartHTML;
         }
 
         document.getElementById('kundliForm').addEventListener('submit', async function(e) {
