@@ -253,10 +253,11 @@ def generate_kundli():
 
     # Assign house to each planet
     for planet in planet_positions:
-        planet_pos_deg = swe.calc_ut(jd_ut, planets.get(planet, swe.AST_OFFSET + planet_positions[planet].get('code', 0)), flags=swe.FLG_SIDEREAL)[0][0]
-        planet_sign_index = int(planet_pos_deg / 30)
-        house = (planet_sign_index - lagna_sign_index + 12) % 12 + 1
-        planet_positions[planet]['house'] = house
+        if planet in planets:  # Only calculate for planets we have in our dictionary
+            planet_pos_deg = swe.calc_ut(jd_ut, planets[planet], flags=swe.FLG_SIDEREAL)[0][0]
+            planet_sign_index = int(planet_pos_deg / 30)
+            house = (planet_sign_index - lagna_sign_index + 12) % 12 + 1
+            planet_positions[planet]['house'] = house
 
     # Also assign house for Ketu
     ketu_pos_deg = (swe.calc_ut(jd_ut, swe.MEAN_NODE, flags=swe.FLG_SIDEREAL)[0][0] + 180) % 360
