@@ -45,4 +45,10 @@ pre {
 
 #autocomplete-list div:hover {
     background: #f0f0f0;
+}
+
+/* Kundli chart background */
+.kundli-chart {
+    background: url('/static/Kundli layout.svg') no-repeat center center;
+    background-size: contain;
 } 
