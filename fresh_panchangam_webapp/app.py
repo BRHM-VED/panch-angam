@@ -452,49 +452,100 @@ def generate_kundli():
 def get_places():
     import os
 
-    # Get the absolute path to the directory this file is in
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    # message Build the absolute path to the TSV file
-    tsv_path = os.path.join(BASE_DIR, 'jyotisha', 'panchaanga', 'spatio_temporal', 'data', 'places_lat_lon_tz_db.tsv')
-
     places = []
-    with open(tsv_path, encoding='utf-8') as f:
-        for i, line in enumerate(f):
-            if not line or line.strip() == '':
-                continue  # skip empty lines
-            if i == 0:
-                continue  # skip header
-            parts = line.strip().split('\t')
-            if not isinstance(parts, list) or len(parts) < 5:
-                print(f"Skipping line {i}: parts={parts}")
-                continue
-            try:
-                name, sa_name, lat, lon, tz = parts[:5]
-            except Exception as e:
-                print(f"Error unpacking line {i}: {parts}, error: {e}")
-                continue
-            # Convert DMS to decimal if needed
-            def dms_to_decimal(val):
-                if ':' in val:
-                    parts = [float(x) for x in val.split(':')]
-                    if len(parts) == 3:
-                        return parts[0] + parts[1]/60 + parts[2]/3600
-                    elif len(parts) == 2:
-                        return parts[0] + parts[1]/60
-                return float(val)
-            try:
-                lat_f = dms_to_decimal(lat)
-                lon_f = dms_to_decimal(lon)
-            except Exception:
-                continue
-            places.append({
-                'name': name,
-                'sa_name': sa_name,
-                'lat': lat_f,
-                'lon': lon_f,
-                'tz': tz
-            })
-    return jsonify({'places': places})
+    
+    try:
+        # Try multiple possible paths for the TSV file
+        possible_paths = [
+            # Path relative to current directory
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'jyotisha', 'panchaanga', 'spatio_temporal', 'data', 'places_lat_lon_tz_db.tsv'),
+            # Path relative to parent directory
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'jyotisha', 'panchaanga', 'spatio_temporal', 'data', 'places_lat_lon_tz_db.tsv'),
+            # Absolute path for deployment
+            '/opt/render/project/src/jyotisha/panchaanga/spatio_temporal/data/places_lat_lon_tz_db.tsv',
+            # Alternative deployment path
+            os.path.join(os.getcwd(), '..', 'jyotisha', 'panchaanga', 'spatio_temporal', 'data', 'places_lat_lon_tz_db.tsv')
+        ]
+        
+        tsv_path = None
+        for path in possible_paths:
+            if os.path.exists(path):
+                tsv_path = path
+                print(f"Found TSV file at: {tsv_path}")
+                break
+        
+        if not tsv_path:
+            print("TSV file not found in any of the expected locations")
+            # Return some default places as fallback
+            return jsonify({'places': [
+                {'name': 'Mumbai', 'sa_name': 'Mumbai', 'lat': 19.0760, 'lon': 72.8777, 'tz': '5.5'},
+                {'name': 'Delhi', 'sa_name': 'Delhi', 'lat': 28.7041, 'lon': 77.1025, 'tz': '5.5'},
+                {'name': 'Chennai', 'sa_name': 'Chennai', 'lat': 13.0827, 'lon': 80.2707, 'tz': '5.5'},
+                {'name': 'Kolkata', 'sa_name': 'Kolkata', 'lat': 22.5726, 'lon': 88.3639, 'tz': '5.5'},
+                {'name': 'Bangalore', 'sa_name': 'Bangalore', 'lat': 12.9716, 'lon': 77.5946, 'tz': '5.5'},
+                {'name': 'Hyderabad', 'sa_name': 'Hyderabad', 'lat': 17.3850, 'lon': 78.4867, 'tz': '5.5'},
+                {'name': 'Pune', 'sa_name': 'Pune', 'lat': 18.5204, 'lon': 73.8567, 'tz': '5.5'},
+                {'name': 'Ahmedabad', 'sa_name': 'Ahmedabad', 'lat': 23.0225, 'lon': 72.5714, 'tz': '5.5'},
+                {'name': 'Jaipur', 'sa_name': 'Jaipur', 'lat': 26.9124, 'lon': 75.7873, 'tz': '5.5'},
+                {'name': 'Lucknow', 'sa_name': 'Lucknow', 'lat': 26.8467, 'lon': 80.9462, 'tz': '5.5'}
+            ]})
+
+        # Read the TSV file
+        with open(tsv_path, encoding='utf-8') as f:
+            for i, line in enumerate(f):
+                if not line or line.strip() == '':
+                    continue  # skip empty lines
+                if i == 0:
+                    continue  # skip header
+                parts = line.strip().split('\t')
+                if not isinstance(parts, list) or len(parts) < 5:
+                    print(f"Skipping line {i}: parts={parts}")
+                    continue
+                try:
+                    name, sa_name, lat, lon, tz = parts[:5]
+                except Exception as e:
+                    print(f"Error unpacking line {i}: {parts}, error: {e}")
+                    continue
+                # Convert DMS to decimal if needed
+                def dms_to_decimal(val):
+                    if ':' in val:
+                        parts = [float(x) for x in val.split(':')]
+                        if len(parts) == 3:
+                            return parts[0] + parts[1]/60 + parts[2]/3600
+                        elif len(parts) == 2:
+                            return parts[0] + parts[1]/60
+                    return float(val)
+                try:
+                    lat_f = dms_to_decimal(lat)
+                    lon_f = dms_to_decimal(lon)
+                except Exception:
+                    continue
+                places.append({
+                    'name': name,
+                    'sa_name': sa_name,
+                    'lat': lat_f,
+                    'lon': lon_f,
+                    'tz': tz
+                })
+        
+        print(f"Successfully loaded {len(places)} places from TSV file")
+        return jsonify({'places': places})
+        
+    except Exception as e:
+        print(f"Error reading places TSV file: {e}")
+        # Return fallback places
+        return jsonify({'places': [
+            {'name': 'Mumbai', 'sa_name': 'Mumbai', 'lat': 19.0760, 'lon': 72.8777, 'tz': '5.5'},
+            {'name': 'Delhi', 'sa_name': 'Delhi', 'lat': 28.7041, 'lon': 77.1025, 'tz': '5.5'},
+            {'name': 'Chennai', 'sa_name': 'Chennai', 'lat': 13.0827, 'lon': 80.2707, 'tz': '5.5'},
+            {'name': 'Kolkata', 'sa_name': 'Kolkata', 'lat': 22.5726, 'lon': 88.3639, 'tz': '5.5'},
+            {'name': 'Bangalore', 'sa_name': 'Bangalore', 'lat': 12.9716, 'lon': 77.5946, 'tz': '5.5'},
+            {'name': 'Hyderabad', 'sa_name': 'Hyderabad', 'lat': 17.3850, 'lon': 78.4867, 'tz': '5.5'},
+            {'name': 'Pune', 'sa_name': 'Pune', 'lat': 18.5204, 'lon': 73.8567, 'tz': '5.5'},
+            {'name': 'Ahmedabad', 'sa_name': 'Ahmedabad', 'lat': 23.0225, 'lon': 72.5714, 'tz': '5.5'},
+            {'name': 'Jaipur', 'sa_name': 'Jaipur', 'lat': 26.9124, 'lon': 75.7873, 'tz': '5.5'},
+            {'name': 'Lucknow', 'sa_name': 'Lucknow', 'lat': 26.8467, 'lon': 80.9462, 'tz': '5.5'}
+        ]})
 
 if __name__ == '__main__':
     app.run(debug=True) 
