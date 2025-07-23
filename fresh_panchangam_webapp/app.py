@@ -224,12 +224,15 @@ def kundli_new_page():
 def generate_kundli():
     data = request.json
     # Required: date (YYYY-MM-DD), time (HH:MM), lat, lon, tz
+    # Optional: name, gender
     try:
         date_str = data['date']
         time_str = data['time']
         lat = float(data['lat'])
         lon = float(data['lon'])
         tz = float(data['tz'])
+        name = data.get('name', '')  # Optional, default to empty string
+        gender = data.get('gender', '')  # Optional, default to empty string
         dob = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
     except Exception as e:
         return jsonify({'error': f'Invalid input: {e}'}), 400
