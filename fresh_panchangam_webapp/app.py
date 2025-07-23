@@ -368,7 +368,7 @@ def generate_kundli():
     
     # Calculate comprehensive kundli details
     comprehensive_details = calculate_comprehensive_kundli_details(
-        date_str, time_str, lat, lon, tz
+        date_str, time_str, lat, lon, tz, name, gender
     )
     
     return jsonify({
