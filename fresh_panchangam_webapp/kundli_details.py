@@ -70,7 +70,7 @@ def calculate_comprehensive_kundli_details(date_str, time_str, lat, lon, tz, nam
         basic_details = calculate_basic_details(dob, lat, lon, tz, name, gender)
         
         # Calculate astrological details
-        astrological_details = calculate_astrological_details(jd_ut, dob)
+        astrological_details = calculate_astrological_details(jd_ut, dob, lat, lon)
         
         # Calculate panchang details
         panchang_details = calculate_panchang_details(jd_ut, dob, lat, lon)
@@ -168,7 +168,7 @@ def calculate_basic_details(dob, lat, lon, tz, name, gender):
         'ayanamsa': f"Chitra Paksha = {int(ayanamsa)}Deg. {int((ayanamsa % 1) * 60)}Min. {int(((ayanamsa % 1) * 60 % 1) * 60)}Sec."
     }
 
-def calculate_astrological_details(jd_ut, dob):
+def calculate_astrological_details(jd_ut, dob, lat, lon):
     """Calculate Astrological Details section"""
     
     try:

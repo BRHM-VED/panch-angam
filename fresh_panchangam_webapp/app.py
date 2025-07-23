@@ -347,7 +347,11 @@ def generate_kundli():
     }
     
     # Detect yogas in the kundli
-    detected_yogas = detect_all_yogas(planet_positions, bhavas, lagna, time_info)
+    try:
+        detected_yogas = detect_all_yogas(planet_positions, bhavas, lagna, time_info)
+    except Exception as e:
+        print(f"Error detecting yogas: {e}")
+        detected_yogas = []
     
     # Prepare kundli data for dosha detection
     kundli_data = {
@@ -364,12 +368,66 @@ def generate_kundli():
     }
     
     # Detect doshas in the kundli
-    detected_doshas = detect_all_doshas(kundli_data)
+    try:
+        detected_doshas = detect_all_doshas(kundli_data)
+    except Exception as e:
+        print(f"Error detecting doshas: {e}")
+        detected_doshas = []
     
     # Calculate comprehensive kundli details
-    comprehensive_details = calculate_comprehensive_kundli_details(
-        date_str, time_str, lat, lon, tz, name, gender
-    )
+    try:
+        comprehensive_details = calculate_comprehensive_kundli_details(
+            date_str, time_str, lat, lon, tz, name, gender
+        )
+    except Exception as e:
+        print(f"Error calculating comprehensive details: {e}")
+        comprehensive_details = {
+            'basic_details': {
+                'name': name or "Not specified",
+                'gender': gender or "Not specified",
+                'date_of_birth': date_str,
+                'time_of_birth': time_str,
+                'timezone': f"+{tz}" if tz >= 0 else f"{tz}",
+                'moon_sign': "Not calculated",
+                'ascendant': "Not calculated",
+                'sun_sign_western': "Not calculated",
+                'place_of_birth': "Not specified",
+                'country': "India",
+                'longitude_latitude': f"{lon}, {lat}",
+                'ayanamsa': "Not calculated"
+            },
+            'astrological_details': {
+                'sign_lord': "Not calculated",
+                'nakshatra_lord': "Not calculated",
+                'charan': 0,
+                'name_alphabet': "Not calculated",
+                'nakshatra_charan_alphabet': "Not calculated",
+                'paya': "Not calculated",
+                'ascendant_lord': "Not calculated",
+                'atma_karaka': "Not calculated",
+                'amatya_karaka': "Not calculated",
+                'dasha_system': "Vimshottari, Years = 365.25 Days"
+            },
+            'panchang_details': {
+                'sunrise': "Not calculated",
+                'sunset': "Not calculated",
+                'local_mean_time': time_str,
+                'weekday': "Not calculated",
+                'birth_star_nakshatra': "Not calculated",
+                'tithi_lunar_day': "Not calculated",
+                'karan': "Not calculated",
+                'nithya_yoga': "Not calculated"
+            },
+            'lucky_points': {
+                'favourable_days': "Not calculated",
+                'favourable_color': "Not calculated",
+                'lucky_number': "Not calculated",
+                'inspiring_deity': "Not calculated",
+                'lucky_direction': "Not calculated",
+                'lucky_letter': "Not calculated",
+                'favourable_metal': "Not calculated"
+            }
+        }
     
     return jsonify({
         'input': {
