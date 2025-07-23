@@ -379,11 +379,29 @@ def generate_kundli():
     
     # Calculate comprehensive kundli details
     try:
-        comprehensive_details = calculate_comprehensive_kundli_details(
-            date_str, time_str, lat, lon, tz, name, gender
-        )
+        # Use the new astrology_basics module instead of Swiss Ephemeris calculations
+        from astrology_basics import calculate_comprehensive_details_from_kundli
+        
+        # Prepare kundli data for the new module
+        kundli_data = {
+            'input': {
+                'date': date_str,
+                'time': time_str,
+                'lat': lat,
+                'lon': lon,
+                'tz': tz
+            },
+            'planets': planet_positions,
+            'lagna': lagna,
+            'bhavas': bhavas
+        }
+        
+        comprehensive_details = calculate_comprehensive_details_from_kundli(kundli_data)
+        print("Successfully calculated comprehensive details using astrology_basics module")
+        
     except Exception as e:
         print(f"Error calculating comprehensive details: {e}")
+        # Fallback to basic data
         comprehensive_details = {
             'basic_details': {
                 'name': name or "Not specified",
