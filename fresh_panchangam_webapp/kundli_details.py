@@ -3,6 +3,7 @@ import swisseph as swe
 from datetime import datetime, timedelta
 import pytz
 import math
+import os
 
 # Constants for calculations
 TITHI_NAMES = [
@@ -55,28 +56,68 @@ def calculate_comprehensive_kundli_details(date_str, time_str, lat, lon, tz, nam
     try:
         # Parse date and time
         dob = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
+        print(f"Parsed date: {dob}")
         
-        # Set up Swiss Ephemeris
+        # Set up Swiss Ephemeris with better error handling
         try:
-            swe.set_ephe_path('../jyotisha/panchaanga/temporal/data')
-        except:
-            pass  # Use default path if custom path fails
+            # Try multiple ephemeris paths
+            possible_paths = [
+                '../jyotisha/panchaanga/temporal/data',
+                '/opt/render/project/src/jyotisha/panchaanga/temporal/data',
+                os.path.join(os.path.dirname(__file__), '..', 'jyotisha', 'panchaanga', 'temporal', 'data')
+            ]
+            
+            ephe_set = False
+            for path in possible_paths:
+                try:
+                    if os.path.exists(path):
+                        swe.set_ephe_path(path)
+                        print(f"Set ephemeris path: {path}")
+                        ephe_set = True
+                        break
+                except Exception as e:
+                    print(f"Failed to set ephemeris path {path}: {e}")
+                    continue
+            
+            if not ephe_set:
+                print("Using default ephemeris path")
+                
+        except Exception as e:
+            print(f"Error setting ephemeris path: {e}")
+        
         swe.set_sid_mode(swe.SIDM_LAHIRI)
+        print("Set sidereal mode to Lahiri")
         
         # Calculate Julian Day
         jd_ut = swe.jdet(dob.year, dob.month, dob.day, dob.hour + dob.minute/60 - tz)
+        print(f"Calculated Julian Day: {jd_ut}")
+        
+        # Test Swiss Ephemeris calculations
+        try:
+            test_sun = swe.calc_ut(jd_ut, swe.SUN, flags=swe.FLG_SIDEREAL)
+            print(f"Test Sun calculation successful: {test_sun[0][0]}")
+        except Exception as e:
+            print(f"Test Sun calculation failed: {e}")
         
         # Calculate basic details
+        print("Calculating basic details...")
         basic_details = calculate_basic_details(dob, lat, lon, tz, name, gender)
+        print(f"Basic details calculated: {basic_details}")
         
         # Calculate astrological details
+        print("Calculating astrological details...")
         astrological_details = calculate_astrological_details(jd_ut, dob, lat, lon)
+        print(f"Astrological details calculated: {astrological_details}")
         
         # Calculate panchang details
+        print("Calculating panchang details...")
         panchang_details = calculate_panchang_details(jd_ut, dob, lat, lon)
+        print(f"Panchang details calculated: {panchang_details}")
         
         # Calculate lucky points
+        print("Calculating lucky points...")
         lucky_points = calculate_lucky_points(jd_ut, dob, astrological_details)
+        print(f"Lucky points calculated: {lucky_points}")
         
         return {
             'basic_details': basic_details,
@@ -87,6 +128,8 @@ def calculate_comprehensive_kundli_details(date_str, time_str, lat, lon, tz, nam
     except Exception as e:
         # Return default values if calculation fails
         print(f"Error in comprehensive kundli calculation: {e}")
+        import traceback
+        traceback.print_exc()
         return {
             'basic_details': {
                 'name': name or "Not specified",
