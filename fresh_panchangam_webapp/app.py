@@ -16,6 +16,7 @@ try:
     from yoga_rules import detect_all_yogas
     from yoga_utils import get_planet_strength, is_exalted, is_debilitated, get_sign_lord
     from dosha_rules import detect_all_doshas
+    from kundli_details import calculate_comprehensive_kundli_details
 except ImportError:
     # Fallback for deployment environment
     def detect_all_yogas(planets, bhavas, lagna):
@@ -23,6 +24,14 @@ except ImportError:
     
     def detect_all_doshas(kundli):
         return []
+    
+    def calculate_comprehensive_kundli_details(date_str, time_str, lat, lon, tz, name="", gender=""):
+        return {
+            'basic_details': {},
+            'astrological_details': {},
+            'panchang_details': {},
+            'lucky_points': {}
+        }
     
     def get_planet_strength(planet, sign_number):
         return "Neutral"
@@ -357,6 +366,11 @@ def generate_kundli():
     # Detect doshas in the kundli
     detected_doshas = detect_all_doshas(kundli_data)
     
+    # Calculate comprehensive kundli details
+    comprehensive_details = calculate_comprehensive_kundli_details(
+        date_str, time_str, lat, lon, tz
+    )
+    
     return jsonify({
         'input': {
             'date': date_str,
@@ -369,7 +383,8 @@ def generate_kundli():
         'lagna': lagna,
         'bhavas': bhavas,
         'yogas': detected_yogas,
-        'doshas': detected_doshas
+        'doshas': detected_doshas,
+        'comprehensive_details': comprehensive_details
     })
 
 @app.route('/get_places', methods=['GET'])

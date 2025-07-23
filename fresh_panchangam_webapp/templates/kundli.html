@@ -12,6 +12,34 @@
         input, select { width: 100%; padding: 0.5em; margin-top: 0.2em; }
         button { margin-top: 1em; padding: 0.7em 1.5em; }
         pre { background: #eee; padding: 1em; border-radius: 5px; white-space: pre-wrap; word-break: break-all; }
+        
+        .details-section {
+            margin-bottom: 2em;
+        }
+        
+        .details-section h2 {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+        
+        .details-section div {
+            line-height: 1.6;
+        }
+        
+        .details-section strong {
+            display: inline-block;
+            min-width: 120px;
+        }
+        
+        @media (max-width: 768px) {
+            #comprehensive-details {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .details-section strong {
+                min-width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -36,6 +64,37 @@
     <div id="doshas-container" style="margin-top: 2em; max-width: 800px; margin-left: auto; margin-right: auto;">
         <h2>Detected Doshas</h2>
         <div id="doshas-list"></div>
+    </div>
+    
+    <!-- Comprehensive Kundli Details -->
+    <div id="comprehensive-details" style="margin-top: 2em; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
+            <!-- Basic Details -->
+            <div class="details-section">
+                <h2 style="background: #4CAF50; color: white; padding: 10px; border-radius: 20px; text-align: center; margin-bottom: 1em;">Basic Details</h2>
+                <div id="basic-details-list" style="background: #f9f9f9; padding: 1em; border-radius: 8px;"></div>
+            </div>
+            
+            <!-- Astrological Details -->
+            <div class="details-section">
+                <h2 style="background: #2196F3; color: white; padding: 10px; border-radius: 20px; text-align: center; margin-bottom: 1em;">Astrological Details</h2>
+                <div id="astrological-details-list" style="background: #f9f9f9; padding: 1em; border-radius: 8px;"></div>
+            </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em; margin-top: 2em;">
+            <!-- Panchang Details -->
+            <div class="details-section">
+                <h2 style="background: #FF9800; color: white; padding: 10px; border-radius: 20px; text-align: center; margin-bottom: 1em;">Panchang Details</h2>
+                <div id="panchang-details-list" style="background: #f9f9f9; padding: 1em; border-radius: 8px;"></div>
+            </div>
+            
+            <!-- Lucky Points -->
+            <div class="details-section">
+                <h2 style="background: #9C27B0; color: white; padding: 10px; border-radius: 20px; text-align: center; margin-bottom: 1em;">Lucky Points</h2>
+                <div id="lucky-points-list" style="background: #f9f9f9; padding: 1em; border-radius: 8px;"></div>
+            </div>
+        </div>
     </div>
     <pre id="kundli-json"></pre>
     <script>
@@ -259,6 +318,78 @@
             container.innerHTML = html;
         }
 
+        function renderComprehensiveDetails(details) {
+            if (!details) return;
+            
+            // Render Basic Details
+            renderBasicDetails(details.basic_details);
+            
+            // Render Astrological Details
+            renderAstrologicalDetails(details.astrological_details);
+            
+            // Render Panchang Details
+            renderPanchangDetails(details.panchang_details);
+            
+            // Render Lucky Points
+            renderLuckyPoints(details.lucky_points);
+        }
+
+        function renderBasicDetails(basicDetails) {
+            const container = document.getElementById('basic-details-list');
+            if (!basicDetails) return;
+            
+            let html = '';
+            Object.entries(basicDetails).forEach(([key, value]) => {
+                html += `<div style="margin-bottom: 0.5em;">
+                    <strong style="color: #333;">${key}:</strong> 
+                    <span style="color: #666;">${value}</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderAstrologicalDetails(astrologicalDetails) {
+            const container = document.getElementById('astrological-details-list');
+            if (!astrologicalDetails) return;
+            
+            let html = '';
+            Object.entries(astrologicalDetails).forEach(([key, value]) => {
+                html += `<div style="margin-bottom: 0.5em;">
+                    <strong style="color: #333;">${key}:</strong> 
+                    <span style="color: #666;">${value}</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderPanchangDetails(panchangDetails) {
+            const container = document.getElementById('panchang-details-list');
+            if (!panchangDetails) return;
+            
+            let html = '';
+            Object.entries(panchangDetails).forEach(([key, value]) => {
+                html += `<div style="margin-bottom: 0.5em;">
+                    <strong style="color: #333;">${key}:</strong> 
+                    <span style="color: #666;">${value}</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderLuckyPoints(luckyPoints) {
+            const container = document.getElementById('lucky-points-list');
+            if (!luckyPoints) return;
+            
+            let html = '';
+            Object.entries(luckyPoints).forEach(([key, value]) => {
+                html += `<div style="margin-bottom: 0.5em;">
+                    <strong style="color: #333;">${key}:</strong> 
+                    <span style="color: #666;">${value}</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
         function renderDoshas(doshas) {
             const container = document.getElementById('doshas-list');
             if (!doshas || doshas.length === 0) {
@@ -333,6 +464,7 @@
                 renderKundliChart(result);
                 renderYogas(result.yogas);
                 renderDoshas(result.doshas);
+                renderComprehensiveDetails(result.comprehensive_details);
             }
         });
     </script>
