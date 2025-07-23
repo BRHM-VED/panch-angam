@@ -281,32 +281,36 @@ def generate_kundli():
         'sign': rashi_names[ketu_sign],
         'navamsha_sign': rashi_names[ketu_nav - 1]
     }
+    # Import house calculation utilities
+    from house_utils import calculate_all_relative_houses, get_relative_house
+    
     # Lagna and Bhavas
     cusps, ascmc = swe.houses_ex(jd_ut, lat, lon, b'A', flags=swe.FLG_SIDEREAL)
-    lagna_deg = ascmc[0] % 30
-    lagna_sign_index = int(ascmc[0] / 30)
+    lagna_full_deg = ascmc[0]  # Full longitude including sign
+    lagna_deg = lagna_full_deg % 30
+    lagna_sign_index = int(lagna_full_deg / 30)
     lagna = {
         'deg': lagna_deg,
         'sign': rashi_names[lagna_sign_index],
-        'sign_number': lagna_sign_index + 1
+        'sign_number': lagna_sign_index + 1,
+        'full_degree': lagna_full_deg
     }
 
-    # Assign house to each planet based on their zodiac sign (Rashi)
-    # House 1=Aries, 2=Taurus, 3=Gemini, 4=Cancer, 5=Leo, 6=Virgo
-    # House 7=Libra, 8=Scorpio, 9=Sagittarius, 10=Capricorn, 11=Aquarius, 12=Pisces
+    # Calculate relative houses for all planets based on Lagna
+    # This ensures houses are calculated relative to the Lagna sign, not fixed zodiac signs
     for planet in planet_positions:
         if planet in planets:  # Only calculate for planets we have in our dictionary
             planet_pos_deg = swe.calc_ut(jd_ut, planets[planet], flags=swe.FLG_SIDEREAL)[0][0]
-            planet_sign_index = int(planet_pos_deg / 30)
-            # Direct mapping: Aries=1, Taurus=2, etc.
-            house = planet_sign_index + 1
-            planet_positions[planet]['house'] = house
+            # Calculate house relative to Lagna
+            relative_house = get_relative_house(lagna_full_deg, planet_pos_deg)
+            planet_positions[planet]['house'] = relative_house
+            planet_positions[planet]['longitude'] = planet_pos_deg
 
-    # Also assign house for Ketu based on its zodiac sign
+    # Also assign house for Ketu based on relative position to Lagna
     ketu_pos_deg = (swe.calc_ut(jd_ut, swe.MEAN_NODE, flags=swe.FLG_SIDEREAL)[0][0] + 180) % 360
-    ketu_sign_index = int(ketu_pos_deg / 30)
-    ketu_house = ketu_sign_index + 1
-    planet_positions['Ketu (Mean)']['house'] = ketu_house
+    ketu_relative_house = get_relative_house(lagna_full_deg, ketu_pos_deg)
+    planet_positions['Ketu (Mean)']['house'] = ketu_relative_house
+    planet_positions['Ketu (Mean)']['longitude'] = ketu_pos_deg
 
     bhavas = []
     for i in range(1, 13): # Ensure 12 bhavas

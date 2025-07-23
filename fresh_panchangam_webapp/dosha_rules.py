@@ -1,5 +1,6 @@
 # Comprehensive Vedic Astrology Dosha Detection System
 from dosha_utils import *
+from house_utils import is_dusthana_house, is_kendra_house
 
 def detect_all_doshas(kundli):
     """Detect all doshas in the kundli"""
@@ -56,17 +57,19 @@ def detect_all_doshas(kundli):
 # Major Doshas
 
 def detect_mangal_dosha(kundli):
-    """Detect Mangal Dosha (Kuja Dosha) - Mars in specific houses"""
+    """Detect Mangal Dosha (Kuja Dosha) - Mars in specific houses relative to Lagna"""
     planets = kundli.get('planets', {})
     
     if "Mars" in planets:
         mars_house = planets["Mars"]['house']
-        if mars_house in MANGAL_DOSHA_HOUSES:
+        # Mangal Dosha houses: 1, 4, 7, 8, 12 (relative to Lagna)
+        mangal_dosha_houses = [1, 4, 7, 8, 12]
+        if mars_house in mangal_dosha_houses:
             severity = get_dosha_severity("Mars", planets, "Mangal")
             return {
                 'name': 'Mangal Dosha (Kuja Dosha)',
                 'type': 'Major Dosha',
-                'description': f'Mars in {mars_house}th house',
+                'description': f'Mars in {mars_house}th house from Lagna',
                 'severity': severity,
                 'effects': 'Marriage delays, relationship issues, anger problems',
                 'remedies': 'Wear red coral, perform Mangal puja, fast on Tuesdays'

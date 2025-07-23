@@ -1,5 +1,6 @@
 # Comprehensive Vedic Astrology Yoga Detection System
 from yoga_utils import *
+from house_utils import is_kendra_house, is_trikona_house, is_dusthana_house, get_house_nature, check_parivartana_yoga
 
 def detect_all_yogas(planets, bhavas, lagna, time_info=None):
     """Detect all yogas in the kundli"""
@@ -656,47 +657,55 @@ def detect_own_sign_combination_yoga(planets, bhavas, lagna):
 
 # Additional yoga functions (simplified versions for brevity)
 def detect_kesari_yoga(planets, bhavas, lagna):
-    """Detect Kesari Yoga - Jupiter in kendra"""
-    if "Jupiter" in planets and planets["Jupiter"]['house'] in [1, 4, 7, 10]:
-        return {
-            'name': 'Kesari Yoga',
-            'type': 'Raj Yoga',
-            'description': f'Jupiter in {planets["Jupiter"]["house"]}th house (kendra)',
-            'strength': 'Strong'
-        }
+    """Detect Kesari Yoga - Jupiter in kendra (relative to Lagna)"""
+    if "Jupiter" in planets:
+        jupiter_house = planets["Jupiter"]['house']
+        if is_kendra_house(jupiter_house):
+            return {
+                'name': 'Kesari Yoga',
+                'type': 'Raj Yoga',
+                'description': f'Jupiter in {jupiter_house}th house from Lagna (kendra)',
+                'strength': 'Strong'
+            }
     return None
 
 def detect_sankha_yoga(planets, bhavas, lagna):
-    """Detect Sankha Yoga - Venus in kendra"""
-    if "Venus" in planets and planets["Venus"]['house'] in [1, 4, 7, 10]:
-        return {
-            'name': 'Sankha Yoga',
-            'type': 'Raj Yoga',
-            'description': f'Venus in {planets["Venus"]["house"]}th house (kendra)',
-            'strength': 'Strong'
-        }
+    """Detect Sankha Yoga - Venus in kendra (relative to Lagna)"""
+    if "Venus" in planets:
+        venus_house = planets["Venus"]['house']
+        if is_kendra_house(venus_house):
+            return {
+                'name': 'Sankha Yoga',
+                'type': 'Raj Yoga',
+                'description': f'Venus in {venus_house}th house from Lagna (kendra)',
+                'strength': 'Strong'
+            }
     return None
 
 def detect_vasumati_yoga(planets, bhavas, lagna):
-    """Detect Vasumati Yoga - Venus in 2nd house"""
-    if "Venus" in planets and planets["Venus"]['house'] == 2:
-        return {
-            'name': 'Vasumati Yoga',
-            'type': 'Dhan Yoga',
-            'description': 'Venus in 2nd house',
-            'strength': 'Strong'
-        }
+    """Detect Vasumati Yoga - Venus in 2nd house (relative to Lagna)"""
+    if "Venus" in planets:
+        venus_house = planets["Venus"]['house']
+        if venus_house == 2:
+            return {
+                'name': 'Vasumati Yoga',
+                'type': 'Dhan Yoga',
+                'description': 'Venus in 2nd house from Lagna',
+                'strength': 'Strong'
+            }
     return None
 
 def detect_kubera_yoga(planets, bhavas, lagna):
-    """Detect Kubera Yoga - Jupiter in 11th house"""
-    if "Jupiter" in planets and planets["Jupiter"]['house'] == 11:
-        return {
-            'name': 'Kubera Yoga',
-            'type': 'Dhan Yoga',
-            'description': 'Jupiter in 11th house',
-            'strength': 'Strong'
-        }
+    """Detect Kubera Yoga - Jupiter in 11th house (relative to Lagna)"""
+    if "Jupiter" in planets:
+        jupiter_house = planets["Jupiter"]['house']
+        if jupiter_house == 11:
+            return {
+                'name': 'Kubera Yoga',
+                'type': 'Dhan Yoga',
+                'description': 'Jupiter in 11th house from Lagna',
+                'strength': 'Strong'
+            }
     return None
 
 def detect_budh_aditya_yoga(planets, bhavas, lagna):
