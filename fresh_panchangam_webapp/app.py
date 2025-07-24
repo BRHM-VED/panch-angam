@@ -220,6 +220,10 @@ def kundli_new_page():
     # This can be removed later, but for now, it points back to the old page too
     return render_template('kundli.html')
 
+@app.route('/manual-kundli', methods=['GET'])
+def manual_kundli_page():
+    return render_template('manual_kundli_layout.html')
+
 @app.route('/api/kundli', methods=['POST'])
 def generate_kundli():
     data = request.json

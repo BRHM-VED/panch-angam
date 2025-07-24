@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual Kundli Layout Control</title>
+    <link rel="stylesheet" href="/static/manual_kundli_styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Manual Kundli Layout Control</h1>
+        
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <h2>Layout Controls</h2>
+            <div class="control-section">
+                <h3>Sign Numbers Positioning</h3>
+                <div class="control-group">
+                    <label>Sign Number Font Size:</label>
+                    <input type="range" id="signFontSize" min="12" max="24" value="16" onchange="updateSignStyles()">
+                    <span id="signFontSizeValue">16px</span>
+                </div>
+                <div class="control-group">
+                    <label>Sign Number Color:</label>
+                    <input type="color" id="signColor" value="#000000" onchange="updateSignStyles()">
+                </div>
+                <div class="control-group">
+                    <label>Sign Number Top Offset:</label>
+                    <input type="range" id="signTopOffset" min="0" max="50" value="10" onchange="updateSignStyles()">
+                    <span id="signTopOffsetValue">10px</span>
+                </div>
+            </div>
+            
+            <div class="control-section">
+                <h3>Planet Positioning</h3>
+                <div class="control-group">
+                    <label>Planet Symbol Size:</label>
+                    <input type="range" id="planetSymbolSize" min="12" max="30" value="18" onchange="updatePlanetStyles()">
+                    <span id="planetSymbolSizeValue">18px</span>
+                </div>
+                <div class="control-group">
+                    <label>Planet Name Size:</label>
+                    <input type="range" id="planetNameSize" min="8" max="16" value="10" onchange="updatePlanetStyles()">
+                    <span id="planetNameSizeValue">10px</span>
+                </div>
+                <div class="control-group">
+                    <label>Planet Degree Size:</label>
+                    <input type="range" id="planetDegreeSize" min="6" max="14" value="8" onchange="updatePlanetStyles()">
+                    <span id="planetDegreeSizeValue">8px</span>
+                </div>
+                <div class="control-group">
+                    <label>Planet Color:</label>
+                    <input type="color" id="planetColor" value="#8B0000" onchange="updatePlanetStyles()">
+                </div>
+                <div class="control-group">
+                    <label>Planet Spacing:</label>
+                    <input type="range" id="planetSpacing" min="2" max="10" value="4" onchange="updatePlanetStyles()">
+                    <span id="planetSpacingValue">4px</span>
+                </div>
+            </div>
+            
+            <div class="control-section">
+                <h3>Lagna Indicator</h3>
+                <div class="control-group">
+                    <label>Lagna Symbol Size:</label>
+                    <input type="range" id="lagnaSymbolSize" min="12" max="30" value="18" onchange="updateLagnaStyles()">
+                    <span id="lagnaSymbolSizeValue">18px</span>
+                </div>
+                <div class="control-group">
+                    <label>Lagna Color:</label>
+                    <input type="color" id="lagnaColor" value="#006400" onchange="updateLagnaStyles()">
+                </div>
+            </div>
+        </div>
+
+        <!-- Kundli Chart Container -->
+        <div class="kundli-container">
+            <div class="kundli-chart">
+                <!-- Background SVG -->
+                <img src="/static/Kundli layout.svg" class="kundli-background" alt="Kundli Layout">
+                
+                <!-- Sign Numbers Layer -->
+                <div class="sign-placement-layer">
+                    <!-- House 1 - Top Center (Lagna) -->
+                    <div class="sign-number house-1-sign" data-house="1" data-rashi="4">
+                        <div class="sign-inner">4</div>
+                    </div>
+                    
+                    <!-- House 2 - Top Left -->
+                    <div class="sign-number house-2-sign" data-house="2" data-rashi="3">
+                        <div class="sign-inner">3</div>
+                    </div>
+                    
+                    <!-- House 3 - Left Top -->
+                    <div class="sign-number house-3-sign" data-house="3" data-rashi="2">
+                        <div class="sign-inner">2</div>
+                    </div>
+                    
+                    <!-- House 4 - Left Center -->
+                    <div class="sign-number house-4-sign" data-house="4" data-rashi="1">
+                        <div class="sign-inner">1</div>
+                    </div>
+                    
+                    <!-- House 5 - Left Bottom -->
+                    <div class="sign-number house-5-sign" data-house="5" data-rashi="12">
+                        <div class="sign-inner">12</div>
+                    </div>
+                    
+                    <!-- House 6 - Bottom Left -->
+                    <div class="sign-number house-6-sign" data-house="6" data-rashi="11">
+                        <div class="sign-inner">11</div>
+                    </div>
+                    
+                    <!-- House 7 - Bottom Center -->
+                    <div class="sign-number house-7-sign" data-house="7" data-rashi="10">
+                        <div class="sign-inner">10</div>
+                    </div>
+                    
+                    <!-- House 8 - Bottom Right -->
+                    <div class="sign-number house-8-sign" data-house="8" data-rashi="9">
+                        <div class="sign-inner">9</div>
+                    </div>
+                    
+                    <!-- House 9 - Right Bottom -->
+                    <div class="sign-number house-9-sign" data-house="9" data-rashi="8">
+                        <div class="sign-inner">8</div>
+                    </div>
+                    
+                    <!-- House 10 - Right Center -->
+                    <div class="sign-number house-10-sign" data-house="10" data-rashi="7">
+                        <div class="sign-inner">7</div>
+                    </div>
+                    
+                    <!-- House 11 - Right Top -->
+                    <div class="sign-number house-11-sign" data-house="11" data-rashi="6">
+                        <div class="sign-inner">6</div>
+                    </div>
+                    
+                    <!-- House 12 - Top Right -->
+                    <div class="sign-number house-12-sign" data-house="12" data-rashi="5">
+                        <div class="sign-inner">5</div>
+                    </div>
+                </div>
+                
+                <!-- Planets Layer -->
+                <div class="planets-layer">
+                    <!-- House 1 - Top Center (Lagna) -->
+                    <div class="house-planets house-1-planets">
+                        <div class="planet" data-planet="Sun">
+                            <div class="planet-symbol">☉</div>
+                            <div class="planet-name">Sun</div>
+                            <div class="planet-degree">15.2°</div>
+                        </div>
+                        <div class="planet" data-planet="Moon">
+                            <div class="planet-symbol">☽</div>
+                            <div class="planet-name">Moon</div>
+                            <div class="planet-degree">28.7°</div>
+                        </div>
+                        <div class="planet" data-planet="Mars">
+                            <div class="planet-symbol">♂</div>
+                            <div class="planet-name">Mars</div>
+                            <div class="planet-degree">12.1°</div>
+                        </div>
+                        <div class="planet" data-planet="Mercury">
+                            <div class="planet-symbol">☿</div>
+                            <div class="planet-name">Mercury</div>
+                            <div class="planet-degree">8.9°</div>
+                        </div>
+                        <div class="lagna-indicator">
+                            <div class="lagna-symbol">⚡</div>
+                            <div class="lagna-name">Lagna</div>
+                            <div class="lagna-degree">22.3°</div>
+                        </div>
+                    </div>
+                    
+                    <!-- House 2 - Top Left -->
+                    <div class="house-planets house-2-planets">
+                        <div class="planet" data-planet="Jupiter">
+                            <div class="planet-symbol">♃</div>
+                            <div class="planet-name">Jupiter</div>
+                            <div class="planet-degree">45.6°</div>
+                        </div>
+                    </div>
+                    
+                    <!-- House 3 - Left Top -->
+                    <div class="house-planets house-3-planets">
+                        <div class="planet" data-planet="Venus">
+                            <div class="planet-symbol">♀</div>
+                            <div class="planet-name">Venus</div>
+                            <div class="planet-degree">78.2°</div>
+                        </div>
+                    </div>
+                    
+                    <!-- House 4 - Left Center -->
+                    <div class="house-planets house-4-planets">
+                        <div class="planet" data-planet="Saturn">
+                            <div class="planet-symbol">♄</div>
+                            <div class="planet-name">Saturn</div>
+                            <div class="planet-degree">112.8°</div>
+                        </div>
+                    </div>
+                    
+                    <!-- House 5 - Left Bottom -->
+                    <div class="house-planets house-5-planets">
+                        <div class="planet" data-planet="Rahu">
+                            <div class="planet-symbol">☊</div>
+                            <div class="planet-name">Rahu</div>
+                            <div class="planet-degree">145.3°</div>
+                        </div>
+                    </div>
+                    
+                    <!-- House 6 - Bottom Left -->
+                    <div class="house-planets house-6-planets">
+                        <div class="planet" data-planet="Ketu">
+                            <div class="planet-symbol">☋</div>
+                            <div class="planet-name">Ketu</div>
+                            <div class="planet-degree">325.3°</div>
+                        </div>
+                    </div>
+                    
+                    <!-- House 7 - Bottom Center -->
+                    <div class="house-planets house-7-planets">
+                        <!-- Empty house -->
+                    </div>
+                    
+                    <!-- House 8 - Bottom Right -->
+                    <div class="house-planets house-8-planets">
+                        <!-- Empty house -->
+                    </div>
+                    
+                    <!-- House 9 - Right Bottom -->
+                    <div class="house-planets house-9-planets">
+                        <!-- Empty house -->
+                    </div>
+                    
+                    <!-- House 10 - Right Center -->
+                    <div class="house-planets house-10-planets">
+                        <!-- Empty house -->
+                    </div>
+                    
+                    <!-- House 11 - Right Top -->
+                    <div class="house-planets house-11-planets">
+                        <!-- Empty house -->
+                    </div>
+                    
+                    <!-- House 12 - Top Right -->
+                    <div class="house-planets house-12-planets">
+                        <!-- Empty house -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update sign number styles
+        function updateSignStyles() {
+            const fontSize = document.getElementById('signFontSize').value;
+            const color = document.getElementById('signColor').value;
+            const topOffset = document.getElementById('signTopOffset').value;
+            
+            document.getElementById('signFontSizeValue').textContent = fontSize + 'px';
+            document.getElementById('signTopOffsetValue').textContent = topOffset + 'px';
+            
+            const signNumbers = document.querySelectorAll('.sign-number');
+            signNumbers.forEach(sign => {
+                sign.style.fontSize = fontSize + 'px';
+                sign.style.color = color;
+                sign.style.paddingTop = topOffset + 'px';
+            });
+        }
+        
+        // Update planet styles
+        function updatePlanetStyles() {
+            const symbolSize = document.getElementById('planetSymbolSize').value;
+            const nameSize = document.getElementById('planetNameSize').value;
+            const degreeSize = document.getElementById('planetDegreeSize').value;
+            const color = document.getElementById('planetColor').value;
+            const spacing = document.getElementById('planetSpacing').value;
+            
+            document.getElementById('planetSymbolSizeValue').textContent = symbolSize + 'px';
+            document.getElementById('planetNameSizeValue').textContent = nameSize + 'px';
+            document.getElementById('planetDegreeSizeValue').textContent = degreeSize + 'px';
+            document.getElementById('planetSpacingValue').textContent = spacing + 'px';
+            
+            const planets = document.querySelectorAll('.planet');
+            planets.forEach(planet => {
+                planet.style.gap = spacing + 'px';
+                planet.style.color = color;
+                
+                const symbol = planet.querySelector('.planet-symbol');
+                const name = planet.querySelector('.planet-name');
+                const degree = planet.querySelector('.planet-degree');
+                
+                symbol.style.fontSize = symbolSize + 'px';
+                name.style.fontSize = nameSize + 'px';
+                degree.style.fontSize = degreeSize + 'px';
+            });
+        }
+        
+        // Update Lagna styles
+        function updateLagnaStyles() {
+            const symbolSize = document.getElementById('lagnaSymbolSize').value;
+            const color = document.getElementById('lagnaColor').value;
+            
+            document.getElementById('lagnaSymbolSizeValue').textContent = symbolSize + 'px';
+            
+            const lagnaIndicator = document.querySelector('.lagna-indicator');
+            lagnaIndicator.style.color = color;
+            
+            const lagnaSymbol = lagnaIndicator.querySelector('.lagna-symbol');
+            lagnaSymbol.style.fontSize = symbolSize + 'px';
+        }
+        
+        // Initialize styles
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSignStyles();
+            updatePlanetStyles();
+            updateLagnaStyles();
+        });
+    </script>
+</body>
+</html> 
