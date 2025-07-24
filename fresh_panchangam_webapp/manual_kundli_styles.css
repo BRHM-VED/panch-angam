@@ -1,0 +1,533 @@
+/* Manual Kundli Layout Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+}
+
+/* Control Panel Styles */
+.control-panel {
+    width: 350px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.control-panel h2 {
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+.control-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.control-section h3 {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.control-group {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-group label {
+    min-width: 120px;
+    font-size: 14px;
+    color: #666;
+}
+
+.control-group input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+}
+
+.control-group input[type="color"] {
+    width: 40px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.control-group span {
+    min-width: 40px;
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+}
+
+/* Kundli Chart Container */
+.kundli-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.kundli-chart {
+    width: 567px;
+    height: 430px;
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.kundli-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Sign Numbers Layer */
+.sign-placement-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.sign-number {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: rgba(217, 217, 217, 0);
+    font-family: Inter, Arial, sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.sign-inner {
+    width: 85px;
+    justify-content: center;
+    align-items: center;
+    gap: 11px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+/* House 1 - Top Center (Lagna) */
+.house-1-sign {
+    width: 232px;
+    height: 215px;
+    padding-top: 10px;
+    padding-left: 73px;
+    padding-right: 73px;
+    left: 171px;
+    top: 0px;
+}
+
+/* House 2 - Top Left */
+.house-2-sign {
+    width: 287px;
+    height: 107px;
+    padding-top: 10px;
+    padding-bottom: 46px;
+    padding-left: 120px;
+    padding-right: 77px;
+    left: 0px;
+    top: 0px;
+}
+
+/* House 3 - Left Top */
+.house-3-sign {
+    width: 171px;
+    height: 215px;
+    padding-top: 10px;
+    padding-bottom: 84px;
+    padding-left: 83px;
+    left: 0px;
+    top: 0px;
+}
+
+/* House 4 - Left Center */
+.house-4-sign {
+    width: 232px;
+    height: 215px;
+    padding-top: 10px;
+    padding-bottom: 84px;
+    padding-left: 132px;
+    left: 55px;
+    top: 107px;
+}
+
+/* House 5 - Left Bottom */
+.house-5-sign {
+    width: 171px;
+    height: 215px;
+    padding-top: 10px;
+    padding-bottom: 109px;
+    padding-left: 83px;
+    left: 0px;
+    top: 215px;
+}
+
+/* House 6 - Bottom Left */
+.house-6-sign {
+    width: 287px;
+    height: 108px;
+    padding-top: 10px;
+    padding-bottom: 109px;
+    padding-left: 120px;
+    padding-right: 77px;
+    left: 0px;
+    top: 322px;
+}
+
+/* House 7 - Bottom Center */
+.house-7-sign {
+    width: 232px;
+    height: 215px;
+    padding-top: 10px;
+    padding-bottom: 160px;
+    padding-left: 73px;
+    padding-right: 73px;
+    left: 171px;
+    top: 215px;
+}
+
+/* House 8 - Bottom Right */
+.house-8-sign {
+    width: 277px;
+    height: 108px;
+    padding-top: 10px;
+    padding-bottom: 109px;
+    padding-left: 77px;
+    padding-right: 120px;
+    left: 287px;
+    top: 322px;
+}
+
+/* House 9 - Right Bottom */
+.house-9-sign {
+    width: 164px;
+    height: 215px;
+    padding-top: 10px;
+    padding-bottom: 109px;
+    padding-right: 125px;
+    left: 403px;
+    top: 215px;
+}
+
+/* House 10 - Right Center */
+.house-10-sign {
+    width: 164px;
+    height: 215px;
+    padding-top: 10px;
+    padding-bottom: 84px;
+    padding-right: 132px;
+    left: 287px;
+    top: 107px;
+}
+
+/* House 11 - Right Top */
+.house-11-sign {
+    width: 164px;
+    height: 215px;
+    padding-top: 10px;
+    padding-bottom: 84px;
+    padding-right: 125px;
+    left: 403px;
+    top: 0px;
+}
+
+/* House 12 - Top Right */
+.house-12-sign {
+    width: 280px;
+    height: 107px;
+    padding-top: 10px;
+    padding-bottom: 46px;
+    padding-left: 77px;
+    padding-right: 120px;
+    left: 287px;
+    top: 0px;
+}
+
+/* Planets Layer */
+.planets-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.house-planets {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 5px;
+    background: transparent;
+}
+
+/* House 1 - Top Center (Lagna) */
+.house-1-planets {
+    left: 171px;
+    top: 0px;
+    width: 232px;
+    height: 215px;
+}
+
+/* House 2 - Top Left */
+.house-2-planets {
+    left: 0px;
+    top: 0px;
+    width: 287px;
+    height: 107px;
+}
+
+/* House 3 - Left Top */
+.house-3-planets {
+    left: 0px;
+    top: 0px;
+    width: 171px;
+    height: 215px;
+}
+
+/* House 4 - Left Center */
+.house-4-planets {
+    left: 55px;
+    top: 107px;
+    width: 232px;
+    height: 215px;
+}
+
+/* House 5 - Left Bottom */
+.house-5-planets {
+    left: 0px;
+    top: 215px;
+    width: 171px;
+    height: 215px;
+}
+
+/* House 6 - Bottom Left */
+.house-6-planets {
+    left: 0px;
+    top: 322px;
+    width: 287px;
+    height: 108px;
+}
+
+/* House 7 - Bottom Center */
+.house-7-planets {
+    left: 171px;
+    top: 215px;
+    width: 232px;
+    height: 215px;
+}
+
+/* House 8 - Bottom Right */
+.house-8-planets {
+    left: 287px;
+    top: 322px;
+    width: 277px;
+    height: 108px;
+}
+
+/* House 9 - Right Bottom */
+.house-9-planets {
+    left: 403px;
+    top: 215px;
+    width: 164px;
+    height: 215px;
+}
+
+/* House 10 - Right Center */
+.house-10-planets {
+    left: 287px;
+    top: 107px;
+    width: 164px;
+    height: 215px;
+}
+
+/* House 11 - Right Top */
+.house-11-planets {
+    left: 403px;
+    top: 0px;
+    width: 164px;
+    height: 215px;
+}
+
+/* House 12 - Top Right */
+.house-12-planets {
+    left: 287px;
+    top: 0px;
+    width: 280px;
+    height: 107px;
+}
+
+/* Planet Styles */
+.planet {
+    text-align: center;
+    font-weight: bold;
+    background: transparent;
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.planet:hover {
+    background: rgba(139, 0, 0, 0.1);
+    transform: scale(1.05);
+}
+
+.planet-symbol {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.planet-name {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.planet-degree {
+    font-size: 8px;
+    color: #666;
+}
+
+/* Lagna Indicator */
+.lagna-indicator {
+    text-align: center;
+    font-weight: bold;
+    background: transparent;
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lagna-indicator:hover {
+    background: rgba(0, 100, 0, 0.1);
+    transform: scale(1.05);
+}
+
+.lagna-symbol {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.lagna-name {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.lagna-degree {
+    font-size: 8px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .control-panel {
+        width: 100%;
+        position: static;
+    }
+    
+    .kundli-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .kundli-chart {
+        width: 100%;
+        max-width: 567px;
+        height: auto;
+        aspect-ratio: 567/430;
+    }
+    
+    .control-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .control-group label {
+        min-width: auto;
+    }
+}
+
+/* Additional Utility Classes */
+.debug-mode .sign-number {
+    border: 1px solid red;
+}
+
+.debug-mode .house-planets {
+    border: 1px solid blue;
+}
+
+.debug-mode .planet {
+    border: 1px solid green;
+}
+
+/* Print Styles */
+@media print {
+    .control-panel {
+        display: none;
+    }
+    
+    .kundli-chart {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+} 
