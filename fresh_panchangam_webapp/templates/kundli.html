@@ -211,11 +211,11 @@
                 const pos = housePositions[displayHouseNum];
                 const planets = planetsByDisplayHouse[displayHouseNum];
                 
-                // Calculate the actual house number (relative to Lagna) for this display position
-                // House 1 should always be the Lagna sign, House 2 should be the next sign clockwise, etc.
-                const actualHouseNumber = displayHouseNum;
+                // Calculate the rashi number (zodiac sign number) for this display position
+                // House 1 shows Lagna sign number, House 2 shows next sign anti-clockwise, etc.
+                const rashiNumber = ((lagnaSignNumber + displayHouseNum - 2) % 12) + 1;
                 
-                chartHTML += `<div class="house house-${actualHouseNumber}" style="
+                chartHTML += `<div class="house house-${displayHouseNum}" style="
                     position: absolute;
                     left: ${pos.left};
                     top: ${pos.top};
@@ -231,7 +231,7 @@
                     z-index: 2;
                 ">`;
                 
-                // Add house number at the top (House 1 = Lagna, House 2 = next anti-clockwise, etc.)
+                // Add rashi number at the top (showing zodiac sign number, not house number)
                 chartHTML += `<div style="
                     text-align: center;
                     font-size: 16px;
@@ -241,7 +241,7 @@
                     background: rgba(255, 255, 255, 0.8);
                     padding: 2px 6px;
                     border-radius: 4px;
-                ">${actualHouseNumber}</div>`;
+                ">${rashiNumber}</div>`;
                 
                 // Planets in this house
                 if (planets.length > 0) {
