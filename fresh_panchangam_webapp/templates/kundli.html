@@ -216,33 +216,33 @@
                 // Calculate the rashi number (zodiac sign number) for this display position
                 const rashiNumber = ((lagnaSignNumber + displayHouseNum - 2) % 12) + 1;
                 
-                // Create sign placement div based on house position
-                let signDivStyle = '';
-                if (displayHouseNum === 1) { // Top-center rectangle
-                    signDivStyle = `width: 232px; height: 215px; padding-top: 160px; padding-left: 73px; padding-right: 73px; left: 171px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 2) { // Top-left rectangle
-                    signDivStyle = `width: 287px; height: 107px; padding-top: 109px; padding-bottom: 46px; padding-left: 120px; padding-right: 77px; left: 0px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 3) { // Left-top corner
-                    signDivStyle = `width: 171px; height: 215px; padding-top: 109px; padding-bottom: 84px; padding-left: 83px; left: 0px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 4) { // Left-center diamond
-                    signDivStyle = `width: 232px; height: 215px; padding-top: 84px; padding-bottom: 84px; padding-left: 132px; left: 55px; top: 107px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 5) { // Left-bottom corner
-                    signDivStyle = `width: 171px; height: 215px; padding-top: 84px; padding-bottom: 109px; padding-left: 83px; left: 0px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 6) { // Bottom-left rectangle
-                    signDivStyle = `width: 287px; height: 108px; padding-top: 46px; padding-bottom: 109px; padding-left: 120px; padding-right: 77px; left: 0px; top: 322px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 7) { // Bottom-center rectangle
-                    signDivStyle = `width: 232px; height: 215px; padding-bottom: 160px; padding-left: 73px; padding-right: 73px; left: 171px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 8) { // Bottom-right rectangle
-                    signDivStyle = `width: 277px; height: 108px; padding-top: 46px; padding-bottom: 109px; padding-left: 77px; padding-right: 120px; left: 287px; top: 322px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 9) { // Right-bottom corner
-                    signDivStyle = `width: 164px; height: 215px; padding-top: 84px; padding-bottom: 109px; padding-right: 125px; left: 403px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 10) { // Right-center diamond
-                    signDivStyle = `width: 164px; height: 215px; padding-top: 84px; padding-bottom: 84px; padding-right: 132px; left: 287px; top: 107px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 11) { // Right-top corner
-                    signDivStyle = `width: 164px; height: 215px; padding-top: 109px; padding-bottom: 84px; padding-right: 125px; left: 403px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                } else if (displayHouseNum === 12) { // Top-right rectangle
-                    signDivStyle = `width: 280px; height: 107px; padding-top: 109px; padding-bottom: 46px; padding-left: 77px; padding-right: 120px; left: 287px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
-                }
+                                 // Create sign placement div based on house position
+                 let signDivStyle = '';
+                 if (displayHouseNum === 1) { // Top-center rectangle
+                     signDivStyle = `width: 232px; height: 215px; padding-top: 10px; padding-left: 73px; padding-right: 73px; left: 171px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 2) { // Top-left rectangle
+                     signDivStyle = `width: 287px; height: 107px; padding-top: 10px; padding-bottom: 46px; padding-left: 120px; padding-right: 77px; left: 0px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 3) { // Left-top corner
+                     signDivStyle = `width: 171px; height: 215px; padding-top: 10px; padding-bottom: 84px; padding-left: 83px; left: 0px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 4) { // Left-center diamond
+                     signDivStyle = `width: 232px; height: 215px; padding-top: 10px; padding-bottom: 84px; padding-left: 132px; left: 55px; top: 107px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 5) { // Left-bottom corner
+                     signDivStyle = `width: 171px; height: 215px; padding-top: 10px; padding-bottom: 109px; padding-left: 83px; left: 0px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 6) { // Bottom-left rectangle
+                     signDivStyle = `width: 287px; height: 108px; padding-top: 10px; padding-bottom: 109px; padding-left: 120px; padding-right: 77px; left: 0px; top: 322px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 7) { // Bottom-center rectangle
+                     signDivStyle = `width: 232px; height: 215px; padding-top: 10px; padding-bottom: 160px; padding-left: 73px; padding-right: 73px; left: 171px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 8) { // Bottom-right rectangle
+                     signDivStyle = `width: 277px; height: 108px; padding-top: 10px; padding-bottom: 109px; padding-left: 77px; padding-right: 120px; left: 287px; top: 322px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 9) { // Right-bottom corner
+                     signDivStyle = `width: 164px; height: 215px; padding-top: 10px; padding-bottom: 109px; padding-right: 125px; left: 403px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 10) { // Right-center diamond
+                     signDivStyle = `width: 164px; height: 215px; padding-top: 10px; padding-bottom: 84px; padding-right: 132px; left: 287px; top: 107px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 11) { // Right-top corner
+                     signDivStyle = `width: 164px; height: 215px; padding-top: 10px; padding-bottom: 84px; padding-right: 125px; left: 403px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 } else if (displayHouseNum === 12) { // Top-right rectangle
+                     signDivStyle = `width: 280px; height: 107px; padding-top: 10px; padding-bottom: 46px; padding-left: 77px; padding-right: 120px; left: 287px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex`;
+                 }
                 
                 chartHTML += `<div data-layer="${rashiNumber}" style="${signDivStyle}">`;
                 chartHTML += `<div data-layer="${rashiNumber}" style="width: 85px; justify-content: center; align-items: center; gap: 11px; display: inline-flex; flex-wrap: wrap; align-content: center">`;
