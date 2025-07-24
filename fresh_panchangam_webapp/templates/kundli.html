@@ -206,14 +206,57 @@
             chartHTML += '<div class="kundli-chart" style="width: 567px; height: 430px; position: relative; margin: 0 auto; border: none;">';
             chartHTML += '<img src="/static/Kundli layout.svg" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;" alt="Kundli Layout">';
             
-            // Create houses
+            // Create separate sign placement layer
+            chartHTML += '<div data-layer="sign placement" class="SignPlacement" style="width: 567px; height: 430px; position: relative; z-index: 3;">';
+            
+            // Create sign numbers for each house
+            for (let displayHouseNum = 1; displayHouseNum <= 12; displayHouseNum++) {
+                const pos = housePositions[displayHouseNum];
+                
+                // Calculate the rashi number (zodiac sign number) for this display position
+                const rashiNumber = ((lagnaSignNumber + displayHouseNum - 2) % 12) + 1;
+                
+                // Create sign placement div based on house position
+                let signDivStyle = '';
+                if (displayHouseNum === 1) { // Top-center rectangle
+                    signDivStyle = `width: 232px; height: 215px; padding-top: 160px; padding-left: 73px; padding-right: 73px; left: 171px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 2) { // Top-left rectangle
+                    signDivStyle = `width: 287px; height: 107px; padding-top: 109px; padding-bottom: 46px; padding-left: 120px; padding-right: 77px; left: 0px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 3) { // Left-top corner
+                    signDivStyle = `width: 171px; height: 215px; padding-top: 109px; padding-bottom: 84px; padding-left: 83px; left: 0px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 4) { // Left-center diamond
+                    signDivStyle = `width: 232px; height: 215px; padding-top: 84px; padding-bottom: 84px; padding-left: 132px; left: 55px; top: 107px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 5) { // Left-bottom corner
+                    signDivStyle = `width: 171px; height: 215px; padding-top: 84px; padding-bottom: 109px; padding-left: 83px; left: 0px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 6) { // Bottom-left rectangle
+                    signDivStyle = `width: 287px; height: 108px; padding-top: 46px; padding-bottom: 109px; padding-left: 120px; padding-right: 77px; left: 0px; top: 322px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 7) { // Bottom-center rectangle
+                    signDivStyle = `width: 232px; height: 215px; padding-bottom: 160px; padding-left: 73px; padding-right: 73px; left: 171px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 8) { // Bottom-right rectangle
+                    signDivStyle = `width: 277px; height: 108px; padding-top: 46px; padding-bottom: 109px; padding-left: 77px; padding-right: 120px; left: 287px; top: 322px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 9) { // Right-bottom corner
+                    signDivStyle = `width: 164px; height: 215px; padding-top: 84px; padding-bottom: 109px; padding-right: 125px; left: 403px; top: 215px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 10) { // Right-center diamond
+                    signDivStyle = `width: 164px; height: 215px; padding-top: 84px; padding-bottom: 84px; padding-right: 132px; left: 287px; top: 107px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 11) { // Right-top corner
+                    signDivStyle = `width: 164px; height: 215px; padding-top: 109px; padding-bottom: 84px; padding-right: 125px; left: 403px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                } else if (displayHouseNum === 12) { // Top-right rectangle
+                    signDivStyle = `width: 280px; height: 107px; padding-top: 109px; padding-bottom: 46px; padding-left: 77px; padding-right: 120px; left: 287px; top: 0px; position: absolute; background: rgba(217, 217, 217, 0); flex-direction: column; justify-content: center; align-items: center; gap: 10px; display: inline-flex`;
+                }
+                
+                chartHTML += `<div data-layer="${rashiNumber}" style="${signDivStyle}">`;
+                chartHTML += `<div data-layer="${rashiNumber}" style="width: 85px; justify-content: center; align-items: center; gap: 11px; display: inline-flex; flex-wrap: wrap; align-content: center">`;
+                chartHTML += `<div data-layer="${rashiNumber}" style="text-align: center; color: black; font-size: 16.73px; font-family: Inter; font-weight: 500; word-wrap: break-word">${rashiNumber}</div>`;
+                chartHTML += '</div>';
+                chartHTML += '</div>';
+            }
+            
+            chartHTML += '</div>';
+            
+            // Create planet placement layer
             for (let displayHouseNum = 1; displayHouseNum <= 12; displayHouseNum++) {
                 const pos = housePositions[displayHouseNum];
                 const planets = planetsByDisplayHouse[displayHouseNum];
-                
-                // Calculate the rashi number (zodiac sign number) for this display position
-                // House 1 shows Lagna sign number, House 2 shows next sign anti-clockwise, etc.
-                const rashiNumber = ((lagnaSignNumber + displayHouseNum - 2) % 12) + 1;
                 
                 chartHTML += `<div class="house house-${displayHouseNum}" style="
                     position: absolute;
@@ -230,18 +273,6 @@
                     background: transparent;
                     z-index: 2;
                 ">`;
-                
-                // Add rashi number at the top (showing zodiac sign number, not house number)
-                chartHTML += `<div style="
-                    text-align: center;
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 5px;
-                    background: rgba(255, 255, 255, 0.8);
-                    padding: 2px 6px;
-                    border-radius: 4px;
-                ">${rashiNumber}</div>`;
                 
                 // Planets in this house
                 if (planets.length > 0) {
