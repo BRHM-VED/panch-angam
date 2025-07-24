@@ -212,7 +212,8 @@
                 const planets = planetsByDisplayHouse[displayHouseNum];
                 
                 // Calculate the actual house number (relative to Lagna) for this display position
-                const actualHouseNumber = ((displayHouseNum - 1 + lagnaSignNumber - 1) % 12) + 1;
+                // House 1 should always be the Lagna sign, House 2 should be the next sign clockwise, etc.
+                const actualHouseNumber = displayHouseNum;
                 
                 chartHTML += `<div class="house house-${actualHouseNumber}" style="
                     position: absolute;
@@ -230,7 +231,7 @@
                     z-index: 2;
                 ">`;
                 
-                // Add house number at the top (show actual house number, not display position)
+                // Add house number at the top (House 1 = Lagna, House 2 = next clockwise, etc.)
                 chartHTML += `<div style="
                     text-align: center;
                     font-size: 16px;
