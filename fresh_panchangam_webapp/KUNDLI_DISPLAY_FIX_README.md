@@ -29,41 +29,41 @@ function getDisplayHouseIndex(planetSign, lagnaSign) {
 
 ### 2. **Corrected House Positioning**
 
-Updated the house positions to match the North Indian diamond chart layout:
+Updated the house positions to match the North Indian diamond chart layout with Lagna always in top-center:
 
 ```javascript
 const housePositions = {
-    1: { left: '287px', top: '107px', width: '232px', height: '215px' },    // Center-right diamond (Lagna)
+    1: { left: '171px', top: '0px', width: '232px', height: '215px' },     // Top-center rectangle (Lagna)
     2: { left: '403px', top: '0px', width: '164px', height: '215px' },     // Right-top corner
-    3: { left: '287px', top: '0px', width: '280px', height: '107px' },     // Top-right rectangle
-    4: { left: '171px', top: '0px', width: '232px', height: '215px' },     // Top-center rectangle
-    5: { left: '0px', top: '0px', width: '287px', height: '107px' },       // Top-left rectangle
-    6: { left: '0px', top: '0px', width: '171px', height: '215px' },       // Left-top corner
-    7: { left: '55px', top: '107px', width: '232px', height: '215px' },    // Left-center diamond
+    3: { left: '403px', top: '107px', width: '164px', height: '215px' },   // Right-center diamond
+    4: { left: '403px', top: '215px', width: '164px', height: '215px' },   // Right-bottom corner
+    5: { left: '287px', top: '322px', width: '277px', height: '108px' },   // Bottom-right rectangle
+    6: { left: '171px', top: '215px', width: '232px', height: '215px' },   // Bottom-center rectangle
+    7: { left: '0px', top: '322px', width: '287px', height: '108px' },     // Bottom-left rectangle
     8: { left: '0px', top: '215px', width: '171px', height: '215px' },     // Left-bottom corner
-    9: { left: '0px', top: '322px', width: '287px', height: '108px' },     // Bottom-left rectangle
-    10: { left: '171px', top: '215px', width: '232px', height: '215px' },  // Bottom-center rectangle
-    11: { left: '287px', top: '322px', width: '277px', height: '108px' },  // Bottom-right rectangle
-    12: { left: '403px', top: '215px', width: '164px', height: '215px' }   // Right-bottom corner
+    9: { left: '55px', top: '107px', width: '232px', height: '215px' },    // Left-center diamond
+    10: { left: '0px', top: '0px', width: '171px', height: '215px' },      // Left-top corner
+    11: { left: '0px', top: '0px', width: '287px', height: '107px' },      // Top-left rectangle
+    12: { left: '287px', top: '0px', width: '280px', height: '107px' }     // Top-right rectangle
 };
 ```
 
 ## 🧮 How It Works
 
 ### Example 1: Aries Lagna (Sign 1)
-- **Lagna Position**: Center-right diamond (House 1)
+- **Lagna Position**: Top-center rectangle (House 1)
 - **Planet in Taurus (Sign 2)**: Appears in Right-top corner (House 2)
-- **Planet in Cancer (Sign 4)**: Appears in Top-center rectangle (House 4)
+- **Planet in Cancer (Sign 4)**: Appears in Right-bottom corner (House 4)
 
 ### Example 2: Cancer Lagna (Sign 4)
-- **Lagna Position**: Center-right diamond (House 1)
-- **Planet in Taurus (Sign 2)**: Appears in Left-top corner (House 11)
-- **Planet in Cancer (Sign 4)**: Appears in Center-right diamond (House 1)
+- **Lagna Position**: Top-center rectangle (House 1)
+- **Planet in Taurus (Sign 2)**: Appears in Left-top corner (House 10)
+- **Planet in Cancer (Sign 4)**: Appears in Top-center rectangle (House 1)
 
 ### Example 3: Capricorn Lagna (Sign 10)
-- **Lagna Position**: Center-right diamond (House 1)
-- **Planet in Taurus (Sign 2)**: Appears in Top-left rectangle (House 5)
-- **Planet in Cancer (Sign 4)**: Appears in Left-center diamond (House 7)
+- **Lagna Position**: Top-center rectangle (House 1)
+- **Planet in Taurus (Sign 2)**: Appears in Top-left rectangle (House 11)
+- **Planet in Cancer (Sign 4)**: Appears in Left-center diamond (House 9)
 
 ## 🔧 Key Changes Made
 
@@ -170,7 +170,7 @@ const actualHouseNumber = ((displayHouseNum - 1 + lagnaSignNumber - 1) % 12) + 1
 ```
 
 ### Lagna Indicator
-The Lagna indicator (⚡) is always placed in the center-right diamond position (display house 1), which represents the Lagna sign.
+The Lagna indicator (⚡) is always placed in the top-center rectangle position (display house 1), which represents the Lagna sign.
 
 ### Planet Tooltips
 Planet tooltips now show both the zodiac sign and the relative house number:
