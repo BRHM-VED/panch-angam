@@ -143,44 +143,60 @@
                 'Ketu (Mean)': '☋'
             };
             
-
-            
-            // House positions for North Indian diamond chart - exact match to reference
+            // Corrected house positions for North Indian diamond chart
+            // Clockwise order starting from Lagna (center-right diamond)
             const housePositions = {
-                1: { left: '287px', top: '107px', width: '232px', height: '215px' }, // Right-center diamond
-                2: { left: '403px', top: '0px', width: '164px', height: '215px' },   // Right-top corner
-                3: { left: '287px', top: '0px', width: '280px', height: '107px' },   // Top-right rectangle
-                4: { left: '171px', top: '0px', width: '232px', height: '215px' },   // Top-center rectangle
-                5: { left: '0px', top: '0px', width: '287px', height: '107px' },     // Top-left rectangle
-                6: { left: '0px', top: '0px', width: '171px', height: '215px' },     // Left-top corner
-                7: { left: '55px', top: '107px', width: '232px', height: '215px' },  // Left-center diamond
-                8: { left: '0px', top: '215px', width: '171px', height: '215px' },   // Left-bottom corner
-                9: { left: '0px', top: '322px', width: '287px', height: '108px' },   // Bottom-left rectangle
-                10: { left: '171px', top: '215px', width: '232px', height: '215px' }, // Bottom-center rectangle
-                11: { left: '287px', top: '322px', width: '277px', height: '108px' }, // Bottom-right rectangle
-                12: { left: '403px', top: '215px', width: '164px', height: '215px' }  // Right-bottom corner
+                1: { left: '287px', top: '107px', width: '232px', height: '215px' },    // Center-right diamond (Lagna)
+                2: { left: '403px', top: '0px', width: '164px', height: '215px' },     // Right-top corner
+                3: { left: '287px', top: '0px', width: '280px', height: '107px' },     // Top-right rectangle
+                4: { left: '171px', top: '0px', width: '232px', height: '215px' },     // Top-center rectangle
+                5: { left: '0px', top: '0px', width: '287px', height: '107px' },       // Top-left rectangle
+                6: { left: '0px', top: '0px', width: '171px', height: '215px' },       // Left-top corner
+                7: { left: '55px', top: '107px', width: '232px', height: '215px' },    // Left-center diamond
+                8: { left: '0px', top: '215px', width: '171px', height: '215px' },     // Left-bottom corner
+                9: { left: '0px', top: '322px', width: '287px', height: '108px' },     // Bottom-left rectangle
+                10: { left: '171px', top: '215px', width: '232px', height: '215px' },  // Bottom-center rectangle
+                11: { left: '287px', top: '322px', width: '277px', height: '108px' },  // Bottom-right rectangle
+                12: { left: '403px', top: '215px', width: '164px', height: '215px' }   // Right-bottom corner
             };
             
-            // Calculate dynamic house numbers based on Lagna
+            // Get Lagna sign number (1-12)
             const lagnaSignNumber = data.lagna ? data.lagna.sign_number : 1;
             
-
-            
-            // Group planets by house
-            const planetsByHouse = {};
-            for (let i = 1; i <= 12; i++) {
-                planetsByHouse[i] = [];
+            // Helper function to get zodiac sign number from longitude
+            function getZodiacSignNumber(longitude) {
+                return Math.floor(longitude / 30) + 1;
             }
             
-            // Add planets to their houses
+            // Helper function to get display house index based on planet sign relative to Lagna
+            function getDisplayHouseIndex(planetSign, lagnaSign) {
+                return ((planetSign - lagnaSign + 12) % 12) + 1;
+            }
+            
+            // Group planets by display house (visual position)
+            const planetsByDisplayHouse = {};
+            for (let i = 1; i <= 12; i++) {
+                planetsByDisplayHouse[i] = [];
+            }
+            
+            // Add planets to their display houses based on zodiac sign position
             Object.keys(data.planets).forEach(planet => {
                 const planetData = data.planets[planet];
-                if (planetData.house) {
-                    planetsByHouse[planetData.house].push({
+                if (planetData.longitude !== undefined) {
+                    // Get planet's zodiac sign number
+                    const planetSignNumber = getZodiacSignNumber(planetData.longitude);
+                    
+                    // Calculate which display house this planet should appear in
+                    const displayHouseIndex = getDisplayHouseIndex(planetSignNumber, lagnaSignNumber);
+                    
+                    planetsByDisplayHouse[displayHouseIndex].push({
                         name: planet,
                         symbol: planetSymbols[planet] || planet,
                         sign: planetData.sign,
-                        deg: planetData.deg
+                        deg: planetData.deg,
+                        longitude: planetData.longitude,
+                        zodiacSignNumber: planetSignNumber,
+                        relativeHouse: planetData.house // Keep original house for yoga/dosha calculations
                     });
                 }
             });
@@ -191,11 +207,14 @@
             chartHTML += '<img src="/static/Kundli layout.svg" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;" alt="Kundli Layout">';
             
             // Create houses
-            for (let houseNum = 1; houseNum <= 12; houseNum++) {
-                const pos = housePositions[houseNum];
-                const planets = planetsByHouse[houseNum];
+            for (let displayHouseNum = 1; displayHouseNum <= 12; displayHouseNum++) {
+                const pos = housePositions[displayHouseNum];
+                const planets = planetsByDisplayHouse[displayHouseNum];
                 
-                chartHTML += `<div class="house house-${houseNum}" style="
+                // Calculate the actual house number (relative to Lagna) for this display position
+                const actualHouseNumber = ((displayHouseNum - 1 + lagnaSignNumber - 1) % 12) + 1;
+                
+                chartHTML += `<div class="house house-${actualHouseNumber}" style="
                     position: absolute;
                     left: ${pos.left};
                     top: ${pos.top};
@@ -211,7 +230,7 @@
                     z-index: 2;
                 ">`;
                 
-                // Add house number at the top
+                // Add house number at the top (show actual house number, not display position)
                 chartHTML += `<div style="
                     text-align: center;
                     font-size: 16px;
@@ -221,7 +240,7 @@
                     background: rgba(255, 255, 255, 0.8);
                     padding: 2px 6px;
                     border-radius: 4px;
-                ">${houseNum}</div>`;
+                ">${actualHouseNumber}</div>`;
                 
                 // Planets in this house
                 if (planets.length > 0) {
@@ -240,7 +259,7 @@
                             flex-direction: column;
                             align-items: center;
                             gap: 2px;
-                        " title="${planet.name} in ${planet.sign} (${planet.deg.toFixed(1)}°)">
+                        " title="${planet.name} in ${planet.sign} (${planet.deg.toFixed(1)}°) - House ${planet.relativeHouse}">
                             <div style="font-size: 18px; color: #8B0000;">${planet.symbol}</div>
                             <div style="font-size: 10px; color: #8B0000; font-weight: bold;">${planet.name.split(' ')[0]}</div>
                             <div style="font-size: 8px; color: #666;">${planet.deg.toFixed(1)}°</div>
@@ -249,8 +268,8 @@
                     chartHTML += '</div>';
                 }
                 
-                // Add Lagna indicator to house 1
-                if (houseNum === 1) {
+                // Add Lagna indicator to the house that represents Lagna sign
+                if (displayHouseNum === 1) {
                     chartHTML += '<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px;">';
                     chartHTML += `<div style="
                         text-align: center;
