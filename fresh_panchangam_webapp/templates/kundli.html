@@ -143,21 +143,7 @@
                 'Ketu (Mean)': '☋'
             };
             
-            // Zodiac sign symbols
-            const zodiacSymbols = {
-                'Mesha (Aries)': '♈',
-                'Vrishabha (Taurus)': '♉',
-                'Mithuna (Gemini)': '♊',
-                'Karka (Cancer)': '♋',
-                'Simha (Leo)': '♌',
-                'Kanya (Virgo)': '♍',
-                'Tula (Libra)': '♎',
-                'Vrischika (Scorpio)': '♏',
-                'Dhanu (Sagittarius)': '♐',
-                'Makara (Capricorn)': '♑',
-                'Kumbha (Aquarius)': '♒',
-                'Meena (Pisces)': '♓'
-            };
+
             
             // House positions for North Indian diamond chart - updated for new SVG dimensions
             const housePositions = {
@@ -178,17 +164,7 @@
             // Calculate dynamic house numbers based on Lagna
             const lagnaSignNumber = data.lagna ? data.lagna.sign_number : 1;
             
-            // Create mapping of relative house numbers to zodiac signs
-            const houseToSign = {};
-            for (let i = 1; i <= 12; i++) {
-                const signNumber = ((lagnaSignNumber + i - 2) % 12) + 1;
-                const signNames = [
-                    'Mesha (Aries)', 'Vrishabha (Taurus)', 'Mithuna (Gemini)', 'Karka (Cancer)',
-                    'Simha (Leo)', 'Kanya (Virgo)', 'Tula (Libra)', 'Vrischika (Scorpio)',
-                    'Dhanu (Sagittarius)', 'Makara (Capricorn)', 'Kumbha (Aquarius)', 'Meena (Pisces)'
-                ];
-                houseToSign[i] = signNames[signNumber - 1];
-            }
+
             
             // Group planets by house
             const planetsByHouse = {};
@@ -218,8 +194,6 @@
             for (let houseNum = 1; houseNum <= 12; houseNum++) {
                 const pos = housePositions[houseNum];
                 const planets = planetsByHouse[houseNum];
-                const signName = houseToSign[houseNum];
-                const signSymbol = zodiacSymbols[signName] || '';
                 
                 chartHTML += `<div class="house house-${houseNum}" style="
                     position: absolute;
@@ -237,17 +211,17 @@
                     z-index: 2;
                 ">`;
                 
-                // Add house number and sign symbol at the top
+                // Add house number at the top
                 chartHTML += `<div style="
                     text-align: center;
-                    font-size: 14px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #333;
                     margin-bottom: 5px;
                     background: rgba(255, 255, 255, 0.8);
                     padding: 2px 6px;
                     border-radius: 4px;
-                ">${houseNum} ${signSymbol}</div>`;
+                ">${houseNum}</div>`;
                 
                 // Planets in this house
                 if (planets.length > 0) {
