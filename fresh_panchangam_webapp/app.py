@@ -48,6 +48,13 @@ except ImportError:
 app = Flask(__name__)
 CORS(app)
 
+# Import and register Kundli API blueprint
+try:
+    from kundli_api import kundli_api
+    app.register_blueprint(kundli_api)
+except ImportError:
+    print("Warning: Kundli API blueprint not available")
+
 TITHI_NAMES = [
     "Pratipada", "Dvitiya", "Tritiya", "Chaturthi", "Panchami", "Shashthi", "Saptami", "Ashtami",
     "Navami", "Dashami", "Ekadashi", "Dwadashi", "Trayodashi", "Chaturdashi", "Purnima",
