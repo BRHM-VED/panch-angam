@@ -46,7 +46,7 @@ def generate_kundli():
         dt = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
         
         # Calculate Julian Day
-        jd = swe.jdet(dt.year, dt.month, dt.day, dt.hour + dt.minute/60 - tz)
+        jd = swe.date_conversion(dt.year, dt.month, dt.day, dt.hour + dt.minute/60 - tz)
         
         # Calculate houses
         houses = swe.houses(jd, lat, lon, b'P')
