@@ -46,11 +46,13 @@ def generate_kundli():
         dt = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
         
         # Calculate Julian Day
-        jd = swe.date_conversion(dt.year, dt.month, dt.day, dt.hour + dt.minute/60 - tz)
+        jd_result = swe.date_conversion
+        jd = jd_result[0] if isinstance(jd_result, tuple) else jd_result(dt.year, dt.month, dt.day, dt.hour + dt.minute/60 - tz)
         
         # Calculate houses
-        houses = swe.houses(jd, lat, lon, b'P')
-        lagna_pos = houses[0][0]
+        houses_result = swe.houses
+        houses = houses_result[0] if isinstance(houses_result, tuple) else houses_result(jd, lat, lon, b'P')
+        lagna_pos = houses[0]
         lagna_sign = int(lagna_pos / 30) + 1
         
         # Calculate planet positions
